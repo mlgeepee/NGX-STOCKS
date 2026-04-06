@@ -1,16 +1,57 @@
-# React + Vite
+# NGX Insight — Stock Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern SaaS-style dashboard for tracking and analyzing Nigerian stock market data in real time.
 
-Currently, two official plugins are available:
+Built with a frontend-first approach using React and powered by Backend-as-a-Service, this project focuses on simplicity, performance, and clean user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+NGX Insight helps users:
 
-## Expanding the ESLint configuration
+- Track stock prices in near real-time
+- Visualize trends with interactive charts
+- Manage personalized watchlists
+- Make better-informed decisions without complex tools
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project is designed as a lightweight alternative to traditional financial platforms that are often expensive or overwhelming.
+
+---
+
+## Key Features
+
+- Real-time (polling-based) stock price updates
+- Interactive charts for price trends
+- Watchlist functionality (persisted via BaaS)
+- User authentication (Supabase / Firebase)
+- Fully responsive UI
+- Optimized rendering for smooth performance
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+
+- React (Vite)
+- Tailwind CSS
+- Zustand (state management)
+- TanStack Query (data fetching & caching)
+- Recharts (data visualization)
+- React Router
+
+### Backend (BaaS)
+
+- Supabase _(recommended)_ or Firebase
+  - Authentication
+  - Database (user watchlists)
+  - Real-time capabilities
+
+---
+
+## Project Goals
+
+- Deliver a clean and intuitive financial dashboard
+- Provide accessible insights into Nigerian stock data
+- Build a scalable foundation for future SaaS expansion
