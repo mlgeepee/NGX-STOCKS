@@ -30,7 +30,7 @@ This project is designed as a lightweight alternative to traditional financial p
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
