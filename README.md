@@ -1,4 +1,4 @@
-# NGX Insight — Stock Analytics Dashboard
+# NGX — Stock Analytics Dashboard
 
 A modern SaaS-style dashboard for tracking and analyzing Nigerian stock market data in real time.
 
