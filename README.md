@@ -1,18 +1,18 @@
-# NGX — Stock Analytics Dashboard
+# NGX Stocks — Stock Analytics Dashboard
 
-A modern SaaS-style dashboard for tracking and analyzing Nigerian stock market data in real time.
+A modern SaaS-style dashboard for tracking and analysing Nigerian stock market data in real time.
 
-Built with a frontend-first approach using React and powered by Backend-as-a-Service, this project focuses on simplicity, performance, and clean user experience.
+Built with a frontend-first approach using React and powered by Backend-as-a-Service, this project focuses on simplicity, performance, and a clean user experience.
 
 ---
 
 ## Overview
 
-NGX Insight helps users:
+NGX Stocks helps users:
 
 - Track stock prices in near real-time
-- Visualize trends with interactive charts
-- Manage personalized watchlists
+- Visualise trends with interactive charts
+- Manage personalised watchlists
 - Make better-informed decisions without complex tools
 
 This project is designed as a lightweight alternative to traditional financial platforms that are often expensive or overwhelming.
@@ -26,7 +26,7 @@ This project is designed as a lightweight alternative to traditional financial p
 - Watchlist functionality (persisted via BaaS)
 - User authentication (Supabase / Firebase)
 - Fully responsive UI
-- Optimized rendering for smooth performance
+- Optimised rendering for smooth performance
 
 ---
 
@@ -38,7 +38,7 @@ This project is designed as a lightweight alternative to traditional financial p
 - Tailwind CSS
 - Zustand (state management)
 - TanStack Query (data fetching & caching)
-- Recharts (data visualization)
+- Recharts (data visualisation)
 - React Router
 
 ### Backend (BaaS)
