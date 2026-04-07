@@ -1,14 +1,18 @@
-import "./App.css";
-import { Button } from "@/components/ui/button";
-function App() {
-  return (
-    <>
-      <div className="bg-red-500 text-white p-10">Tailwind Test</div>
-      <h1 className="text-4xl font-bold">Stocks App 📈</h1>
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "../pages/Dashboard";
+import Watchlist from "../pages/Watchlist";
+import Login from "../pages/Login";
+import Layout from "./layouts/Layout";
 
-      <Button>click</Button>
-    </>
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+
+      <Route element={<Layout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
