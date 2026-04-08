@@ -1,4 +1,6 @@
+import supabase from "../services/supabase";
 export default function Dashboard() {
+  console.log(supabase);
   return (
     <div>
       <h1 className="mb-4 text-2xl font-bold">Dashboard</h1>
