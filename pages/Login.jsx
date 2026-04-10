@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../services/supabase";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
+import { useAuthStore } from "../store/useAuthStore";
 
 // Google SVG Icon Component
 const GoogleIcon = () => (
@@ -33,10 +34,19 @@ const GoogleIcon = () => (
 
 export default function Login() {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser);
+  const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(null);
   const isSupabaseReady = Boolean(supabase);
+
+  useEffect(() => {
+    if (!isAuthLoading && user) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [user, isAuthLoading, navigate]);
 
   const requireSupabase = () => {
     if (isSupabaseReady) return true;
@@ -50,12 +60,16 @@ export default function Login() {
 
   const handleGoogleLogin = async () => {
     if (!requireSupabase()) return;
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/app",
+        redirectTo: window.location.origin + "/dashboard",
       },
     });
+
+    if (error) {
+      setAlert({ type: "error", message: error.message });
+    }
   };
 
   const handleResetPassword = async () => {
@@ -85,7 +99,7 @@ export default function Login() {
     e.preventDefault();
     if (!requireSupabase()) return;
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -93,7 +107,8 @@ export default function Login() {
     if (error) {
       setAlert({ type: "error", message: error.message });
     } else {
-      navigate("/app");
+      setUser(data.user || null);
+      navigate("/dashboard", { replace: true });
     }
   };
 

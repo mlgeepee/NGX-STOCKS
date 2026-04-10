@@ -120,7 +120,7 @@ export default function FloatingIconsHeroDemo() {
       titleClassName=""
       subtitleClassName="text-muted-foreground"
       ctaClassName="bg-[oklch(0.6255_0.1741_149.0136)] text-white hover:bg-[oklch(0.6255_0.1741_149.0136)]/90"
-      showNav={true}
+      showNav
       logo={
         <div className="flex items-center gap-2">
           {/* <SimpleNGXLogo className="w-8 h-8" /> */}
