@@ -12,7 +12,8 @@
     "strict": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@/components/*": ["components/*"]
     }
   },
   "include": ["src", "services/supabase.js"]
