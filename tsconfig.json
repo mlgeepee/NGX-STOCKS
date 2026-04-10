@@ -6,15 +6,16 @@
     "allowJs": true,
     "checkJs": false,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": false,
+    "skipLibCheck": true,
+    "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/components/*": ["components/*"]
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src", "services/supabase.js"]
+  "include": ["src", "pages", "services", "store", "lib"]
 }
