@@ -1,15 +1,25 @@
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "../pages/Dashboard";
-import Watchlist from "../pages/WatchList";
-import Login from "../pages/Login";
-import Layout from "./layouts/Layout";
-import { useEffect } from "react";
 import { supabase } from "../services/supabase";
 import { useAuthStore } from "../store/useAuthStore";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Landing from "../pages/Landing";
-import ResetPassword from "../pages/ResetPassword";
-import SignUp from "../pages/SignUp";
+import { Component as LumaSpin } from "@/components/ui/luma-spin";
+
+const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Watchlist = lazy(() => import("../pages/WatchList"));
+const Login = lazy(() => import("../pages/Login"));
+const Layout = lazy(() => import("./layouts/Layout"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
+const Landing = lazy(() => import("../pages/Landing"));
+const ResetPassword = lazy(() => import("../pages/ResetPassword"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+
+function RouteLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
+      <LumaSpin />
+    </div>
+  );
+}
 
 export default function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -66,25 +76,27 @@ export default function App() {
   }, [setUser, setAuthLoading]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/app" element={<Navigate to="/dashboard" replace />} />
+    <Suspense fallback={<RouteLoader />}>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/app" element={<Navigate to="/dashboard" replace />} />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="watchlist" element={<Watchlist />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="watchlist" element={<Watchlist />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
