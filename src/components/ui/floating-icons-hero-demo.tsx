@@ -1,46 +1,104 @@
 import {
   FloatingIconsHero,
   type FloatingIconsHeroProps,
-} from "@/components/ui/floating-icons-hero-section";
-
-import { SimpleNGXLogo } from "@/components/ui/ngx-logo";
-
-import {
-  IconDangoteCement,
-  IconMTN,
-  IconAirtel,
-  IconBUAFoods,
-  IconZenithBank,
-  IconGTB,
-  IconAccessBank,
-  IconFBNHoldings,
-  IconNestle,
-  IconLafarge,
-  IconSeplat,
-  IconJuliusBerger,
-  IconNigerianBreweries,
-  IconUnityBank,
-  IconWAPCO,
-  IconPresco,
-} from "@/components/ui/ngx-stocks-icons";
-
+} from "./floating-icons-hero-section";
 const demoIcons: FloatingIconsHeroProps["icons"] = [
-  { id: 1, icon: IconDangoteCement, className: "top-[10%] left-[10%]" },
-  { id: 2, icon: IconMTN, className: "top-[20%] right-[8%]" },
-  { id: 3, icon: IconAirtel, className: "top-[80%] left-[10%]" },
-  { id: 4, icon: IconBUAFoods, className: "bottom-[10%] right-[10%]" },
-  { id: 5, icon: IconZenithBank, className: "top-[5%] left-[30%]" },
-  { id: 6, icon: IconGTB, className: "top-[5%] right-[30%]" },
-  { id: 7, icon: IconAccessBank, className: "bottom-[8%] left-[25%]" },
-  { id: 8, icon: IconFBNHoldings, className: "top-[40%] left-[15%]" },
-  { id: 9, icon: IconNestle, className: "top-[75%] right-[25%]" },
-  { id: 10, icon: IconLafarge, className: "top-[90%] left-[70%]" },
-  { id: 11, icon: IconSeplat, className: "top-[50%] right-[5%]" },
-  { id: 12, icon: IconJuliusBerger, className: "top-[55%] left-[5%]" },
-  { id: 13, icon: IconNigerianBreweries, className: "top-[5%] left-[55%]" },
-  { id: 14, icon: IconUnityBank, className: "bottom-[5%] right-[45%]" },
-  { id: 15, icon: IconWAPCO, className: "top-[25%] right-[20%]" },
-  { id: 16, icon: IconPresco, className: "top-[60%] left-[30%]" },
+  {
+    id: 1,
+    src: "/logos/Dangote-cement.png",
+    alt: "Dangote Cement",
+    className: "top-[10%] left-[10%]",
+  },
+  {
+    id: 2,
+    src: "/logos/Conoil.svg",
+    alt: "Conoil",
+    className: "bottom-[5%] right-[45%]",
+  },
+  {
+    id: 3,
+    src: "/logos/Airtel.png",
+    alt: "Airtel",
+    className: "top-[80%] left-[10%]",
+  },
+  {
+    id: 4,
+    src: "/logos/Bua-foods.png",
+    alt: "BUA Foods",
+    className: "bottom-[10%] right-[10%]",
+  },
+  {
+    id: 5,
+    src: "/logos/Zenith.png",
+    alt: "Zenith Bank",
+    className: "top-[5%] left-[30%]",
+  },
+  {
+    id: 6,
+    src: "/logos/GTCO.png",
+    alt: "GTCO",
+    className: "top-[5%] right-[30%]",
+  },
+  {
+    id: 7,
+    src: "/logos/UBA.png",
+    alt: "UBA",
+    className: "bottom-[8%] left-[25%]",
+  },
+  {
+    id: 8,
+    src: "/logos/FCMB.png",
+    alt: "FCMB",
+    className: "top-[40%] left-[15%]",
+  },
+  {
+    id: 9,
+    src: "/logos/Transcorp.svg",
+    alt: "Transcorp",
+    className: "top-[75%] right-[25%]",
+  },
+  {
+    id: 10,
+    src: "/logos/Seplat-energy.svg",
+    alt: "Seplat Energy",
+    className: "top-[90%] left-[70%]",
+  },
+  {
+    id: 11,
+    src: "/logos/Access.png",
+    alt: "Access Bank",
+    className: "top-[50%] right-[5%]",
+  },
+  {
+    id: 12,
+    src: "/logos/Guinness.svg",
+    alt: "Guinness Nigeria",
+    className: "top-[55%] left-[5%]",
+  },
+  {
+    id: 13,
+    src: "/logos/Oando.png",
+    alt: "Oando",
+    className: "top-[5%] left-[55%]",
+  },
+  {
+    id: 14,
+    src: "/logos/MTN.png",
+    alt: "MTN",
+    className: "top-[20%] right-[8%]",
+  },
+  {
+    id: 15,
+    src: "/logos/Aradel-holdings.png",
+    alt: "Aradel Holdings",
+    className: "top-[25%] right-[20%]",
+  },
+  {
+    id: 16,
+    src: "/logos/Nestle.png",
+    alt: "Nestle Nigeria",
+    className: "top-[60%] left-[30%]",
+  },
 ];
 
 export default function FloatingIconsHeroDemo() {
