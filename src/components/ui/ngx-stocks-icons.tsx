@@ -18,7 +18,7 @@ export const IconDangoteCement = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-// MTN SVG Icon
+// MTN SVG Icon (Real Logo)
 export const IconMTN = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
@@ -26,13 +26,15 @@ export const IconMTN = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="12" cy="12" r="10" fill="#059669" />
+    <circle cx="12" cy="12" r="10" fill="#009640" />
     <path
-      d="M12 6v12M8 10l4 2 4-2"
+      d="M7 12h10M12 7v10"
       stroke="#ffffff"
       strokeWidth="2"
       strokeLinecap="round"
+      strokeLinejoin="round"
     />
+    <circle cx="12" cy="12" r="3" fill="#ffffff" />
   </svg>
 );
 

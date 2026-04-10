@@ -2,11 +2,12 @@ import * as React from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "./button";
 
 interface IconProps {
   id: number;
-  icon: React.ElementType<React.SVGProps<SVGSVGElement>>;
+  src: string;
+  alt?: string;
   className: string;
 }
 
@@ -71,8 +72,6 @@ const Icon = ({
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY, x, y]);
 
-  const IconComponent = iconData.icon;
-
   return (
     <motion.div
       ref={ref}
@@ -100,7 +99,13 @@ const Icon = ({
           ease: "easeInOut",
         }}
       >
-        <IconComponent className="w-8 h-8 text-foreground md:h-10 md:w-10" />
+        <img
+          src={iconData.src}
+          alt={iconData.alt ?? "Company logo"}
+          className="object-contain w-8 h-8 md:h-10 md:w-10"
+          loading="lazy"
+          draggable={false}
+        />
       </motion.div>
     </motion.div>
   );
