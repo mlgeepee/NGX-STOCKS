@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../services/supabase";
 import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { useAuthStore } from "../store/useAuthStore";
+import BackgroundGradient from "@/components/ui/background-gradient-snippet";
 
 // Google SVG Icon Component
 const GoogleIcon = () => (
@@ -39,6 +40,7 @@ export default function Login() {
   const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState(null);
   const isSupabaseReady = Boolean(supabase);
 
@@ -114,6 +116,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <BackgroundGradient />
       {alert && (
         <Alert
           message={alert.message}
@@ -186,7 +189,7 @@ export default function Login() {
                 />
               </div>
 
-              <div>
+              <div className="relative">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-foreground"
@@ -195,13 +198,24 @@ export default function Login() {
                 </label>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20 pr-12"
                   required
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center top-9"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                  ) : (
+                    <Eye className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                  )}
+                </button>
               </div>
 
               <button

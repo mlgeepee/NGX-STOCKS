@@ -101,7 +101,19 @@ const demoIcons: FloatingIconsHeroProps["icons"] = [
   },
 ];
 
+import { useAuthStore } from "../../../store/useAuthStore";
+
 export default function FloatingIconsHeroDemo() {
+  const user = useAuthStore((state) => state.user);
+  const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
+
+  const ctaText = isAuthLoading
+    ? "Loading..."
+    : user
+      ? "Go to Dashboard"
+      : "Get Started";
+  const ctaHref = isAuthLoading ? "#" : user ? "/dashboard" : "/signup";
+
   return (
     <FloatingIconsHero
       className="bg-background"
@@ -114,8 +126,8 @@ export default function FloatingIconsHeroDemo() {
         </span>
       }
       subtitle="NGX Stocks gives you real-time prices, interactive charts, and a personal watchlist — everything you need to make smarter investment decisions on the Nigerian Exchange."
-      ctaText="Start Tracking Free"
-      ctaHref="/login"
+      ctaText={ctaText}
+      ctaHref={ctaHref}
       icons={demoIcons}
       titleClassName=""
       subtitleClassName="text-muted-foreground"
