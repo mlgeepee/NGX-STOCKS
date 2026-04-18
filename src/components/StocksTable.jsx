@@ -1,6 +1,12 @@
 import { ArrowDownRight, ArrowUpRight, Star, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { formatCompactNumber, formatCurrency, formatPercent } from "../lib/market";
+import {
+  formatCompactNumber,
+  formatCurrency,
+  formatPercent,
+} from "../lib/market";
+import { usePreferencesStore } from "../../store/usePreferencesStore";
+import { translate } from "../lib/i18n";
 import StockLogo from "./StockLogo";
 
 function ChangeBadge({ value }) {
@@ -31,11 +37,17 @@ export default function StocksTable({
   onToggleWatchlist,
   onRemove,
 }) {
+  const language = usePreferencesStore((state) => state.language);
   const navigate = useNavigate();
 
-  const actionLabel =
-    actionType === "remove" ? "Remove from watchlist" : "Toggle watchlist";
-  const actionHeading = actionType === "remove" ? "Action" : "Save";
+  const actionLabel = translate(
+    language,
+    actionType === "remove" ? "table.actionRemove" : "table.actionToggle",
+  );
+  const actionHeading = translate(
+    language,
+    actionType === "remove" ? "table.action" : "table.save",
+  );
 
   return (
     <div className="app-panel overflow-hidden">
@@ -44,16 +56,16 @@ export default function StocksTable({
           <thead>
             <tr className="bg-secondary/80 text-left">
               <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Company
+                {translate(language, "table.company")}
               </th>
               <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Price
+                {translate(language, "table.price")}
               </th>
               <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Change
+                {translate(language, "table.change")}
               </th>
               <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Volume
+                {translate(language, "table.volume")}
               </th>
               <th className="w-24 px-7 py-5 text-right text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {actionHeading}
@@ -69,7 +81,9 @@ export default function StocksTable({
                   key={stock.symbol}
                   tabIndex={0}
                   onClick={() =>
-                    navigate(`/dashboard/stocks/${encodeURIComponent(stock.symbol)}`)
+                    navigate(
+                      `/dashboard/stocks/${encodeURIComponent(stock.symbol)}`,
+                    )
                   }
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
@@ -138,7 +152,9 @@ export default function StocksTable({
                             : "border-border/80 bg-white/80 text-muted-foreground hover:bg-secondary"
                         }`}
                       >
-                        <Star className={`h-4 w-4 ${saved ? "fill-current" : ""}`} />
+                        <Star
+                          className={`h-4 w-4 ${saved ? "fill-current" : ""}`}
+                        />
                       </button>
                     )}
                   </td>

@@ -19,6 +19,8 @@ import {
   formatPercent,
 } from "../src/lib/market";
 import { useWatchlistStore } from "../store/useWatchlistStore";
+import { usePreferencesStore } from "../store/usePreferencesStore";
+import { translate } from "../src/lib/i18n";
 
 const ranges = ["1D", "1W", "1M"];
 
@@ -39,6 +41,9 @@ export default function StockDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [range, setRange] = useState("1D");
+
+  const language = usePreferencesStore((state) => state.language);
+  const t = (path, vars) => translate(language, path, vars);
 
   const watchlist = useWatchlistStore((state) => state.watchlist);
   const toggleStock = useWatchlistStore((state) => state.toggleStock);
@@ -79,8 +84,8 @@ export default function StockDetail() {
   return (
     <div>
       <Header
-        title={stockData?.name || symbol || "Stock detail"}
-        subtitle="Review recent price action, compare short-term timeframes, and keep key trading stats in view."
+        title={stockData?.name || symbol || t("stockDetail.fallbackTitle")}
+        subtitle={t("stockDetail.subtitle")}
       />
 
       <div className="space-y-7">
@@ -89,7 +94,7 @@ export default function StockDetail() {
           className="app-control inline-flex items-center gap-2 rounded-[1.35rem] px-4 py-3 text-sm font-semibold text-foreground shadow-sm hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to dashboard
+          {t("stockDetail.back")}
         </Link>
 
         {loading ? (
@@ -99,7 +104,9 @@ export default function StockDetail() {
           </div>
         ) : error ? (
           <div className="app-panel border-rose-200 bg-rose-50 p-6 text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
-            <h2 className="text-lg font-semibold">Unable to load history</h2>
+            <h2 className="text-lg font-semibold">
+              {t("stockDetail.unableLoadHistoryTitle")}
+            </h2>
             <p className="mt-2 text-sm">{error}</p>
           </div>
         ) : (
@@ -174,7 +181,9 @@ export default function StockDetail() {
                   <Star
                     className={`h-4 w-4 ${isSaved ? "fill-current" : ""}`}
                   />
-                  {isSaved ? "Saved to watchlist" : "Add to watchlist"}
+                  {isSaved
+                    ? t("stockDetail.savedToWatchlist")
+                    : t("stockDetail.addToWatchlist")}
                 </button>
               </div>
             </div>
@@ -183,10 +192,10 @@ export default function StockDetail() {
               <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h3 className="text-2xl font-semibold text-foreground">
-                    Price history
+                    {t("stockDetail.priceHistoryTitle")}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    Switch between intraday, weekly, and monthly movements.
+                    {t("stockDetail.priceHistoryDescription")}
                   </p>
                 </div>
 
@@ -265,8 +274,13 @@ export default function StockDetail() {
                         color: "#f8fafc",
                         boxShadow: "0 20px 45px rgba(2, 6, 23, 0.35)",
                       }}
-                      formatter={(value) => [formatCurrency(value), "Price"]}
-                      labelFormatter={(value) => `Period: ${value}`}
+                      formatter={(value) => [
+                        formatCurrency(value),
+                        t("stockDetail.priceLabel"),
+                      ]}
+                      labelFormatter={(value) =>
+                        t("stockDetail.periodLabel", { value })
+                      }
                     />
                     <Area
                       type="monotone"
@@ -282,19 +296,19 @@ export default function StockDetail() {
 
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <DetailStatCard
-                label="Open price"
+                label={t("stockDetail.openPrice")}
                 value={formatCurrency(stockData.openPrice)}
               />
               <DetailStatCard
-                label="Session high"
+                label={t("stockDetail.sessionHigh")}
                 value={formatCurrency(stockData.highPrice)}
               />
               <DetailStatCard
-                label="Session low"
+                label={t("stockDetail.sessionLow")}
                 value={formatCurrency(stockData.lowPrice)}
               />
               <DetailStatCard
-                label="Volume"
+                label={t("stockDetail.volume")}
                 value={formatCompactNumber(stockData.volume)}
               />
             </div>

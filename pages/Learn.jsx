@@ -1,37 +1,35 @@
 import { BookOpen, CandlestickChart, ShieldCheck } from "lucide-react";
 import Header from "../src/components/Header";
+import { translate } from "../src/lib/i18n";
+import { usePreferencesStore } from "../store/usePreferencesStore";
 
 const learningCards = [
   {
-    title: "Reading Market Breadth",
-    description:
-      "Learn how gainers, losers, and average market change combine into a fast view of sentiment.",
+    titleKey: "learn.cards.breadth.title",
+    descriptionKey: "learn.cards.breadth.description",
     icon: CandlestickChart,
     accent: "from-primary/35 to-accent text-accent-foreground",
   },
   {
-    title: "Building Better Watchlists",
-    description:
-      "Use sector balance, liquidity, and volatility to create watchlists that stay useful under pressure.",
+    titleKey: "learn.cards.watchlists.title",
+    descriptionKey: "learn.cards.watchlists.description",
     icon: BookOpen,
     accent: "from-accent to-white text-accent-foreground",
   },
   {
-    title: "Risk Management Basics",
-    description:
-      "Review position sizing, stop discipline, and the signals that matter before acting on a move.",
+    titleKey: "learn.cards.risk.title",
+    descriptionKey: "learn.cards.risk.description",
     icon: ShieldCheck,
     accent: "from-secondary to-accent text-accent-foreground",
   },
 ];
 
 export default function Learn() {
+  const language = usePreferencesStore((state) => state.language);
+  const t = (path) => translate(language, path);
   return (
     <div>
-      <Header
-        title="Learn"
-        subtitle="A lightweight learning hub for market concepts that pair with the analytics views across the dashboard."
-      />
+      <Header title={t("learn.title")} subtitle={t("learn.subtitle")} />
 
       <div className="grid gap-5 lg:grid-cols-3">
         {learningCards.map((card) => {
@@ -48,10 +46,10 @@ export default function Learn() {
                 <Icon className="h-5 w-5" />
               </div>
               <h2 className="mt-6 text-xl font-semibold text-foreground">
-                {card.title}
+                {t(card.titleKey)}
               </h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {card.description}
+                {t(card.descriptionKey)}
               </p>
             </article>
           );
@@ -60,31 +58,31 @@ export default function Learn() {
 
       <div className="app-panel mt-7 p-7">
         <h2 className="text-2xl font-semibold text-foreground">
-          Quick glossary
+          {t("learn.glossaryTitle")}
         </h2>
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           <div className="rounded-[1.5rem] bg-secondary p-5">
             <p className="text-sm font-semibold text-foreground">
-              Market trend
+              {t("learn.glossary.marketTrend.title")}
             </p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              A snapshot of the average percentage move across tracked stocks.
+              {t("learn.glossary.marketTrend.description")}
             </p>
           </div>
           <div className="rounded-[1.5rem] bg-secondary p-5">
             <p className="text-sm font-semibold text-foreground">
-              Volume
+              {t("learn.glossary.volume.title")}
             </p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              The number of shares traded over the selected market session.
+              {t("learn.glossary.volume.description")}
             </p>
           </div>
           <div className="rounded-[1.5rem] bg-secondary p-5">
             <p className="text-sm font-semibold text-foreground">
-              Watchlist
+              {t("learn.glossary.watchlist.title")}
             </p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              A saved shortlist for quicker monitoring and faster follow-up.
+              {t("learn.glossary.watchlist.description")}
             </p>
           </div>
         </div>

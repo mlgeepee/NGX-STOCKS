@@ -1,5 +1,7 @@
 import { Search } from "lucide-react";
 import { useAuthStore } from "../../store/useAuthStore";
+import { usePreferencesStore } from "../../store/usePreferencesStore";
+import { translate } from "../lib/i18n";
 
 function getInitials(value) {
   const normalized = String(value || "NGX")
@@ -18,10 +20,16 @@ export default function Header({
   subtitle,
   searchValue = "",
   onSearchChange,
-  searchPlaceholder = "Search by company or ticker",
-  searchLabel = "Search stocks",
+  searchPlaceholder,
+  searchLabel,
   actions = null,
 }) {
+  const language = usePreferencesStore((state) => state.language);
+  const placeholderText =
+    searchPlaceholder || translate(language, "header.searchPlaceholder");
+  const labelText = searchLabel || translate(language, "header.searchLabel");
+  const marketIntelligence = translate(language, "header.marketIntelligence");
+  const analystTitle = translate(language, "header.analystTitle");
   const user = useAuthStore((state) => state.user);
   const userEmail = user?.email || "analyst@ngxstocks.app";
   const initials = getInitials(userEmail);
@@ -30,7 +38,7 @@ export default function Header({
     <header className="mb-10 flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
       <div className="max-w-3xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-accent-foreground">
-          Market Intelligence
+          {marketIntelligence}
         </p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight text-foreground sm:text-4xl xl:text-[2.85rem]">
           {title}
@@ -43,12 +51,12 @@ export default function Header({
       <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center">
         {onSearchChange ? (
           <label className="relative block w-full sm:w-[340px] lg:w-[390px]">
-            <span className="sr-only">{searchLabel}</span>
+            <span className="sr-only">{labelText}</span>
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={searchValue}
               onChange={(event) => onSearchChange(event.target.value)}
-              placeholder={searchPlaceholder}
+              placeholder={placeholderText}
               className="app-input pl-11"
             />
           </label>
@@ -62,7 +70,7 @@ export default function Header({
           </div>
           <div className="hidden min-w-0 sm:block">
             <p className="text-sm font-semibold text-foreground">
-              Market Analyst
+              {analystTitle}
             </p>
             <p className="truncate text-xs text-muted-foreground">
               {userEmail}
