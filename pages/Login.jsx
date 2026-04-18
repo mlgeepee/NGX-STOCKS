@@ -126,7 +126,7 @@ export default function Login() {
       )}
 
       {/* Top Navigation */}
-      <div className="w-full px-4 py-4 sm:px-6 lg:px-8">
+      <div className="w-full px-5 py-5 sm:px-7 lg:px-10">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm font-medium transition text-muted-foreground hover:text-foreground"
@@ -137,13 +137,13 @@ export default function Login() {
       </div>
 
       {/* Centered Form */}
-      <div className="flex items-center justify-center flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md rounded-[2rem] border border-border bg-card p-8 shadow-xl backdrop-blur-xl">
-          <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+      <div className="flex flex-1 items-center justify-center px-5 py-10 sm:px-7 lg:px-10">
+        <div className="app-panel w-full max-w-[30rem] p-9 sm:p-10">
+          <div className="space-y-3 text-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-[2.4rem]">
               Sign in to NGX Stocks
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm leading-6 text-muted-foreground">
               Enter your email below to access your account.
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function Login() {
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className="flex items-center justify-center w-full gap-2 px-4 py-3 text-sm font-semibold transition border text-foreground rounded-2xl border-border bg-secondary/50 hover:bg-secondary/70 focus:outline-none focus:ring-2 focus:ring-ring/40"
+              className="app-control flex w-full items-center justify-center gap-2 rounded-[1.35rem] px-4 py-3.5 text-sm font-semibold text-foreground hover:bg-white"
             >
               <GoogleIcon />
               Sign in with Google
@@ -184,7 +184,7 @@ export default function Login() {
                   placeholder="m@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  className="app-input"
                   required
                 />
               </div>
@@ -202,7 +202,7 @@ export default function Login() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20 pr-12"
+                  className="app-input pr-12"
                   required
                 />
                 <button
@@ -211,16 +211,16 @@ export default function Login() {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                    <EyeOff className="h-5 w-5 text-muted-foreground hover:text-accent-foreground" />
                   ) : (
-                    <Eye className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                    <Eye className="h-5 w-5 text-muted-foreground hover:text-accent-foreground" />
                   )}
                 </button>
               </div>
 
               <button
                 type="submit"
-                className="w-full px-4 py-3 text-sm font-semibold transition shadow-xl text-white rounded-2xl bg-[oklch(0.6255_0.1741_149.0136)] shadow-[oklch(0.6255_0.1741_149.0136)]/20 hover:bg-[oklch(0.6255_0.1741_149.0136)]/90 focus:outline-none focus:ring-2 focus:ring-[oklch(0.6255_0.1741_149.0136)]/40"
+                className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
                 Sign In
               </button>
@@ -236,7 +236,7 @@ export default function Login() {
               </button>
               <Link
                 to="/signup"
-                className="transition text-primary hover:text-primary/80"
+                className="transition text-accent-foreground hover:text-foreground"
               >
                 Create account
               </Link>

@@ -52,7 +52,7 @@ export default function ResetPassword() {
       )}
 
       {/* Top Navigation */}
-      <div className="w-full px-4 py-4 sm:px-6 lg:px-8">
+      <div className="w-full px-5 py-5 sm:px-7 lg:px-10">
         <Link
           to="/login"
           className="inline-flex items-center gap-2 text-sm font-medium transition text-muted-foreground hover:text-foreground"
@@ -63,13 +63,13 @@ export default function ResetPassword() {
       </div>
 
       {/* Centered Form */}
-      <div className="flex items-center justify-center flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md rounded-[2rem] border border-border bg-card p-8 shadow-xl backdrop-blur-xl">
-          <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+      <div className="flex flex-1 items-center justify-center px-5 py-10 sm:px-7 lg:px-10">
+        <div className="app-panel w-full max-w-[30rem] p-9 sm:p-10">
+          <div className="space-y-3 text-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-[2.4rem]">
               Set New Password
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm leading-6 text-muted-foreground">
               Enter your new password below.
             </p>
           </div>
@@ -89,13 +89,13 @@ export default function ResetPassword() {
                   placeholder="Enter new password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20 pr-10"
+                  className="app-input pr-10"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent-foreground"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -121,13 +121,13 @@ export default function ResetPassword() {
                   placeholder="Confirm new password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 text-sm border rounded-2xl border-input bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20 pr-10"
+                  className="app-input pr-10"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent-foreground"
                   aria-label={
                     showConfirmPassword ? "Hide password" : "Show password"
                   }
@@ -143,7 +143,7 @@ export default function ResetPassword() {
 
             <button
               type="submit"
-              className="w-full px-4 py-3 text-sm font-semibold transition shadow-xl text-white rounded-2xl bg-[oklch(0.6255_0.1741_149.0136)] shadow-[oklch(0.6255_0.1741_149.0136)]/20 hover:bg-[oklch(0.6255_0.1741_149.0136)]/90 focus:outline-none focus:ring-2 focus:ring-[oklch(0.6255_0.1741_149.0136)]/40"
+              className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
             >
               Update Password
             </button>
