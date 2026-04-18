@@ -8,7 +8,7 @@ export const IconDangoteCement = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" fill="#2563eb" />
+    <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" fill="oklch(var(--primary))" />
     <path
       d="M12 6v12M8 10l4 2 4-2"
       stroke="#ffffff"
@@ -93,7 +93,7 @@ export const IconGTB = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect x="4" y="6" width="16" height="12" rx="3" fill="#0ea5e9" />
+    <rect x="4" y="6" width="16" height="12" rx="3" fill="oklch(var(--primary))" />
     <path d="M8 12h8" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
@@ -198,7 +198,7 @@ export const IconJuliusBerger = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect x="3" y="6" width="18" height="12" rx="2" fill="#3b82f6" />
+    <rect x="3" y="6" width="18" height="12" rx="2" fill="oklch(var(--primary))" />
     <path d="M8 12h8" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );

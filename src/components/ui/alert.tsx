@@ -85,7 +85,7 @@ export function Alert({
       default:
         return (
           <svg
-            className="w-5 h-5 text-blue-500"
+            className="w-5 h-5 text-accent-foreground"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -110,7 +110,7 @@ export function Alert({
       case "warning":
         return "bg-yellow-50 border-yellow-200 text-yellow-800";
       default:
-        return "bg-blue-50 border-blue-200 text-blue-800";
+        return "bg-accent/95 border-primary/20 text-accent-foreground";
     }
   };
 

@@ -118,9 +118,9 @@ export default function FloatingIconsHeroDemo() {
     <FloatingIconsHero
       className="bg-background"
       title={
-        <span className="text-black bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text">
+        <span className="text-foreground bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text">
           Track the{" "}
-          <span className="text-[oklch(0.6255_0.1741_149.0136)] font-bold">
+          <span className="text-accent-foreground font-bold">
             Nigerian Stock Market
           </span>
         </span>
@@ -131,7 +131,7 @@ export default function FloatingIconsHeroDemo() {
       icons={demoIcons}
       titleClassName=""
       subtitleClassName="text-muted-foreground"
-      ctaClassName="bg-[oklch(0.6255_0.1741_149.0136)] text-white hover:bg-[oklch(0.6255_0.1741_149.0136)]/90"
+      ctaClassName="bg-primary text-primary-foreground shadow-glow hover:bg-primary/90"
       showNav
       logo={
         <div className="flex items-center gap-2">
