@@ -46,6 +46,9 @@ const TRANSLATIONS = {
                 "Live pricing in Nigerian naira with watchlist shortcuts and quick drill-down access.",
             noStocksTitle: "No stocks matched your search",
             noStocksDescription: "Try a company name, ticker, or sector instead.",
+            boardLoadingTitle: "Preparing market board",
+            boardLoadingDescription:
+                "Loading the latest stock rows and getting the board ready for you.",
             marketSummary: "{count} symbols • {average} average move",
             errorTitle: "Unable to load stocks",
             fetchingError: "Unable to load stock data.",
@@ -110,14 +113,37 @@ const TRANSLATIONS = {
             subtitle:
                 "Review recent price action, compare short-term timeframes, and keep key trading stats in view.",
             back: "Back to dashboard",
+            fetchError: "Unable to load {symbol} details right now.",
             unableLoadHistoryTitle: "Unable to load history",
             savedToWatchlist: "Saved to watchlist",
             addToWatchlist: "Add to watchlist",
+            heroDescription:
+                "Track price action, switch between D1, 1W, and 1M views, and scan the latest company-specific updates from one focused screen.",
+            currentPrice: "Current price",
             priceHistoryTitle: "Price history",
             priceHistoryDescription:
                 "Switch between intraday, weekly, and monthly movements.",
             periodLabel: "Period: {value}",
             priceLabel: "Price",
+            rangeMove: "Range move",
+            rangeHigh: "Range high",
+            rangeLow: "Range low",
+            marketStatsTitle: "Market stats",
+            marketStatsDescription:
+                "Key trading levels and liquidity markers for the current stock.",
+            newsTitle: "Latest news",
+            newsDescription:
+                "Recent headlines and stock-specific updates connected to this company.",
+            newsFallbackDescription:
+                "A live news feed is not connected here yet, so these briefings keep the stock context visible.",
+            liveNewsLabel: "Live feed",
+            newsBriefingLabel: "Stock briefings",
+            updatedOn: "Updated {value}",
+            updatedOnFallback: "Recently updated",
+            readMore: "Read more",
+            noNewsTitle: "No recent updates yet",
+            noNewsDescription:
+                "There are no news items for this stock at the moment.",
             openPrice: "Open price",
             sessionHigh: "Session high",
             sessionLow: "Session low",
@@ -133,6 +159,7 @@ const TRANSLATIONS = {
             action: "Action",
             actionRemove: "Remove from watchlist",
             actionToggle: "Toggle watchlist",
+            tapForDetails: "Tap to open full stock details",
         },
     },
     pid: {
@@ -182,6 +209,9 @@ const TRANSLATIONS = {
                 "Live naira price with watchlist shortcuts and fast drill-down.",
             noStocksTitle: "No stock match your search",
             noStocksDescription: "Try company name, ticker, or sector again.",
+            boardLoadingTitle: "Dey prepare market board",
+            boardLoadingDescription:
+                "Loading latest stock rows and setting the board for you.",
             marketSummary: "{count} symbols • {average} average move",
             errorTitle: "No fit load stocks",
             fetchingError: "Unable to load stock data.",
@@ -246,14 +276,37 @@ const TRANSLATIONS = {
             subtitle:
                 "See recent price action, compare short-term timeframes, and keep key stats for eye.",
             back: "Go back dashboard",
+            fetchError: "No fit load {symbol} details right now.",
             unableLoadHistoryTitle: "No fit load history",
             savedToWatchlist: "Don save for watchlist",
             addToWatchlist: "Add to watchlist",
+            heroDescription:
+                "Check price action, switch between D1, 1W, and 1M view, and see latest company gist from one page.",
+            currentPrice: "Current price",
             priceHistoryTitle: "Price history",
             priceHistoryDescription:
                 "Change between intraday, weekly, and monthly moves.",
             periodLabel: "Period: {value}",
             priceLabel: "Price",
+            rangeMove: "Range move",
+            rangeHigh: "Range high",
+            rangeLow: "Range low",
+            marketStatsTitle: "Market stats",
+            marketStatsDescription:
+                "Main trading levels and liquidity markers for this stock.",
+            newsTitle: "Latest news",
+            newsDescription:
+                "Recent headline and stock gist wey connect to this company.",
+            newsFallbackDescription:
+                "Live news feed never connect here yet, so these briefings go still give you stock context.",
+            liveNewsLabel: "Live feed",
+            newsBriefingLabel: "Stock briefing",
+            updatedOn: "Updated {value}",
+            updatedOnFallback: "Recently updated",
+            readMore: "Read more",
+            noNewsTitle: "No recent update yet",
+            noNewsDescription:
+                "No news item dey for this stock for now.",
             openPrice: "Open price",
             sessionHigh: "Session high",
             sessionLow: "Session low",
@@ -269,6 +322,7 @@ const TRANSLATIONS = {
             action: "Action",
             actionRemove: "Remove from watchlist",
             actionToggle: "Toggle watchlist",
+            tapForDetails: "Tap to open full stock details",
         },
     },
 };

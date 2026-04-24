@@ -48,7 +48,7 @@ export default function Header({
         </p>
       </div>
 
-      <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3.5 sm:flex-row sm:flex-wrap sm:items-center xl:flex-nowrap">
         {onSearchChange ? (
           <label className="relative block w-full sm:w-[340px] lg:w-[390px]">
             <span className="sr-only">{labelText}</span>
@@ -64,15 +64,15 @@ export default function Header({
 
         {actions}
 
-        <div className="app-control flex items-center gap-3 rounded-[1.6rem] px-3.5 py-2.5 shadow-sm">
+        <div className="app-control flex min-w-0 items-center gap-3 rounded-[1.6rem] px-3.5 py-2.5 shadow-sm">
           <div className="flex h-11 w-11 items-center justify-center rounded-[1.15rem] bg-accent text-sm font-semibold text-accent-foreground ring-1 ring-primary/15">
             {initials}
           </div>
-          <div className="hidden min-w-0 sm:block">
+          <div className="min-w-0 max-w-[11.5rem] sm:max-w-[14rem]">
             <p className="text-sm font-semibold text-foreground">
               {analystTitle}
             </p>
-            <p className="truncate text-xs text-muted-foreground">
+            <p className="truncate text-[11px] text-muted-foreground sm:text-xs">
               {userEmail}
             </p>
           </div>

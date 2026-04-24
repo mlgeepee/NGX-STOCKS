@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div
@@ -13,6 +14,16 @@ export default function Layout() {
           backgroundImage:
             "radial-gradient(circle at top right, oklch(var(--primary) / 0.22), transparent 34%), radial-gradient(circle at bottom left, oklch(var(--primary) / 0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.36), rgba(248,251,248,0.82))",
         }}
+      />
+      <button
+        type="button"
+        aria-label="Close sidebar"
+        onClick={() => setIsSidebarOpen(false)}
+        className={`fixed inset-0 z-30 bg-slate-950/30 backdrop-blur-[1px] transition-opacity duration-300 lg:hidden ${
+          isSidebarOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
       />
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       <div className="lg:pl-[21rem]">

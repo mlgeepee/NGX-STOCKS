@@ -70,9 +70,11 @@ export default function Sidebar({ isOpen = true, onClose }) {
 
   return (
     <aside
-      className={`app-panel fixed inset-y-4 left-4 z-40 flex w-[min(20rem,calc(100%-2rem))] flex-col px-3 py-3 backdrop-blur-xl transition-transform duration-300 lg:w-[17.75rem] lg:px-4 lg:py-4 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } lg:translate-x-0`}
+      className={`app-panel fixed inset-y-4 left-4 z-40 flex w-[min(20rem,calc(100%-2rem))] flex-col overflow-y-auto px-3 py-3 backdrop-blur-xl transition-transform duration-300 lg:w-[17.75rem] lg:px-4 lg:py-4 ${
+        isOpen
+          ? "translate-x-0"
+          : "-translate-x-[calc(100%+1.5rem)] pointer-events-none"
+      } lg:translate-x-0 lg:pointer-events-auto`}
     >
       <Link
         to="/dashboard"
@@ -82,7 +84,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-base font-bold text-primary-foreground shadow-sm ring-1 ring-black/5">
           NG
         </div>
-        <div className="hidden min-w-0 lg:block">
+        <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-muted-foreground">
             {brandTitle}
           </p>
@@ -129,7 +131,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
               >
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="hidden min-w-0 lg:block">
+              <span className="min-w-0">
                 <span className="block text-sm font-semibold">
                   {translate(language, item.labelKey)}
                 </span>
@@ -151,13 +153,13 @@ export default function Sidebar({ isOpen = true, onClose }) {
       <div className="space-y-2.5 border-t border-border/80 pt-4">
         <label className="app-control flex items-center gap-2 rounded-[1.35rem] px-3 py-3 text-muted-foreground hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5">
           <Languages className="h-4 w-4 shrink-0 text-muted-foreground" />
-          <span className="hidden text-sm font-medium lg:block">
+          <span className="text-sm font-medium text-foreground">
             {languageLabel}
           </span>
           <select
             value={language}
             onChange={(event) => setLanguage(event.target.value)}
-            className="min-w-0 flex-1 bg-transparent text-right text-xs font-semibold uppercase tracking-[0.18em] outline-none lg:text-sm"
+            className="min-w-0 flex-1 bg-transparent text-right text-xs font-semibold uppercase tracking-[0.18em] text-foreground outline-none lg:text-sm"
           >
             {languageOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -177,7 +179,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
           <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/80 dark:bg-rose-500/10">
             <LogOut className="h-4 w-4" />
           </span>
-          <span className="hidden text-sm font-semibold lg:block">
+          <span className="text-sm font-semibold">
             {logoutLabel}
           </span>
         </button>

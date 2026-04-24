@@ -73,11 +73,24 @@ function LoadingState() {
   );
 }
 
+function BoardLoader({ title, description }) {
+  return (
+    <div className="app-panel flex min-h-[360px] flex-col items-center justify-center p-8 text-center">
+      <div className="h-12 w-12 animate-spin rounded-full border-[3px] border-primary/20 border-t-primary" />
+      <p className="mt-5 text-lg font-semibold text-foreground">{title}</p>
+      <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+        {description}
+      </p>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const [stocks, setStocks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isBoardPreparing, setIsBoardPreparing] = useState(true);
 
   const language = usePreferencesStore((state) => state.language);
   const t = useCallback(
@@ -85,7 +98,9 @@ export default function Dashboard() {
     [language],
   );
 
-  const watchlist = useWatchlistStore((state) => state.watchlist);
+  const watchlist = useWatchlistStore((state) =>
+    Array.isArray(state.watchlist) ? state.watchlist : [],
+  );
   const toggleStock = useWatchlistStore((state) => state.toggleStock);
 
   const loadStocks = useCallback(async (signal) => {
@@ -110,6 +125,19 @@ export default function Dashboard() {
     loadStocks(controller.signal);
     return () => controller.abort();
   }, [loadStocks]);
+
+  useEffect(() => {
+    if (loading) {
+      setIsBoardPreparing(true);
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      setIsBoardPreparing(false);
+    }, 180);
+
+    return () => clearTimeout(timeoutId);
+  }, [loading, searchQuery, stocks]);
 
   const filteredStocks = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -176,7 +204,7 @@ export default function Dashboard() {
             className="app-control inline-flex h-[52px] items-center gap-2 rounded-[1.35rem] px-4 py-3 text-sm font-semibold text-foreground shadow-sm hover:-translate-y-0.5 hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5"
           >
             <RefreshCw className="h-4 w-4" />
-            <span className="hidden sm:inline">{t("common.refresh")}</span>
+            <span>{t("common.refresh")}</span>
           </button>
         }
       />
@@ -196,15 +224,16 @@ export default function Dashboard() {
             ))}
           </div>
 
-          {!filteredStocks.length ? (
-            <div className="app-panel p-12 text-center">
-              <p className="text-lg font-semibold text-foreground">
-                No stocks matched your search
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Try a company name, ticker, or sector instead.
-              </p>
-            </div>
+          {isBoardPreparing ? (
+            <BoardLoader
+              title={t("dashboard.boardLoadingTitle")}
+              description={t("dashboard.boardLoadingDescription")}
+            />
+          ) : !filteredStocks.length ? (
+            <BoardLoader
+              title={t("dashboard.boardLoadingTitle")}
+              description={t("dashboard.boardLoadingDescription")}
+            />
           ) : (
             <div className="space-y-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
