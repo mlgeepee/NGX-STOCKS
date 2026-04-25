@@ -81,16 +81,14 @@ export default function Sidebar({ isOpen = true, onClose }) {
         onClick={() => onClose?.()}
         className="mb-6 flex items-center gap-3 rounded-[1.75rem] border border-border/80 bg-white/70 px-3 py-3.5 shadow-sm transition hover:border-primary/30 hover:bg-white dark:bg-card/60 lg:px-4"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-base font-bold text-primary-foreground shadow-sm ring-1 ring-black/5">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-base font-bold text-white shadow-sm ring-1 ring-black/5">
           NG
         </div>
         <div className="min-w-0">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-muted-foreground">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.26em] ">
             {brandTitle}
           </p>
-          <p className="mt-1 text-sm font-medium text-foreground">
-            {brandSubtitle}
-          </p>
+          <p className="mt-1 text-sm font-medium ">{brandSubtitle}</p>
         </div>
       </Link>
 
@@ -125,7 +123,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
               <span
                 className={`flex h-10 w-10 items-center justify-center rounded-[1.15rem] ${
                   active
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-white"
                     : "bg-secondary text-muted-foreground"
                 }`}
               >
@@ -179,9 +177,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
           <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/80 dark:bg-rose-500/10">
             <LogOut className="h-4 w-4" />
           </span>
-          <span className="text-sm font-semibold">
-            {logoutLabel}
-          </span>
+          <span className="text-sm font-semibold">{logoutLabel}</span>
         </button>
       </div>
     </aside>

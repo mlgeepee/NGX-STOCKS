@@ -131,7 +131,7 @@ export default function FloatingIconsHeroDemo() {
       icons={demoIcons}
       titleClassName=""
       subtitleClassName="text-muted-foreground"
-      ctaClassName="bg-primary text-primary-foreground shadow-glow hover:bg-primary/90"
+      ctaClassName="bg-[#3F5F48] text-white shadow-glow hover:bg-[#3F5F48]/90"
       showNav
       logo={
         <div className="flex items-center gap-2">
