@@ -115,7 +115,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen text-foreground">
       <BackgroundGradient />
       {alert && (
         <Alert
@@ -220,7 +220,7 @@ export default function Login() {
 
               <button
                 type="submit"
-                className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
                 Sign In
               </button>

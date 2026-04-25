@@ -10,8 +10,10 @@
     --card-foreground: 24 34 29;
     --popover: 255 255 255;
     --popover-foreground: 24 34 29;
-    --primary: 0.8298 0.0642 153.2899;
-    --primary-foreground: 28 42 34;
+    /* --primary: 0.8298 0.0642 153.2899; */
+    --primary: 40.5% 0.0642 152.6;
+    /* --primary-foreground: 28 42 34; */
+    --primary-foreground: 255, 255, 255;
     --secondary: 240 245 241;
     --secondary-foreground: 42 58 49;
     --muted: 244 248 244;
@@ -32,7 +34,8 @@
     --card-foreground: 230 236 231;
     --popover: 16 23 19;
     --popover-foreground: 230 236 231;
-    --primary: 0.8298 0.0642 153.2899;
+    /* --primary: 0.8298 0.0642 153.2899; */
+    --primary: 0.6282 0.1499 133.4853;
     --primary-foreground: 28 42 34;
     --secondary: 21 31 26;
     --secondary-foreground: 219 226 220;
@@ -56,29 +59,37 @@
     scroll-behavior: smooth;
   }
 
-  body {
+  /* body {
     @apply bg-background font-sans text-foreground antialiased transition-colors;
     background-image:
-      linear-gradient(
-        180deg,
-        rgb(var(--background)) 0%,
-        rgb(245 249 245) 100%
+      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(245 249 245) 100%),
+      radial-gradient(
+        circle at top left,
+        oklch(var(--primary) / 0.12),
+        transparent 28%
       ),
-      radial-gradient(circle at top left, oklch(var(--primary) / 0.12), transparent 28%),
-      radial-gradient(circle at bottom right, oklch(var(--primary) / 0.06), transparent 24%);
+      radial-gradient(
+        circle at bottom right,
+        oklch(var(--primary) / 0.06),
+        transparent 24%
+      );
     letter-spacing: -0.015em;
     min-height: 100vh;
-  }
+  }  */
 
   .dark body {
     background-image:
-      linear-gradient(
-        180deg,
-        rgb(var(--background)) 0%,
-        rgb(12 20 15) 100%
+      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(12 20 15) 100%),
+      radial-gradient(
+        circle at top left,
+        oklch(var(--primary) / 0.13),
+        transparent 24%
       ),
-      radial-gradient(circle at top left, oklch(var(--primary) / 0.13), transparent 24%),
-      radial-gradient(circle at bottom right, oklch(var(--primary) / 0.07), transparent 20%);
+      radial-gradient(
+        circle at bottom right,
+        oklch(var(--primary) / 0.07),
+        transparent 20%
+      );
   }
 
   button,
