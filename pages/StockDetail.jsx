@@ -193,6 +193,18 @@ function NewsCard({ item, t }) {
   );
 }
 
+function StockDetailSpinner() {
+  return (
+    <div className="app-panel flex min-h-[320px] items-center justify-center p-8">
+      <div
+        className="h-12 w-12 animate-spin rounded-full border-[3px] border-primary/20 border-t-primary"
+        role="status"
+        aria-label="Loading stock history"
+      />
+    </div>
+  );
+}
+
 export default function StockDetail() {
   const { symbol } = useParams();
   const [stockData, setStockData] = useState(null);
@@ -285,21 +297,7 @@ export default function StockDetail() {
             <p className="mt-2 text-sm">{error}</p>
           </div>
         ) : !hasRenderableStock ? (
-          <div className="app-panel p-8 text-center">
-            <h2 className="text-xl font-semibold text-foreground">
-              {t("stockDetail.unableLoadHistoryTitle")}
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
-              {t("stockDetail.errorFallback")}
-            </p>
-            <Link
-              to="/dashboard"
-              className="app-control mt-6 inline-flex items-center gap-2 rounded-[1.35rem] px-4 py-3 text-sm font-semibold text-foreground shadow-sm hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {t("stockDetail.back")}
-            </Link>
-          </div>
+          <StockDetailSpinner />
         ) : (
           <>
             <section className="app-panel overflow-hidden p-5 sm:p-7">
