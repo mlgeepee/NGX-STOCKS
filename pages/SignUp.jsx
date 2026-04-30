@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { supabase } from "../services/supabase";
-import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
-import BackgroundGradient from "@/components/ui/background-gradient-snippet";
+import AuthShell from "@/components/AuthShell";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -25,14 +25,14 @@ export default function SignUp() {
     return false;
   };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
+  const handleSignup = async (event) => {
+    event.preventDefault();
     if (!requireSupabase()) return;
 
     if (password !== confirmPassword) {
       setAlert({
         type: "warning",
-        message: "Passwords do not match.",
+        message: "Your passwords do not match yet. Please confirm them again.",
       });
       return;
     }
@@ -47,157 +47,153 @@ export default function SignUp() {
     } else {
       setAlert({
         type: "success",
-        message: "Check your email to confirm signup",
+        message: "Check your email to confirm the new account.",
       });
       setTimeout(() => navigate("/login"), 2000);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen text-foreground">
-      <BackgroundGradient />
-      {alert && (
+    <>
+      {alert ? (
         <Alert
           message={alert.message}
           type={alert.type}
           onClose={() => setAlert(null)}
         />
-      )}
+      ) : null}
 
-      <div className="w-full px-5 py-5 sm:px-7 lg:px-10">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm font-medium transition text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          BACK TO HOME
-        </Link>
-      </div>
+      <AuthShell
+        backHref="/login"
+        backLabel="Back to sign in"
+        eyebrow="Create account"
+        title="Start a market workspace that feels built for serious tracking."
+        description="Create your account to save names, move between the dashboard and stock detail views, and keep your market context in one place."
+        highlights={[
+          {
+            label: "Setup speed",
+            value: "2 min",
+            detail: "A short path from signup to live market monitoring",
+            icon: Sparkles,
+          },
+          {
+            label: "Watchlist flow",
+            value: "Saved",
+            detail: "Keep the companies you care about a click away",
+            icon: Star,
+          },
+          {
+            label: "Research feel",
+            value: "Premium",
+            detail: "Elegant surfaces for everyday market reading",
+            icon: ShieldCheck,
+          },
+        ]}
+      >
+        {!isSupabaseReady ? (
+          <div className="rounded-[1.45rem] border border-destructive/20 bg-destructive/10 px-4 py-4 text-sm leading-6 text-destructive">
+            Supabase env vars are missing. Configure <code>src/.env</code> and
+            restart the dev server.
+          </div>
+        ) : null}
 
-      <div className="flex flex-1 items-center justify-center px-5 py-10 sm:px-7 lg:px-10">
-        <div className="app-panel w-full max-w-[30rem] p-9 sm:p-10">
-          <div className="space-y-3 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-[2.4rem]">
-              Create an account
-            </h1>
-            <p className="text-sm leading-6 text-muted-foreground">
-              Enter your email below to create your account.
-            </p>
+        <form onSubmit={handleSignup} className="space-y-4">
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium text-foreground">
+              Email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="analyst@example.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="app-input"
+              required
+            />
           </div>
 
-          {!isSupabaseReady ? (
-            <div className="p-4 mt-4 text-sm border rounded-3xl border-destructive/20 bg-destructive/5 text-destructive-foreground">
-              Supabase env vars are missing. Configure <code>src/.env</code> and
-              restart the dev server.
-            </div>
-          ) : null}
-
-          <form onSubmit={handleSignup} className="mt-6 space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-foreground"
-              >
-                Email
-              </label>
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-foreground"
+            >
+              Password
+            </label>
+            <div className="relative">
               <input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="app-input"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Create a secure password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="app-input pr-12"
                 required
               />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-foreground"
+              <button
+                type="button"
+                onClick={() => setShowPassword((value) => !value)}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Create your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="app-input pr-10"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent-foreground"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
             </div>
-
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block mb-2 text-sm font-medium text-foreground"
-              >
-                Confirm Password
-              </label>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm your password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="app-input pr-10"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent-foreground"
-                  aria-label={
-                    showConfirmPassword ? "Hide password" : "Show password"
-                  }
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
-            >
-              Create account
-            </button>
-          </form>
-
-          <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
-            <span className="text-muted-foreground">
-              Already have an account?
-            </span>
-            <Link
-              to="/login"
-              className="transition text-accent-foreground hover:text-foreground"
-            >
-              Sign in
-            </Link>
           </div>
+
+          <div className="space-y-2">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-foreground"
+            >
+              Confirm password
+            </label>
+            <div className="relative">
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                className="app-input pr-12"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((value) => !value)}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+                aria-label={
+                  showConfirmPassword ? "Hide password" : "Show password"
+                }
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" className="app-button-primary w-full">
+            Create account
+          </button>
+        </form>
+
+        <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>Already have an account? Pick up right where your board left off.</p>
+          <Link
+            to="/login"
+            className="font-semibold text-accent-foreground hover:text-foreground"
+          >
+            Sign in
+          </Link>
         </div>
-      </div>
-    </div>
+      </AuthShell>
+    </>
   );
 }

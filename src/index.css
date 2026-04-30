@@ -1,53 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 248 251 248;
-    --foreground: 24 34 29;
-    --card: 255 255 255;
-    --card-foreground: 24 34 29;
-    --popover: 255 255 255;
-    --popover-foreground: 24 34 29;
-    /* --primary: 0.8298 0.0642 153.2899; */
-    --primary: 40.5% 0.0642 152.6;
-    /* --primary-foreground: 28 42 34; */
-    --primary-foreground: 42 58 49;
-    --secondary: 240 245 241;
-    --secondary-foreground: 42 58 49;
-    --muted: 244 248 244;
-    --muted-foreground: 113 127 118;
-    --accent: 236 244 238;
-    --accent-foreground: 63 95 72;
-    --destructive: 220 38 38;
-    --destructive-foreground: 255 255 255;
-    --border: 220 231 223;
-    --input: 220 231 223;
-    --ring: 0.8298 0.0642 153.2899;
+    --background: 245 241 232;
+    --foreground: 18 33 38;
+    --card: 252 249 241;
+    --card-foreground: 18 33 38;
+    --popover: 255 252 246;
+    --popover-foreground: 18 33 38;
+    --primary: 39.5% 0.092 173;
+    --primary-foreground: 247 242 233;
+    --secondary: 230 234 228;
+    --secondary-foreground: 59 76 81;
+    --muted: 238 232 222;
+    --muted-foreground: 101 112 116;
+    --accent: 241 224 193;
+    --accent-foreground: 104 72 30;
+    --destructive: 192 77 87;
+    --destructive-foreground: 255 244 242;
+    --border: 204 208 198;
+    --input: 220 222 213;
+    --ring: 39.5% 0.092 173;
+    --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype",
+      serif;
   }
 
   .dark {
-    --background: 10 16 13;
-    --foreground: 230 236 231;
-    --card: 16 23 19;
-    --card-foreground: 230 236 231;
-    --popover: 16 23 19;
-    --popover-foreground: 230 236 231;
-    /* --primary: 0.8298 0.0642 153.2899; */
-    --primary: 0.6282 0.1499 133.4853;
-    --primary-foreground: 28 42 34;
-    --secondary: 21 31 26;
-    --secondary-foreground: 219 226 220;
-    --muted: 20 29 24;
-    --muted-foreground: 136 150 141;
-    --accent: 24 36 29;
-    --accent-foreground: 181 215 191;
-    --destructive: 248 113 113;
-    --destructive-foreground: 15 23 42;
-    --border: 36 49 41;
-    --input: 36 49 41;
-    --ring: 0.8298 0.0642 153.2899;
+    --background: 7 19 24;
+    --foreground: 244 240 231;
+    --card: 11 25 30;
+    --card-foreground: 244 240 231;
+    --popover: 13 28 34;
+    --popover-foreground: 244 240 231;
+    --primary: 74% 0.128 167;
+    --primary-foreground: 10 28 30;
+    --secondary: 17 34 39;
+    --secondary-foreground: 214 222 225;
+    --muted: 15 29 34;
+    --muted-foreground: 155 167 171;
+    --accent: 65 54 34;
+    --accent-foreground: 231 205 153;
+    --destructive: 235 118 126;
+    --destructive-foreground: 24 12 15;
+    --border: 46 60 65;
+    --input: 42 56 61;
+    --ring: 74% 0.128 167;
   }
 
   * {
@@ -59,39 +60,66 @@
     scroll-behavior: smooth;
   }
 
-  /* body {
-    @apply bg-background font-sans text-foreground antialiased transition-colors;
+  body {
+    @apply bg-background font-sans text-foreground antialiased transition-colors duration-300;
     background-image:
-      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(245 249 245) 100%),
       radial-gradient(
-        circle at top left,
-        oklch(var(--primary) / 0.12),
-        transparent 28%
+        circle at 8% 8%,
+        rgba(218, 184, 122, 0.34),
+        transparent 26%
       ),
       radial-gradient(
-        circle at bottom right,
-        oklch(var(--primary) / 0.06),
+        circle at 92% 6%,
+        rgba(18, 94, 82, 0.2),
         transparent 24%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 252, 246, 0.82) 0%,
+        rgba(245, 241, 232, 0.98) 44%,
+        rgba(237, 231, 220, 1) 100%
       );
     letter-spacing: -0.015em;
     min-height: 100vh;
-  }  */
+  }
+
+  body::before {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    opacity: 0.32;
+    background-image:
+      linear-gradient(rgba(18, 33, 38, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(18, 33, 38, 0.045) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle at center, black, transparent 82%);
+  }
 
   .dark body {
     background-image:
-      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(12 20 15) 100%),
       radial-gradient(
-        circle at top left,
-        oklch(var(--primary) / 0.13),
-        transparent 24%
+        circle at 12% 8%,
+        rgba(215, 167, 90, 0.12),
+        transparent 28%
       ),
       radial-gradient(
-        circle at bottom right,
-        oklch(var(--primary) / 0.07),
-        transparent 20%
-      );
+        circle at 88% 4%,
+        rgba(55, 168, 134, 0.18),
+        transparent 22%
+      ),
+      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(5 15 20) 100%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 40%);
   }
 
+  .dark body::before {
+    opacity: 0.14;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  }
+
+  a,
   button,
   input,
   select,
@@ -99,8 +127,13 @@
     font: inherit;
   }
 
+  a {
+    @apply transition-colors;
+  }
+
   ::selection {
-    background: oklch(var(--primary) / 0.22);
+    background: oklch(var(--primary) / 0.24);
+    color: rgb(var(--primary-foreground));
   }
 }
 
@@ -109,53 +142,193 @@
   h2,
   h3,
   h4 {
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
   }
 }
 
 @layer components {
+  .display-font {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+  }
+
+  .section-kicker {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground;
+  }
+
   .app-panel {
-    border-color: rgb(var(--border) / 0.78);
-    background-color: rgb(var(--card) / 0.92);
-    box-shadow: 0 20px 60px rgba(23, 33, 27, 0.06);
-    @apply rounded-[2rem] border backdrop-blur-sm;
+    border-color: rgb(var(--border) / 0.72);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.16)),
+      rgb(var(--card) / 0.82);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      0 28px 80px rgba(17, 33, 38, 0.1);
+    @apply relative overflow-hidden rounded-[2rem] border backdrop-blur-xl;
   }
 
   .dark .app-panel {
-    background-color: rgb(var(--card) / 0.9);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
+      rgb(var(--card) / 0.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 34px 80px rgba(0, 0, 0, 0.36);
   }
 
   .app-panel-soft {
-    border-color: rgb(var(--border) / 0.72);
-    background-color: rgb(var(--card) / 0.82);
-    box-shadow: 0 14px 40px rgba(23, 33, 27, 0.05);
-    @apply rounded-[1.75rem] border backdrop-blur-sm;
+    border-color: rgb(var(--border) / 0.68);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.14)),
+      rgb(var(--card) / 0.72);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.68),
+      0 16px 50px rgba(17, 33, 38, 0.08);
+    @apply relative overflow-hidden rounded-[1.75rem] border backdrop-blur-xl;
   }
 
   .dark .app-panel-soft {
-    background-color: rgb(var(--card) / 0.8);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      rgb(var(--card) / 0.78);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 18px 54px rgba(0, 0, 0, 0.28);
   }
 
   .app-control {
     border-color: rgb(var(--border) / 0.84);
-    background-color: rgb(var(--card) / 0.9);
-    @apply border backdrop-blur-sm transition;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.16)),
+      rgb(var(--card) / 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    @apply border backdrop-blur-xl transition duration-200;
   }
 
   .dark .app-control {
-    background-color: rgb(var(--card) / 0.8);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      rgb(var(--card) / 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .app-input {
-    border-color: rgb(var(--input) / 0.9);
-    background-color: rgb(var(--card) / 0.92);
-    @apply h-[54px] w-full rounded-[1.35rem] border px-4 text-sm text-foreground shadow-sm outline-none transition placeholder:text-muted-foreground;
+    border-color: rgb(var(--input) / 0.94);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.1)),
+      rgb(var(--card) / 0.92);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    @apply h-14 w-full rounded-[1.4rem] border px-4 text-sm text-foreground outline-none transition duration-200 placeholder:text-muted-foreground;
+  }
+
+  .dark .app-input {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      rgb(var(--card) / 0.92);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .app-input:focus {
-    border-color: oklch(var(--ring) / 0.9);
-    box-shadow: 0 0 0 4px oklch(var(--ring) / 0.14);
+    border-color: oklch(var(--ring) / 0.88);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 0 0 4px oklch(var(--ring) / 0.16);
+  }
+
+  .app-button-primary {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 24px 80px oklch(var(--primary) / 0.22);
+    @apply inline-flex h-14 items-center justify-center rounded-[1.4rem] bg-primary px-5 text-sm font-semibold text-primary-foreground transition duration-200 hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-60;
+  }
+
+  .app-button-secondary {
+    @apply inline-flex h-14 items-center justify-center rounded-[1.4rem] border border-border/80 bg-white/65 px-5 text-sm font-semibold text-foreground transition duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70 dark:bg-white/5 dark:hover:bg-white/10;
+  }
+
+  .app-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-border/70 bg-white/55 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm dark:bg-white/5;
+  }
+
+  .brand-mark {
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 42%),
+      linear-gradient(135deg, oklch(var(--primary)), oklch(var(--primary) / 0.76));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 18px 44px oklch(var(--primary) / 0.18);
+    @apply flex h-12 w-12 items-center justify-center rounded-[1.35rem] text-primary-foreground;
+  }
+
+  .panel-divider {
+    border-color: rgb(var(--border) / 0.7);
+    @apply border-t;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(180deg, rgb(var(--foreground)), rgb(var(--foreground) / 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .surface-noise {
+    position: relative;
+  }
+
+  .surface-noise::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.75), transparent 16%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.24), transparent 18%),
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.2), transparent 18%);
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+
+  .animate-float-soft {
+    animation: floatSoft 8s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: floatSoft 10s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3.6s linear infinite;
+    background-size: 220% 100%;
+  }
+
+  @keyframes floatSoft {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 }

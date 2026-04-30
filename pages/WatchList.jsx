@@ -41,50 +41,52 @@ export default function Watchlist() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         actions={
-          <div className="app-control hidden rounded-[1.35rem] px-4 py-3 text-sm font-semibold text-muted-foreground shadow-sm sm:block">
+          <div className="app-chip hidden h-[58px] rounded-[1.55rem] px-4 sm:inline-flex">
+            <Star className="h-4 w-4 text-accent-foreground" />
             {t("watchlist.savedCount", { count: savedStocks.length })}
           </div>
         }
       />
 
       {!savedStocks.length ? (
-        <div className="app-panel border-dashed p-12 text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-amber-500/10 text-amber-500 dark:text-amber-300">
+        <div className="app-panel rounded-[2.2rem] border-dashed p-10 text-center sm:p-12">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[1.6rem] bg-accent text-accent-foreground">
             <Star className="h-6 w-6" />
           </div>
-          <h2 className="mt-5 text-2xl font-semibold text-foreground">
+          <h2 className="mt-6 text-2xl font-semibold text-foreground sm:text-3xl">
             {t("watchlist.emptyTitle")}
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-muted-foreground">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-muted-foreground sm:text-base">
             {t("watchlist.emptyDescription")}
           </p>
           <Link
             to="/dashboard"
-            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:-translate-y-0.5 hover:bg-primary/90"
+            className="app-button-primary mt-7 gap-2 px-5"
           >
             {t("watchlist.browseDashboard")}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       ) : !filteredWatchlist.length ? (
-        <div className="app-panel p-12 text-center">
-          <p className="text-lg font-semibold text-foreground">
+        <div className="app-panel rounded-[2.2rem] p-10 text-center sm:p-12">
+          <p className="text-xl font-semibold text-foreground">
             {t("watchlist.noSearchTitle")}
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
             {t("watchlist.noSearchDescription")}
           </p>
         </div>
       ) : (
         <div className="space-y-5">
-          <div>
-            <h2 className="text-2xl font-semibold text-foreground">
+          <section className="app-panel-soft rounded-[2rem] p-6 sm:p-7">
+            <p className="section-kicker">Saved shortlist</p>
+            <h2 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2rem]">
               {t("watchlist.savedNamesTitle")}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
               {t("watchlist.savedNamesDescription")}
             </p>
-          </div>
+          </section>
 
           <StocksTable
             stocks={filteredWatchlist}

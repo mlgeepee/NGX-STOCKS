@@ -35,9 +35,17 @@ export default {
       },
       fontFamily: {
         sans: ['"Geist Variable"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: [
+          '"Instrument Serif"',
+          '"Iowan Old Style"',
+          '"Palatino Linotype"',
+          "serif",
+        ],
       },
       boxShadow: {
-        glow: "0 18px 55px oklch(var(--primary) / 0.16)",
+        glow: "0 24px 80px oklch(var(--primary) / 0.22)",
+        panel: "0 30px 90px rgba(10, 24, 29, 0.14)",
+        float: "0 18px 50px rgba(10, 24, 29, 0.12)",
       },
     },
   },

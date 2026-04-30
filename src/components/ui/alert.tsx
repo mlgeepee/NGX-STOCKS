@@ -104,31 +104,31 @@ export function Alert({
   const getBackgroundColor = () => {
     switch (type) {
       case "success":
-        return "bg-green-50 border-green-200 text-green-800";
+        return "border-emerald-200/80 bg-emerald-50/90 text-emerald-900 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-100";
       case "error":
-        return "bg-red-50 border-red-200 text-red-800";
+        return "border-rose-200/80 bg-rose-50/90 text-rose-900 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-100";
       case "warning":
-        return "bg-yellow-50 border-yellow-200 text-yellow-800";
+        return "border-amber-200/80 bg-amber-50/90 text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-100";
       default:
-        return "bg-accent/95 border-primary/20 text-accent-foreground";
+        return "border-primary/20 bg-card/95 text-foreground dark:bg-card/95";
     }
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed z-50 duration-300 top-4 right-4 animate-in slide-in-from-right-full">
+    <div className="fixed right-4 top-4 z-50 w-[min(26rem,calc(100vw-2rem))] duration-300 animate-in slide-in-from-right-full">
       <div
-        className={`relative rounded-lg border p-4 shadow-lg ${getBackgroundColor()}`}
+        className={`relative overflow-hidden rounded-[1.5rem] border p-4 shadow-panel backdrop-blur-xl ${getBackgroundColor()}`}
       >
         <div className="flex items-start gap-3">
           {getIcon()}
           <div className="flex-1">
-            <p className="text-sm font-medium">{message}</p>
+            <p className="text-sm font-medium leading-6">{message}</p>
           </div>
           <button
             onClick={handleClose}
-            className="ml-4 inline-flex rounded-md p-1.5 hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-offset-2"
+            className="ml-4 inline-flex rounded-full p-1.5 hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:hover:bg-white/10"
           >
             <X className="w-4 h-4" />
           </button>

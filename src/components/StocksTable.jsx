@@ -42,7 +42,7 @@ function ActionButton({
         type="button"
         aria-label={actionLabel}
         onClick={onClick}
-        className="inline-flex h-11 w-11 items-center justify-center rounded-[1.15rem] border border-rose-200 bg-rose-50 text-rose-600 transition hover:-translate-y-0.5 hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-[1.15rem] border border-rose-200 bg-rose-50/90 text-rose-600 transition hover:-translate-y-0.5 hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20"
       >
         <Trash2 className="h-4 w-4" />
       </button>
@@ -57,7 +57,7 @@ function ActionButton({
       className={`inline-flex h-11 w-11 items-center justify-center rounded-[1.15rem] border transition hover:-translate-y-0.5 ${
         saved
           ? "border-amber-200 bg-amber-50 text-amber-500 hover:bg-amber-100 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20"
-          : "border-border/80 bg-white/80 text-muted-foreground hover:bg-secondary"
+          : "border-border/80 bg-white/80 text-muted-foreground hover:border-primary/20 hover:bg-secondary dark:bg-white/5"
       }`}
     >
       <Star className={`h-4 w-4 ${saved ? "fill-current" : ""}`} />
@@ -89,8 +89,8 @@ export default function StocksTable({
   };
 
   return (
-    <div className="app-panel overflow-hidden">
-      <div className="space-y-4 p-4 md:hidden">
+    <div className="app-panel overflow-hidden p-2 sm:p-3">
+      <div className="space-y-4 p-2 md:hidden">
         {stocks.map((stock) => {
           const saved = watchlistSymbols.has(stock.symbol);
 
@@ -105,7 +105,7 @@ export default function StocksTable({
                   navigateToStock(stock.symbol);
                 }
               }}
-              className="app-panel-soft cursor-pointer p-4 transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="app-panel-soft cursor-pointer rounded-[1.65rem] p-4 transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/20"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">
@@ -145,7 +145,7 @@ export default function StocksTable({
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <div className="rounded-[1.1rem] bg-secondary/70 px-3 py-3">
+                <div className="rounded-[1.1rem] border border-border/60 bg-white/55 px-3 py-3 dark:bg-white/5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     {translate(language, "table.price")}
                   </p>
@@ -154,7 +154,7 @@ export default function StocksTable({
                   </p>
                 </div>
 
-                <div className="rounded-[1.1rem] bg-secondary/70 px-3 py-3">
+                <div className="rounded-[1.1rem] border border-border/60 bg-white/55 px-3 py-3 dark:bg-white/5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     {translate(language, "table.change")}
                   </p>
@@ -163,7 +163,7 @@ export default function StocksTable({
                   </div>
                 </div>
 
-                <div className="rounded-[1.1rem] bg-secondary/70 px-3 py-3 col-span-2 sm:col-span-1">
+                <div className="col-span-2 rounded-[1.1rem] border border-border/60 bg-white/55 px-3 py-3 dark:bg-white/5 sm:col-span-1">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     {translate(language, "table.volume")}
                   </p>
@@ -182,22 +182,22 @@ export default function StocksTable({
       </div>
 
       <div className="hidden overflow-x-auto md:block">
-        <table className="min-w-full border-separate border-spacing-0">
+        <table className="min-w-full border-separate border-spacing-y-2.5">
           <thead>
-            <tr className="bg-secondary/80 text-left">
-              <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+            <tr className="text-left">
+              <th className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {translate(language, "table.company")}
               </th>
-              <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              <th className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {translate(language, "table.price")}
               </th>
-              <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              <th className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {translate(language, "table.change")}
               </th>
-              <th className="px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              <th className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {translate(language, "table.volume")}
               </th>
-              <th className="w-24 px-7 py-5 text-right text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              <th className="w-24 px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 {actionHeading}
               </th>
             </tr>
@@ -217,9 +217,9 @@ export default function StocksTable({
                       navigateToStock(stock.symbol);
                     }
                   }}
-                  className="group cursor-pointer transition hover:bg-accent/70 focus:bg-accent/70 focus:outline-none"
+                  className="group cursor-pointer transition focus:outline-none"
                 >
-                  <td className="border-t border-border/80 px-7 py-5">
+                  <td className="rounded-l-[1.45rem] border border-r-0 border-border/70 bg-white/62 px-5 py-4 transition group-hover:bg-white/86 group-focus:bg-white/86 dark:bg-white/[0.03] dark:group-hover:bg-white/[0.06] dark:group-focus:bg-white/[0.06]">
                     <div className="flex items-center gap-4">
                       <StockLogo
                         symbol={stock.symbol}
@@ -240,16 +240,16 @@ export default function StocksTable({
                       </div>
                     </div>
                   </td>
-                  <td className="border-t border-border/80 px-7 py-5 text-sm font-semibold text-foreground">
+                  <td className="border-y border-border/70 bg-white/62 px-5 py-4 text-sm font-semibold text-foreground transition group-hover:bg-white/86 group-focus:bg-white/86 dark:bg-white/[0.03] dark:group-hover:bg-white/[0.06] dark:group-focus:bg-white/[0.06]">
                     {formatCurrency(stock.price)}
                   </td>
-                  <td className="border-t border-border/80 px-7 py-5">
+                  <td className="border-y border-border/70 bg-white/62 px-5 py-4 transition group-hover:bg-white/86 group-focus:bg-white/86 dark:bg-white/[0.03] dark:group-hover:bg-white/[0.06] dark:group-focus:bg-white/[0.06]">
                     <ChangeBadge value={stock.changePercent} />
                   </td>
-                  <td className="border-t border-border/80 px-7 py-5 text-sm text-muted-foreground">
+                  <td className="border-y border-border/70 bg-white/62 px-5 py-4 text-sm text-muted-foreground transition group-hover:bg-white/86 group-focus:bg-white/86 dark:bg-white/[0.03] dark:group-hover:bg-white/[0.06] dark:group-focus:bg-white/[0.06]">
                     {formatCompactNumber(stock.volume)}
                   </td>
-                  <td className="border-t border-border/80 px-7 py-5 text-right">
+                  <td className="rounded-r-[1.45rem] border border-l-0 border-border/70 bg-white/62 px-5 py-4 text-right transition group-hover:bg-white/86 group-focus:bg-white/86 dark:bg-white/[0.03] dark:group-hover:bg-white/[0.06] dark:group-focus:bg-white/[0.06]">
                     <ActionButton
                       actionType={actionType}
                       actionLabel={actionLabel}

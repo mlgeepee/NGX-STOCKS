@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "../services/supabase";
-import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
+import AuthShell from "@/components/AuthShell";
 import { useAuthStore } from "../store/useAuthStore";
-import BackgroundGradient from "@/components/ui/background-gradient-snippet";
 
-// Google SVG Icon Component
 const GoogleIcon = () => (
   <svg
     viewBox="0 0 24 24"
@@ -65,7 +64,7 @@ export default function Login() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/dashboard",
+        redirectTo: `${window.location.origin}/dashboard`,
       },
     });
 
@@ -80,25 +79,27 @@ export default function Login() {
     if (!email) {
       setAlert({
         type: "warning",
-        message: "Please enter your email to reset password.",
+        message: "Enter your email first so we know where to send the reset link.",
       });
       return;
     }
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + "/reset-password",
+      redirectTo: `${window.location.origin}/reset-password`,
     });
+
     if (error) {
       setAlert({ type: "error", message: error.message });
     } else {
       setAlert({
         type: "success",
-        message: "Password reset email sent. Please check your inbox.",
+        message: "Password reset email sent. Check your inbox to continue.",
       });
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
     if (!requireSupabase()) return;
 
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -115,135 +116,122 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen text-foreground">
-      <BackgroundGradient />
-      {alert && (
+    <>
+      {alert ? (
         <Alert
           message={alert.message}
           type={alert.type}
           onClose={() => setAlert(null)}
         />
-      )}
+      ) : null}
 
-      {/* Top Navigation */}
-      <div className="w-full px-5 py-5 sm:px-7 lg:px-10">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm font-medium transition text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          BACK TO HOME
-        </Link>
-      </div>
+      <AuthShell
+        backHref="/"
+        backLabel="Back to home"
+        eyebrow="Welcome back"
+        title="Sign in and step straight into the market board."
+        description="Access your live NGX workspace, continue your watchlist flow, and jump back into the names you have been tracking."
+      >
+        {!isSupabaseReady ? (
+          <div className="rounded-[1.45rem] border border-destructive/20 bg-destructive/10 px-4 py-4 text-sm leading-6 text-destructive">
+            Supabase env vars are missing. Configure <code>src/.env</code> and
+            restart the dev server.
+          </div>
+        ) : null}
 
-      {/* Centered Form */}
-      <div className="flex flex-1 items-center justify-center px-5 py-10 sm:px-7 lg:px-10">
-        <div className="app-panel w-full max-w-[30rem] p-9 sm:p-10">
-          <div className="space-y-3 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-[2.4rem]">
-              Sign in to NGX Stocks
-            </h1>
-            <p className="text-sm leading-6 text-muted-foreground">
-              Enter your email below to access your account.
-            </p>
+        <div className="space-y-4">
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="app-button-secondary w-full gap-3"
+          >
+            <GoogleIcon />
+            Continue with Google
+          </button>
+
+          <div className="relative py-2 text-center">
+            <span className="relative z-10 bg-white/70 px-4 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-muted-foreground dark:bg-card">
+              Or use email
+            </span>
+            <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-border/80" />
           </div>
 
-          {!isSupabaseReady ? (
-            <div className="p-4 mt-4 text-sm border rounded-3xl border-destructive/20 bg-destructive/5 text-destructive-foreground">
-              Supabase env vars are missing. Configure <code>src/.env</code> and
-              restart the dev server.
-            </div>
-          ) : null}
-
-          <div className="mt-6 space-y-4">
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="app-control flex w-full items-center justify-center gap-2 rounded-[1.35rem] px-4 py-3.5 text-sm font-semibold text-foreground hover:bg-white"
-            >
-              <GoogleIcon />
-              Sign in with Google
-            </button>
-
-            <div className="relative py-3 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              <span className="relative px-3 bg-card">or continue with</span>
-              <div className="absolute inset-x-0 h-px top-1/2 bg-border" />
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-foreground"
+              >
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="analyst@example.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="app-input"
+                required
+              />
             </div>
 
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-foreground"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="app-input"
-                  required
-                />
-              </div>
-
-              <div className="relative">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-3">
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-foreground"
+                  className="text-sm font-medium text-foreground"
                 >
                   Password
                 </label>
+                <button
+                  type="button"
+                  onClick={handleResetPassword}
+                  className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground hover:text-foreground"
+                >
+                  Reset password
+                </button>
+              </div>
+              <div className="relative">
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                   className="app-input pr-12"
                   required
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center top-9"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((value) => !value)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-muted-foreground hover:text-accent-foreground" />
+                    <EyeOff className="h-4 w-4" />
                   ) : (
-                    <Eye className="h-5 w-5 text-muted-foreground hover:text-accent-foreground" />
+                    <Eye className="h-4 w-4" />
                   )}
                 </button>
               </div>
-
-              <button
-                type="submit"
-                className="w-full rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/40"
-              >
-                Sign In
-              </button>
-            </form>
-
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <button
-                type="button"
-                onClick={handleResetPassword}
-                className="transition hover:text-foreground"
-              >
-                Forgot password?
-              </button>
-              <Link
-                to="/signup"
-                className="transition text-accent-foreground hover:text-foreground"
-              >
-                Create account
-              </Link>
             </div>
-          </div>
+
+            <button type="submit" className="app-button-primary w-full">
+              Sign in to NGX Stocks
+            </button>
+          </form>
         </div>
-      </div>
-    </div>
+
+        <div className="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>No account yet? Start with a polished setup flow.</p>
+          <Link
+            to="/signup"
+            className="font-semibold text-accent-foreground hover:text-foreground"
+          >
+            Create account
+          </Link>
+        </div>
+      </AuthShell>
+    </>
   );
 }

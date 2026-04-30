@@ -18,12 +18,12 @@ export default function StockLogo({
 
   return (
     <div
-      className={`flex items-center justify-center overflow-hidden border border-primary/15 bg-accent/80 shadow-sm ${resolvedSize} ${className}`.trim()}
+      className={`flex items-center justify-center overflow-hidden border border-border/70 bg-white/70 shadow-sm backdrop-blur-sm ${resolvedSize} ${className}`.trim()}
     >
       <img
         src={logo || getLogoUrl(symbol)}
         alt={`${name || symbol} logo`}
-        className="h-full w-full object-contain p-2"
+        className="h-full w-full object-contain p-2.5"
         loading="lazy"
         onError={(event) => {
           event.currentTarget.onerror = null;

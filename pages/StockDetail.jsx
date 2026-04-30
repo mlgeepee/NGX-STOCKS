@@ -131,14 +131,14 @@ function DetailStatCard({ label, value, animate = true }) {
         : value;
 
   return (
-    <div className="app-panel-soft border-border/60 bg-gradient-to-br from-white/75 via-white/55 to-white/20 p-5 transition hover:-translate-y-1 hover:shadow-lg sm:p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+    <article className="app-panel-soft rounded-[1.75rem] p-5 sm:p-6">
+      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </p>
       <p className="mt-3 text-2xl font-semibold leading-tight text-foreground sm:text-[2rem]">
         {displayValue}
       </p>
-    </div>
+    </article>
   );
 }
 
@@ -155,7 +155,7 @@ function NewsCard({ item, t }) {
     : t("stockDetail.updatedOnFallback");
 
   return (
-    <article className="app-panel-soft border-border/60 bg-white/75 p-5">
+    <article className="app-panel-soft rounded-[1.65rem] p-5">
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-foreground">
           {item.category || "News"}
@@ -171,7 +171,7 @@ function NewsCard({ item, t }) {
       <h4 className="mt-4 text-base font-semibold leading-7 text-foreground sm:text-lg">
         {item.headline}
       </h4>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">
         {item.summary}
       </p>
 
@@ -234,9 +234,7 @@ export default function StockDetail() {
         if (fetchError.name === "AbortError") {
           return;
         }
-        setError(
-          translate(language, "stockDetail.fetchError", { symbol }),
-        );
+        setError(translate(language, "stockDetail.fetchError", { symbol }));
       } finally {
         setLoading(false);
       }
@@ -258,7 +256,7 @@ export default function StockDetail() {
   const isSaved = watchlist.some((stock) => stock.symbol === currentSymbol);
   const isPositive = Number(stockData?.changePercent) >= 0;
   const rangePositive = rangeSnapshot.changePercent >= 0;
-  const chartColor = rangePositive ? "#22c55e" : "#f43f5e";
+  const chartColor = rangePositive ? "#0f8a5f" : "#c24d57";
   const hasLiveNews = newsItems.some((item) => !item.isFallback);
   const hasRenderableStock = Boolean(
     stockData &&
@@ -275,7 +273,7 @@ export default function StockDetail() {
       <div className="space-y-6 sm:space-y-7">
         <Link
           to="/dashboard"
-          className="app-control inline-flex items-center gap-2 rounded-[1.35rem] px-4 py-3 text-sm font-semibold text-foreground shadow-sm hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white"
+          className="app-button-secondary h-12 gap-2 px-4"
         >
           <ArrowLeft className="h-4 w-4" />
           {t("stockDetail.back")}
@@ -283,34 +281,33 @@ export default function StockDetail() {
 
         {loading ? (
           <div className="space-y-6">
-            <div className="app-panel h-40 animate-pulse" />
-            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.55fr)_minmax(0,0.95fr)]">
-              <div className="app-panel h-[380px] animate-pulse" />
-              <div className="app-panel h-[380px] animate-pulse" />
+            <div className="app-panel h-48 animate-pulse" />
+            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)]">
+              <div className="app-panel h-[430px] animate-pulse" />
+              <div className="app-panel h-[430px] animate-pulse" />
             </div>
           </div>
         ) : error ? (
-          <div className="app-panel border-rose-200 bg-rose-50 p-6 text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
+          <div className="app-panel border-rose-200/80 bg-rose-50/80 p-6 text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
             <h2 className="text-lg font-semibold">
               {t("stockDetail.unableLoadHistoryTitle")}
             </h2>
-            <p className="mt-2 text-sm">{error}</p>
+            <p className="mt-2 text-sm leading-6">{error}</p>
           </div>
         ) : !hasRenderableStock ? (
           <StockDetailSpinner />
         ) : (
           <>
-            <section className="app-panel overflow-hidden p-5 sm:p-7">
+            <section className="app-panel surface-noise overflow-hidden rounded-[2.4rem] p-5 sm:p-7">
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                  <div className="transition-transform duration-300 hover:scale-[1.03]">
-                    <StockLogo
-                      symbol={stockData.symbol}
-                      name={stockData.name}
-                      logo={stockData.logo}
-                      size="xl"
-                    />
-                  </div>
+                  <StockLogo
+                    symbol={stockData.symbol}
+                    name={stockData.name}
+                    logo={stockData.logo}
+                    size="xl"
+                    className="shadow-float"
+                  />
 
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2.5">
@@ -324,25 +321,25 @@ export default function StockDetail() {
                         {stockData.sector}
                       </span>
                     </div>
-                    <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+                    <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
                       {t("stockDetail.heroDescription")}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-end">
-                  <div className="rounded-[1.6rem] bg-secondary/70 px-4 py-4 text-left ring-1 ring-border/70 sm:min-w-[200px] sm:text-right">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  <div className="rounded-[1.75rem] border border-primary/15 bg-primary/10 px-5 py-4 text-left sm:min-w-[220px] sm:text-right">
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-primary">
                       {t("stockDetail.currentPrice")}
                     </p>
                     <p className="mt-2 text-3xl font-semibold text-foreground">
                       {formatCurrency(stockData.currentPrice)}
                     </p>
                     <span
-                      className={`mt-3 inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold ring-1 ${
+                      className={`mt-3 inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold ${
                         isPositive
-                          ? "bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:bg-emerald-500/15 dark:text-emerald-300 dark:ring-emerald-400/20"
-                          : "bg-rose-500/10 text-rose-600 ring-rose-500/20 dark:bg-rose-500/15 dark:text-rose-300 dark:ring-rose-400/20"
+                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-300"
+                          : "bg-rose-500/10 text-rose-600 dark:text-rose-300"
                       }`}
                     >
                       {isPositive ? (
@@ -367,10 +364,10 @@ export default function StockDetail() {
                         logo: stockData.logo,
                       })
                     }
-                    className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition sm:w-auto ${
+                    className={`inline-flex w-full items-center justify-center gap-2 rounded-[1.35rem] px-4 py-3 text-sm font-semibold transition sm:w-auto ${
                       isSaved
                         ? "border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20"
-                        : "app-control text-foreground hover:border-primary/25 hover:bg-white"
+                        : "app-button-secondary h-12"
                     }`}
                   >
                     <Star className={`h-4 w-4 ${isSaved ? "fill-current" : ""}`} />
@@ -382,20 +379,21 @@ export default function StockDetail() {
               </div>
             </section>
 
-            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.55fr)_minmax(0,0.95fr)]">
-              <section className="app-panel border-border/50 bg-gradient-to-br from-white/65 via-white/40 to-transparent p-5 shadow-xl sm:p-7">
+            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.48fr)_minmax(0,0.92fr)]">
+              <section className="app-panel rounded-[2.2rem] p-5 shadow-panel sm:p-7">
                 <div className="flex flex-col gap-5">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                      <h3 className="text-2xl font-semibold text-foreground">
+                      <p className="section-kicker">Price action</p>
+                      <h3 className="mt-3 text-2xl font-semibold text-foreground">
                         {t("stockDetail.priceHistoryTitle")}
                       </h3>
-                      <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
+                      <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
                         {t("stockDetail.priceHistoryDescription")}
                       </p>
                     </div>
 
-                    <div className="inline-flex w-full rounded-[1.35rem] border border-border/80 bg-secondary/80 p-1 shadow-sm sm:w-auto">
+                    <div className="inline-flex w-full rounded-[1.35rem] border border-border/80 bg-white/55 p-1 shadow-sm sm:w-auto dark:bg-white/5">
                       {ranges.map((value) => (
                         <button
                           key={value}
@@ -403,7 +401,7 @@ export default function StockDetail() {
                           onClick={() => setRange(value)}
                           className={`flex-1 rounded-[1rem] px-4 py-2.5 text-sm font-semibold transition sm:flex-none ${
                             range === value
-                              ? "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"
+                              ? "bg-primary text-primary-foreground shadow-sm"
                               : "text-muted-foreground hover:text-foreground"
                           }`}
                         >
@@ -420,7 +418,7 @@ export default function StockDetail() {
                       </p>
                       <p
                         className={`mt-2 text-lg font-semibold ${
-                          rangePositive ? "text-emerald-600" : "text-rose-600"
+                          rangePositive ? "text-emerald-600 dark:text-emerald-300" : "text-rose-600 dark:text-rose-300"
                         }`}
                       >
                         {formatPercent(rangeSnapshot.changePercent)}
@@ -445,21 +443,21 @@ export default function StockDetail() {
                   </div>
                 </div>
 
-                <div className="mt-6 h-[300px] overflow-hidden rounded-[1.75rem] border border-border/30 bg-gradient-to-b from-slate-50/70 to-white/30 shadow-inner sm:h-[360px] xl:h-[410px]">
+                <div className="mt-6 h-[320px] overflow-hidden rounded-[1.9rem] border border-border/60 bg-[linear-gradient(180deg,rgba(14,91,79,0.08),rgba(255,255,255,0.15))] shadow-inner sm:h-[380px] xl:h-[430px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                       data={chartData}
-                      margin={{ top: 16, right: 14, left: -18, bottom: 8 }}
+                      margin={{ top: 16, right: 18, left: -18, bottom: 10 }}
                     >
                       <defs>
                         <linearGradient id="price-gradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={chartColor} stopOpacity={0.35} />
-                          <stop offset="100%" stopColor={chartColor} stopOpacity={0.02} />
+                          <stop offset="0%" stopColor={chartColor} stopOpacity={0.34} />
+                          <stop offset="100%" stopColor={chartColor} stopOpacity={0.03} />
                         </linearGradient>
                       </defs>
                       <CartesianGrid
                         strokeDasharray="4 4"
-                        stroke="rgba(148, 163, 184, 0.16)"
+                        stroke="rgba(125, 138, 142, 0.18)"
                         vertical={false}
                       />
                       <XAxis
@@ -468,13 +466,13 @@ export default function StockDetail() {
                         tickLine={false}
                         interval={range === "1M" ? 3 : range === "1D" ? 1 : 0}
                         minTickGap={16}
-                        tick={{ fill: "#7f8c85", fontSize: 11, fontWeight: 500 }}
+                        tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
                       />
                       <YAxis
                         axisLine={false}
                         tickLine={false}
                         width={64}
-                        tick={{ fill: "#7f8c85", fontSize: 11, fontWeight: 500 }}
+                        tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
                         tickFormatter={(value) => `₦${Number(value).toFixed(0)}`}
                       />
                       <Tooltip
@@ -486,7 +484,7 @@ export default function StockDetail() {
                         contentStyle={{
                           borderRadius: "20px",
                           border: "1px solid rgba(148, 163, 184, 0.16)",
-                          backgroundColor: "rgba(15, 23, 42, 0.94)",
+                          backgroundColor: "rgba(10, 24, 29, 0.94)",
                           color: "#f8fafc",
                           boxShadow: "0 24px 50px rgba(2, 6, 23, 0.38)",
                         }}
@@ -512,7 +510,7 @@ export default function StockDetail() {
                 </div>
               </section>
 
-              <section className="app-panel p-5 sm:p-7">
+              <section className="app-panel rounded-[2.2rem] p-5 sm:p-7">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <div className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-foreground">
@@ -524,7 +522,7 @@ export default function StockDetail() {
                     <h3 className="mt-4 text-2xl font-semibold text-foreground">
                       {t("stockDetail.newsTitle")}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
                       {hasLiveNews
                         ? t("stockDetail.newsDescription")
                         : t("stockDetail.newsFallbackDescription")}
@@ -538,11 +536,11 @@ export default function StockDetail() {
                       <NewsCard key={item.id} item={item} t={t} />
                     ))
                   ) : (
-                    <div className="app-panel-soft border-dashed p-6 text-center">
+                    <div className="app-panel-soft rounded-[1.8rem] border-dashed p-6 text-center">
                       <p className="text-base font-semibold text-foreground">
                         {t("stockDetail.noNewsTitle")}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
                         {t("stockDetail.noNewsDescription")}
                       </p>
                     </div>
@@ -553,10 +551,11 @@ export default function StockDetail() {
 
             <section>
               <div className="mb-4">
-                <h3 className="text-2xl font-semibold text-foreground">
+                <p className="section-kicker">Market stats</p>
+                <h3 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2rem]">
                   {t("stockDetail.marketStatsTitle")}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
                   {t("stockDetail.marketStatsDescription")}
                 </p>
               </div>

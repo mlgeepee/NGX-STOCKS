@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { NGXLogo } from "@/components/ui/ngx-logo";
 import Sidebar from "../components/Sidebar";
 
 export default function Layout() {
@@ -12,7 +13,7 @@ export default function Layout() {
         className="pointer-events-none fixed inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(circle at top right, oklch(var(--primary) / 0.22), transparent 34%), radial-gradient(circle at bottom left, oklch(var(--primary) / 0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.36), rgba(248,251,248,0.82))",
+            "radial-gradient(circle at top right, oklch(var(--primary) / 0.18), transparent 28%), radial-gradient(circle at bottom left, rgba(215,167,90,0.16), transparent 24%)",
         }}
       />
       <button
@@ -26,13 +27,29 @@ export default function Layout() {
         }`}
       />
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-      <div className="lg:pl-[21rem]">
+      <div className="lg:pl-[22rem]">
         <main className="relative min-h-screen px-5 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10 xl:px-12">
-          <div className="flex items-center justify-between px-5 py-4 lg:hidden">
+          <div className="mb-5 flex items-center justify-between lg:hidden">
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-3.5 py-2.5 shadow-sm backdrop-blur-sm dark:bg-white/5"
+            >
+              <span className="brand-mark h-10 w-10 rounded-[1.15rem]">
+                <NGXLogo className="h-5 w-5" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
+                  NGX Stocks
+                </span>
+                <span className="block truncate text-sm text-muted-foreground">
+                  Market workspace
+                </span>
+              </span>
+            </Link>
             <button
               type="button"
               onClick={() => setIsSidebarOpen((value) => !value)}
-              className="inline-flex items-center justify-center rounded-2xl border border-border/80 bg-white/90 px-3.5 py-3 text-foreground shadow-sm transition hover:bg-white"
+              className="inline-flex items-center justify-center rounded-[1.25rem] border border-border/80 bg-white/75 px-3.5 py-3 text-foreground shadow-sm backdrop-blur-sm transition hover:border-primary/20 hover:bg-white dark:bg-white/5 dark:hover:bg-white/10"
               aria-label="Toggle sidebar"
             >
               {isSidebarOpen ? (
