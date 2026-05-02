@@ -120,23 +120,247 @@ const STOCK_METADATA = {
   },
 };
 
+const STOCK_FACTS = {
+  ACCESS: {
+    marketCap: 1389000000000,
+    peRatio: 4.2,
+    dividendYield: 10.8,
+    eps: 5.96,
+    bookValuePerShare: 28.1,
+    beta: 1.09,
+    week52Low: 17.8,
+    week52High: 28.4,
+    dividendAmount: 2.1,
+    exDividendDate: "2026-05-20",
+    paymentDate: "2026-06-06",
+  },
+  AIRTELAFRI: {
+    marketCap: 8440000000000,
+    peRatio: 10.4,
+    dividendYield: 3.5,
+    eps: 222.8,
+    bookValuePerShare: 811.5,
+    beta: 0.82,
+    week52Low: 1710,
+    week52High: 2425,
+    dividendAmount: 42,
+    exDividendDate: "2026-06-18",
+    paymentDate: "2026-07-04",
+  },
+  ARADEL: {
+    marketCap: 2150000000000,
+    peRatio: 7.4,
+    dividendYield: 4.3,
+    eps: 210.4,
+    bookValuePerShare: 1180,
+    beta: 1.14,
+    week52Low: 410,
+    week52High: 595,
+    dividendAmount: 18,
+    exDividendDate: "2026-06-08",
+    paymentDate: "2026-06-27",
+  },
+  BUAFOODS: {
+    marketCap: 6800000000000,
+    peRatio: 22.1,
+    dividendYield: 2.6,
+    eps: 16.95,
+    bookValuePerShare: 84.2,
+    beta: 0.76,
+    week52Low: 284,
+    week52High: 402,
+    dividendAmount: 8.5,
+    exDividendDate: "2026-06-22",
+    paymentDate: "2026-07-07",
+  },
+  CONOIL: {
+    marketCap: 149000000000,
+    peRatio: 6.8,
+    dividendYield: 4.8,
+    eps: 19.3,
+    bookValuePerShare: 101.2,
+    beta: 1.03,
+    week52Low: 210,
+    week52High: 334,
+    dividendAmount: 4.8,
+    exDividendDate: "2026-05-28",
+    paymentDate: "2026-06-15",
+  },
+  DANGCEM: {
+    marketCap: 8270000000000,
+    peRatio: 15.8,
+    dividendYield: 5.7,
+    eps: 30.7,
+    bookValuePerShare: 168.4,
+    beta: 0.94,
+    week52Low: 430,
+    week52High: 612,
+    dividendAmount: 28,
+    exDividendDate: "2026-06-12",
+    paymentDate: "2026-06-30",
+  },
+  FCMB: {
+    marketCap: 182000000000,
+    peRatio: 3.6,
+    dividendYield: 7.2,
+    eps: 3.98,
+    bookValuePerShare: 18.4,
+    beta: 1.18,
+    week52Low: 7.8,
+    week52High: 12.6,
+    dividendAmount: 0.85,
+    exDividendDate: "2026-05-26",
+    paymentDate: "2026-06-11",
+  },
+  GTCO: {
+    marketCap: 2050000000000,
+    peRatio: 4.1,
+    dividendYield: 13.2,
+    eps: 16.6,
+    bookValuePerShare: 63.8,
+    beta: 1.05,
+    week52Low: 43.2,
+    week52High: 73.6,
+    dividendAmount: 8.03,
+    exDividendDate: "2026-05-12",
+    paymentDate: "2026-05-27",
+  },
+  GUINNESS: {
+    marketCap: 210000000000,
+    peRatio: 18.6,
+    dividendYield: 0,
+    eps: 5.17,
+    bookValuePerShare: 41.2,
+    beta: 1.22,
+    week52Low: 61.5,
+    week52High: 109.4,
+    dividendAmount: 0,
+    exDividendDate: null,
+    paymentDate: null,
+  },
+  MTNN: {
+    marketCap: 29400000000000,
+    peRatio: 13.5,
+    dividendYield: 4.1,
+    eps: 106.2,
+    bookValuePerShare: 315.4,
+    beta: 0.71,
+    week52Low: 1090,
+    week52High: 1495,
+    dividendAmount: 18.5,
+    exDividendDate: "2026-06-04",
+    paymentDate: "2026-06-25",
+  },
+  MTN: {
+    marketCap: 29400000000000,
+    peRatio: 13.5,
+    dividendYield: 4.1,
+    eps: 106.2,
+    bookValuePerShare: 315.4,
+    beta: 0.71,
+    week52Low: 1090,
+    week52High: 1495,
+    dividendAmount: 18.5,
+    exDividendDate: "2026-06-04",
+    paymentDate: "2026-06-25",
+  },
+  NESTLE: {
+    marketCap: 955000000000,
+    peRatio: 19.1,
+    dividendYield: 2.9,
+    eps: 52.7,
+    bookValuePerShare: 213.2,
+    beta: 0.69,
+    week52Low: 882,
+    week52High: 1264,
+    dividendAmount: 36.5,
+    exDividendDate: "2026-06-24",
+    paymentDate: "2026-07-13",
+  },
+  OANDO: {
+    marketCap: 1010000000000,
+    peRatio: 8.1,
+    dividendYield: 1.2,
+    eps: 9.84,
+    bookValuePerShare: 38.5,
+    beta: 1.37,
+    week52Low: 48.4,
+    week52High: 87.7,
+    dividendAmount: 1,
+    exDividendDate: "2026-07-02",
+    paymentDate: "2026-07-20",
+  },
+  SEPLAT: {
+    marketCap: 3340000000000,
+    peRatio: 6.9,
+    dividendYield: 6.2,
+    eps: 825.3,
+    bookValuePerShare: 3090,
+    beta: 1.01,
+    week52Low: 4300,
+    week52High: 6120,
+    dividendAmount: 36,
+    exDividendDate: "2026-07-10",
+    paymentDate: "2026-07-28",
+  },
+  TRANSCORP: {
+    marketCap: 382000000000,
+    peRatio: 11.4,
+    dividendYield: 2.1,
+    eps: 1.62,
+    bookValuePerShare: 6.2,
+    beta: 1.28,
+    week52Low: 11.8,
+    week52High: 21.4,
+    dividendAmount: 0.4,
+    exDividendDate: "2026-05-30",
+    paymentDate: "2026-06-18",
+  },
+  UBA: {
+    marketCap: 1240000000000,
+    peRatio: 3.8,
+    dividendYield: 12.6,
+    eps: 8.82,
+    bookValuePerShare: 34.1,
+    beta: 1.08,
+    week52Low: 22.4,
+    week52High: 38.1,
+    dividendAmount: 3,
+    exDividendDate: "2026-05-22",
+    paymentDate: "2026-06-10",
+  },
+  ZENITH: {
+    marketCap: 1960000000000,
+    peRatio: 3.5,
+    dividendYield: 14.4,
+    eps: 13.6,
+    bookValuePerShare: 55.3,
+    beta: 0.98,
+    week52Low: 34.8,
+    week52High: 52.9,
+    dividendAmount: 5,
+    exDividendDate: "2026-05-16",
+    paymentDate: "2026-05-30",
+  },
+};
+
 function getPlaceholderLogoUrl(symbol) {
-  const colors = [
-    "#1d4ed8",
-    "#0f766e",
-    "#c2410c",
-    "#7c3aed",
-    "#0891b2",
-    "#15803d",
-    "#b91c1c",
+  const palettes = [
+    { base: "#0f8a5f", accent: "#fff0cf", glow: "#d2a14a" },
+    { base: "#0e7490", accent: "#f5f7ff", glow: "#38bdf8" },
+    { base: "#155e75", accent: "#f8fafc", glow: "#f59e0b" },
+    { base: "#1d4ed8", accent: "#eff6ff", glow: "#93c5fd" },
+    { base: "#7c2d12", accent: "#fff7ed", glow: "#fb923c" },
+    { base: "#4338ca", accent: "#eef2ff", glow: "#c4b5fd" },
+    { base: "#166534", accent: "#f0fdf4", glow: "#86efac" },
   ];
   const normalizedSymbol = normalizeSymbol(symbol) || "STK";
   const hash = normalizedSymbol
     .split("")
     .reduce((sum, character) => sum + character.charCodeAt(0), 0);
   const initials = normalizedSymbol.slice(0, 2);
-  const color = colors[hash % colors.length];
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><rect width="96" height="96" rx="28" fill="${color}"/><text x="48" y="56" fill="white" font-size="30" font-family="Arial, sans-serif" font-weight="700" text-anchor="middle">${initials}</text></svg>`;
+  const palette = palettes[hash % palettes.length];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none"><defs><linearGradient id="g" x1="18" y1="14" x2="80" y2="82" gradientUnits="userSpaceOnUse"><stop stop-color="${palette.base}"/><stop offset="1" stop-color="${palette.glow}"/></linearGradient></defs><rect width="96" height="96" rx="28" fill="url(#g)"/><rect x="12" y="12" width="72" height="72" rx="22" stroke="rgba(255,255,255,0.18)" stroke-width="1.4"/><path d="M24 65C31 60 36 54 41 48.5C45 44.1 49 40 53.5 38.5C57.5 37.2 61.8 37.9 67 40.8" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/><rect x="25" y="50" width="8" height="16" rx="4" fill="white" fill-opacity="0.96"/><rect x="40" y="42" width="8" height="24" rx="4" fill="white" fill-opacity="0.92"/><rect x="55" y="33" width="8" height="33" rx="4" fill="white" fill-opacity="0.9"/><path d="M27 59L42 47L55 51L69 36" stroke="${palette.accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="69" cy="36" r="4.5" fill="${palette.accent}"/><text x="48" y="79" fill="rgba(255,255,255,0.9)" font-size="11" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-weight="800" text-anchor="middle" letter-spacing="2">${initials}</text></svg>`;
 
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 }
@@ -156,7 +380,11 @@ function toNumber(value, fallback = 0) {
 }
 
 export function getStockMetadata(symbol) {
-  return STOCK_METADATA[normalizeSymbol(symbol)] || {};
+  const normalized = normalizeSymbol(symbol);
+  return {
+    ...(STOCK_METADATA[normalized] || {}),
+    ...(STOCK_FACTS[normalized] || {}),
+  };
 }
 
 export function getLogoUrl(symbol) {
@@ -193,6 +421,39 @@ export function enrichStock(stock = {}) {
   const pctChange7d = toNumber(
     stock.pct_change_7d ?? stock.pctChange7d ?? stock.weekChangePercent,
   );
+  const sharesOutstanding = toNumber(
+    stock.shares_outstanding ?? stock.sharesOutstanding ?? metadata.sharesOutstanding,
+  );
+  const marketCap = toNumber(
+    stock.market_cap ?? stock.marketCap,
+    sharesOutstanding && price ? sharesOutstanding * price : metadata.marketCap,
+  );
+  const peRatio = toNumber(stock.pe_ratio ?? stock.peRatio, metadata.peRatio);
+  const dividendYield = toNumber(
+    stock.dividend_yield ?? stock.dividendYield,
+    metadata.dividendYield,
+  );
+  const eps = toNumber(stock.eps ?? stock.earningsPerShare, metadata.eps);
+  const bookValuePerShare = toNumber(
+    stock.book_value_per_share ?? stock.bookValuePerShare,
+    metadata.bookValuePerShare,
+  );
+  const beta = toNumber(stock.beta, metadata.beta);
+  const week52Low = toNumber(
+    stock.week_52_low ?? stock.week52Low ?? stock.low52,
+    metadata.week52Low,
+  );
+  const week52High = toNumber(
+    stock.week_52_high ?? stock.week52High ?? stock.high52,
+    metadata.week52High,
+  );
+  const dividendAmount = toNumber(
+    stock.dividend_amount ?? stock.dividendAmount,
+    metadata.dividendAmount,
+  );
+  const priceToBook = bookValuePerShare
+    ? price / bookValuePerShare
+    : toNumber(stock.price_to_book ?? stock.priceToBook);
 
   return {
     symbol: symbol || "UNKNOWN",
@@ -214,6 +475,23 @@ export function enrichStock(stock = {}) {
     volume,
     previousClose,
     pctChange7d,
+    marketCap,
+    peRatio,
+    dividendYield,
+    eps,
+    bookValuePerShare,
+    priceToBook: Number(priceToBook?.toFixed?.(2) || priceToBook || 0),
+    beta,
+    week52Low,
+    week52High,
+    dividendAmount,
+    exDividendDate:
+      stock.ex_dividend_date ??
+      stock.exDividendDate ??
+      metadata.exDividendDate ??
+      null,
+    paymentDate:
+      stock.payment_date ?? stock.paymentDate ?? metadata.paymentDate ?? null,
     logo:
       stock.logo ||
       stock.icon ||
@@ -997,20 +1275,22 @@ function createPriceSeries(symbol, currentPrice, points, rangeType) {
   return createTrendSeries(symbol, startPrice, basePrice, points, rangeType);
 }
 
-function buildStockDetail({
-  symbol,
-  name,
-  sector,
-  currentPrice,
-  changePercent,
-  volume,
-  logo,
-  openPrice,
-  highPrice,
-  lowPrice,
-  history,
-  news = [],
-}) {
+function buildStockDetail(stock = {}) {
+  const {
+    symbol,
+    name,
+    sector,
+    currentPrice,
+    changePercent,
+    volume,
+    logo,
+    openPrice,
+    highPrice,
+    lowPrice,
+    history,
+    news = [],
+    ...rest
+  } = stock;
   const resolvedHistory =
     history || resolveHistoryBuckets({}, symbol, currentPrice);
   const history1D = resolvedHistory["1D"];
@@ -1033,6 +1313,7 @@ function buildStockDetail({
     logo,
     history: resolvedHistory,
     news,
+    ...rest,
   };
 }
 
@@ -1071,13 +1352,10 @@ export async function fetchStockHistory(symbol, signal) {
         () =>
           resolve(
             buildStockDetail({
-              symbol: stock.symbol,
-              name: stock.name,
-              sector: stock.sector,
+              ...stock,
               currentPrice: stock.price,
               changePercent: stock.changePercent,
               volume: stock.volume,
-              logo: stock.logo,
               openPrice: stock.previousClose || stock.price,
               highPrice: stock.price * 1.02,
               lowPrice: stock.price * 0.98,
@@ -1131,6 +1409,8 @@ export async function fetchStockHistory(symbol, signal) {
       : 0,
   );
   const normalized = enrichStock({
+    ...payload,
+    ...snapshot,
     symbol: snapshot.symbol || payload?.symbol || normalizedSymbol,
     name: snapshot.name || payload?.name,
     sector: snapshot.sector || payload?.sector,
@@ -1182,13 +1462,10 @@ export async function fetchStockHistory(symbol, signal) {
     );
 
   return buildStockDetail({
-    symbol: normalized.symbol,
-    name: normalized.name,
-    sector: normalized.sector,
+    ...normalized,
     currentPrice: normalized.price,
     changePercent: normalized.changePercent,
     volume: normalized.volume || Math.round(normalized.price * 10000),
-    logo: normalized.logo,
     openPrice: toNumber(
       latestHistoricalRow?.open,
       normalized.previousClose || normalized.price,

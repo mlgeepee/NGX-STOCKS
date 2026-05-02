@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  BriefcaseBusiness,
   LayoutDashboard,
   Languages,
   LogOut,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NGXLogo } from "@/components/ui/ngx-logo";
+import { getAppCopy } from "@/content/appCopy";
 import { supabase } from "../../services/supabase";
 import { useAuthStore } from "../../store/useAuthStore";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
@@ -30,16 +32,17 @@ const navItems = [
     icon: Star,
   },
   {
+    labelKey: "sidebar.nav.portfolio.label",
+    descriptionKey: "sidebar.nav.portfolio.description",
+    to: "/dashboard/portfolio",
+    icon: BriefcaseBusiness,
+  },
+  {
     labelKey: "sidebar.nav.learn.label",
     descriptionKey: "sidebar.nav.learn.description",
     to: "/dashboard/learn",
     icon: BookOpen,
   },
-];
-
-const languageOptions = [
-  { value: "en", label: "English" },
-  { value: "pid", label: "Pidgin" },
 ];
 
 function isLinkActive(pathname, linkPath) {
@@ -61,6 +64,11 @@ export default function Sidebar({ isOpen = true, onClose }) {
   const theme = usePreferencesStore((state) => state.theme);
   const setLanguage = usePreferencesStore((state) => state.setLanguage);
   const toggleTheme = usePreferencesStore((state) => state.toggleTheme);
+  const copy = getAppCopy(language);
+  const languageOptions = [
+    { value: "en", label: copy.common.languageEnglish },
+    { value: "pid", label: copy.common.languagePidgin },
+  ];
   const brandTitle = translate(language, "sidebar.brandTitle");
   const brandSubtitle = translate(language, "sidebar.brandSubtitle");
   const languageLabel = translate(language, "sidebar.languageLabel");
@@ -77,17 +85,17 @@ export default function Sidebar({ isOpen = true, onClose }) {
 
   return (
     <aside
-      className={`app-panel fixed inset-y-4 left-4 z-40 flex w-[min(20.5rem,calc(100%-2rem))] flex-col overflow-y-auto rounded-[2.3rem] px-3 py-3 backdrop-blur-xl transition-transform duration-300 lg:w-[18.6rem] lg:px-4 lg:py-4 ${
+      className={`app-panel fixed inset-y-3 left-3 z-40 flex w-[min(21.2rem,calc(100%-1.5rem))] flex-col overflow-y-auto rounded-[1.85rem] px-3 py-3 backdrop-blur-xl transition-transform duration-300 sm:inset-y-4 sm:left-4 sm:w-[min(21.4rem,calc(100%-2rem))] lg:w-[19.4rem] lg:px-4 lg:py-4 ${
         isOpen
           ? "translate-x-0"
           : "-translate-x-[calc(100%+1.5rem)] pointer-events-none"
       } lg:translate-x-0 lg:pointer-events-auto`}
     >
-      <div className="app-panel-soft mb-5 rounded-[2rem] p-4">
+      <div className="app-panel-soft mb-5 rounded-[1.55rem] p-4">
         <Link
           to="/dashboard"
           onClick={() => onClose?.()}
-          className="flex items-center gap-3"
+          className="flex items-center gap-3.5"
         >
           <span className="brand-mark">
             <NGXLogo className="h-6 w-6" />
@@ -102,39 +110,39 @@ export default function Sidebar({ isOpen = true, onClose }) {
           </div>
         </Link>
 
-        <div className="mt-4 rounded-[1.6rem] border border-border/70 bg-white/55 p-4 dark:bg-white/5">
+        <div className="mt-4 rounded-[1.3rem] border border-border/70 bg-white/55 p-4 dark:bg-white/5">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                Workspace
+                {copy.common.workspace}
               </p>
               <p className="mt-2 text-base font-semibold text-foreground">
-                Read the market clearly
+                {copy.sidebar.workspaceTitle}
               </p>
             </div>
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <span className="flex h-10 w-10 items-center justify-center rounded-[1rem] bg-primary/10 text-primary">
               <Sparkles className="h-4 w-4" />
             </span>
           </div>
-          <p className="mt-3 truncate text-sm text-muted-foreground">
-            {user?.email || "analyst@ngxstocks.app"}
+          <p className="mt-3 break-words text-sm leading-6 text-muted-foreground">
+            {user?.email || copy.sidebar.workspaceSummary}
           </p>
         </div>
       </div>
 
       <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
-        <div className="text-sm font-semibold text-foreground">Menu</div>
+        <div className="text-sm font-semibold text-foreground">{copy.common.menu}</div>
         <button
           type="button"
           onClick={() => onClose?.()}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border/80 bg-white/80 text-foreground shadow-sm transition hover:bg-white dark:bg-white/5 dark:hover:bg-white/10"
-          aria-label="Close sidebar"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-[1rem] border border-border/80 bg-white/80 text-foreground shadow-sm transition hover:bg-white dark:bg-white/5 dark:hover:bg-white/10"
+          aria-label={copy.common.closeSidebar}
         >
           <X className="h-5 w-5" />
         </button>
       </div>
 
-      <nav className="flex-1 space-y-2.5">
+      <nav className="flex-1 space-y-3">
         {navItems.map((item) => {
           const active = isLinkActive(pathname, item.to);
           const Icon = item.icon;
@@ -144,14 +152,14 @@ export default function Sidebar({ isOpen = true, onClose }) {
               key={item.to}
               to={item.to}
               onClick={() => onClose?.()}
-              className={`group flex items-center gap-3 rounded-[1.65rem] border px-3 py-3 transition ${
+              className={`group flex items-center gap-3.5 rounded-[1.3rem] border px-3.5 py-3.5 transition ${
                 active
                   ? "border-primary/15 bg-primary/10 text-foreground shadow-sm"
                   : "border-transparent text-muted-foreground hover:border-border/70 hover:bg-white/70 hover:text-foreground dark:hover:bg-white/5"
               }`}
             >
               <span
-                className={`flex h-11 w-11 items-center justify-center rounded-[1.15rem] ${
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[1rem] ${
                   active
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-secondary text-muted-foreground"
@@ -159,12 +167,12 @@ export default function Sidebar({ isOpen = true, onClose }) {
               >
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="min-w-0">
-                <span className="block text-sm font-semibold">
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold leading-5">
                   {translate(language, item.labelKey)}
                 </span>
                 <span
-                  className={`mt-0.5 block text-xs ${
+                  className={`mt-1 block text-xs leading-5 ${
                     active
                       ? "text-accent-foreground/80"
                       : "text-muted-foreground"
@@ -179,7 +187,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
       </nav>
 
       <div className="space-y-3 border-t border-border/80 pt-4">
-        <label className="app-control flex items-center gap-2 rounded-[1.45rem] px-3.5 py-3 text-muted-foreground hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5">
+        <label className="app-control flex items-center gap-3 rounded-[1.2rem] px-3.5 py-3.5 text-muted-foreground hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5">
           <Languages className="h-4 w-4 shrink-0 text-muted-foreground" />
           <span className="text-sm font-medium text-foreground">
             {languageLabel}
@@ -200,9 +208,9 @@ export default function Sidebar({ isOpen = true, onClose }) {
         <button
           type="button"
           onClick={toggleTheme}
-          className="app-control flex w-full items-center gap-3 rounded-[1.45rem] px-3.5 py-3 text-left hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5"
+          className="app-control flex w-full items-center gap-3.5 rounded-[1.2rem] px-3.5 py-3.5 text-left hover:border-primary/20 hover:bg-white/85 dark:hover:bg-white/5"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-muted-foreground">
+          <span className="flex h-10 w-10 items-center justify-center rounded-[1rem] bg-secondary text-muted-foreground">
             {theme === "dark" ? (
               <SunMedium className="h-4 w-4" />
             ) : (
@@ -211,10 +219,10 @@ export default function Sidebar({ isOpen = true, onClose }) {
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-sm font-semibold text-foreground">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
+              {theme === "dark" ? copy.common.lightMode : copy.common.darkMode}
             </span>
             <span className="block text-xs text-muted-foreground">
-              Switch the workspace atmosphere
+              {copy.common.switchTheme}
             </span>
           </span>
         </button>
@@ -222,9 +230,9 @@ export default function Sidebar({ isOpen = true, onClose }) {
         <button
           type="button"
           onClick={handleLogout}
-          className="flex w-full items-center gap-2 rounded-[1.45rem] border border-rose-200/80 bg-rose-50/90 px-3.5 py-3 text-rose-600 transition hover:-translate-y-0.5 hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20"
+          className="flex w-full items-center gap-3 rounded-[1.2rem] border border-rose-200/80 bg-rose-50/90 px-3.5 py-3.5 text-rose-600 transition hover:-translate-y-0.5 hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/80 dark:bg-rose-500/10">
+          <span className="flex h-10 w-10 items-center justify-center rounded-[1rem] bg-white/80 dark:bg-rose-500/10">
             <LogOut className="h-4 w-4" />
           </span>
           <span className="text-sm font-semibold">{logoutLabel}</span>

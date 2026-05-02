@@ -40,8 +40,8 @@ export default function Header({
   }).format(new Date());
 
   return (
-    <header className="mb-8 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end">
-      <div className="app-panel-soft rounded-[2rem] p-5 sm:p-6">
+    <header className="mb-6 grid gap-3.5 sm:mb-8 sm:gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-end">
+      <div className="app-panel-soft rounded-[1.55rem] p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
             {marketIntelligence}
@@ -50,7 +50,7 @@ export default function Header({
             {todayLabel}
           </span>
         </div>
-        <h1 className="mt-4 text-3xl font-semibold leading-tight text-foreground sm:text-4xl xl:text-[2.85rem]">
+        <h1 className="mt-4 text-[1.95rem] font-semibold leading-tight text-foreground sm:text-4xl xl:text-[2.85rem]">
           {title}
         </h1>
         <p className="mt-4 max-w-2xl text-[15px] leading-7 text-muted-foreground sm:text-base">
@@ -60,29 +60,29 @@ export default function Header({
 
       <div className="flex flex-col gap-3.5 sm:flex-row sm:flex-wrap sm:items-center xl:flex-nowrap">
         {onSearchChange ? (
-          <label className="app-control relative block w-full rounded-[1.55rem] px-0 sm:w-[340px] lg:w-[390px]">
+          <label className="app-control relative block w-full rounded-[1.25rem] px-0 sm:w-[340px] lg:w-[390px]">
             <span className="sr-only">{labelText}</span>
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={searchValue}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder={placeholderText}
-              className="app-input h-[58px] border-0 bg-transparent pl-11 shadow-none"
+              className="app-input h-[54px] border-0 bg-transparent pl-11 shadow-none sm:h-[58px]"
             />
           </label>
         ) : null}
 
-        {actions}
+        {actions ? <div className="flex w-full sm:w-auto">{actions}</div> : null}
 
-        <div className="app-control flex min-w-0 items-center gap-3 rounded-[1.7rem] px-3.5 py-3 shadow-sm">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[1.15rem] bg-accent text-sm font-semibold text-accent-foreground ring-1 ring-primary/15">
+        <div className="app-control flex w-full min-w-0 items-center gap-3.5 rounded-[1.35rem] px-3.5 py-3.5 shadow-sm sm:w-auto">
+          <div className="flex h-11 w-11 items-center justify-center rounded-[1rem] bg-accent text-sm font-semibold text-accent-foreground ring-1 ring-primary/15">
             {initials}
           </div>
-          <div className="min-w-0 max-w-[11.5rem] sm:max-w-[14rem]">
+          <div className="min-w-0 max-w-[13rem] sm:max-w-[15rem]">
             <p className="text-sm font-semibold text-foreground">
               {analystTitle}
             </p>
-            <p className="truncate text-[11px] text-muted-foreground sm:text-xs">
+            <p className="break-all text-[11px] leading-5 text-muted-foreground sm:text-xs">
               {userEmail}
             </p>
           </div>

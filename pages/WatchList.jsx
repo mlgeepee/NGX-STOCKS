@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import Header from "../src/components/Header";
 import StocksTable from "../src/components/StocksTable";
+import { getAppCopy } from "@/content/appCopy";
 import { enrichStock } from "../services/api";
 import { useWatchlistStore } from "../store/useWatchlistStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
@@ -14,6 +15,7 @@ export default function Watchlist() {
   const removeStock = useWatchlistStore((state) => state.removeStock);
   const language = usePreferencesStore((state) => state.language);
   const t = (path, vars) => translate(language, path, vars);
+  const copy = getAppCopy(language);
 
   const savedStocks = useMemo(
     () => watchlist.map((stock) => enrichStock(stock)),
@@ -79,7 +81,7 @@ export default function Watchlist() {
       ) : (
         <div className="space-y-5">
           <section className="app-panel-soft rounded-[2rem] p-6 sm:p-7">
-            <p className="section-kicker">Saved shortlist</p>
+            <p className="section-kicker">{copy.watchlist.shortlistKicker}</p>
             <h2 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2rem]">
               {t("watchlist.savedNamesTitle")}
             </h2>

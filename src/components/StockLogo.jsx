@@ -1,10 +1,10 @@
 import { getFallbackLogoUrl, getLogoUrl } from "../../services/api";
 
 const sizeClasses = {
-  sm: "h-10 w-10 rounded-2xl",
-  md: "h-12 w-12 rounded-2xl",
-  lg: "h-14 w-14 rounded-[1.25rem]",
-  xl: "h-16 w-16 rounded-[1.5rem]",
+  sm: "h-10 w-10 rounded-[1rem]",
+  md: "h-12 w-12 rounded-[1rem]",
+  lg: "h-14 w-14 rounded-[1.1rem]",
+  xl: "h-16 w-16 rounded-[1.2rem]",
 };
 
 export default function StockLogo({
@@ -23,7 +23,7 @@ export default function StockLogo({
       <img
         src={logo || getLogoUrl(symbol)}
         alt={`${name || symbol} logo`}
-        className="h-full w-full object-contain p-2.5"
+        className="h-full w-full object-contain p-1.5"
         loading="lazy"
         onError={(event) => {
           event.currentTarget.onerror = null;

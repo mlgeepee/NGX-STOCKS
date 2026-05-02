@@ -27,12 +27,12 @@ export default function Layout() {
         }`}
       />
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-      <div className="lg:pl-[22rem]">
+      <div className="lg:pl-[23rem]">
         <main className="relative min-h-screen px-5 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10 xl:px-12">
           <div className="mb-5 flex items-center justify-between lg:hidden">
             <Link
               to="/dashboard"
-              className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-3.5 py-2.5 shadow-sm backdrop-blur-sm dark:bg-white/5"
+              className="inline-flex items-center gap-3 rounded-[1.2rem] border border-border/70 bg-white/55 px-3.5 py-2.5 shadow-sm backdrop-blur-sm dark:bg-white/5"
             >
               <span className="brand-mark h-10 w-10 rounded-[1.15rem]">
                 <NGXLogo className="h-5 w-5" />
@@ -49,7 +49,7 @@ export default function Layout() {
             <button
               type="button"
               onClick={() => setIsSidebarOpen((value) => !value)}
-              className="inline-flex items-center justify-center rounded-[1.25rem] border border-border/80 bg-white/75 px-3.5 py-3 text-foreground shadow-sm backdrop-blur-sm transition hover:border-primary/20 hover:bg-white dark:bg-white/5 dark:hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-[1.05rem] border border-border/80 bg-white/75 px-3.5 py-3 text-foreground shadow-sm backdrop-blur-sm transition hover:border-primary/20 hover:bg-white dark:bg-white/5 dark:hover:bg-white/10"
               aria-label="Toggle sidebar"
             >
               {isSidebarOpen ? (

@@ -12,11 +12,15 @@ const TRANSLATIONS = {
                 },
                 watchlist: {
                     label: "Watchlist",
-                    description: "Saved names",
+                    description: "Names wey you save",
+                },
+                portfolio: {
+                    label: "Portfolio",
+                    description: "Holdings and P/L",
                 },
                 learn: {
-                    label: "Learn",
-                    description: "Guides & signals",
+                    label: "Stocks101 (Learn)",
+                    description: "Investor learn hub",
                 },
             },
         },
@@ -64,7 +68,7 @@ const TRANSLATIONS = {
             browseDashboard: "Browse the dashboard",
             noSearchTitle: "No saved stocks matched your search",
             noSearchDescription: "Try another company name or ticker.",
-            savedNamesTitle: "Saved names",
+            savedNamesTitle: "Names wey you save",
             savedNamesDescription:
                 "The same market table, narrowed to the stocks you chose to keep in focus.",
         },
@@ -113,6 +117,7 @@ const TRANSLATIONS = {
             subtitle:
                 "Review recent price action, compare short-term timeframes, and keep key trading stats in view.",
             back: "Back to dashboard",
+            loadingHistory: "Loading stock history",
             fetchError: "Unable to load {symbol} details right now.",
             unableLoadHistoryTitle: "Unable to load history",
             savedToWatchlist: "Saved to watchlist",
@@ -165,9 +170,9 @@ const TRANSLATIONS = {
     pid: {
         sidebar: {
             brandTitle: "NGX Stocks",
-            brandSubtitle: "Analytics cockpit",
+            brandSubtitle: "Market control room",
             languageLabel: "Language",
-            logout: "Logout",
+            logout: "Log out",
             nav: {
                 dashboard: {
                     label: "Dashboard",
@@ -177,87 +182,91 @@ const TRANSLATIONS = {
                     label: "Watchlist",
                     description: "Saved names",
                 },
+                portfolio: {
+                    label: "Portfolio",
+                    description: "Holdings and P/L",
+                },
                 learn: {
-                    label: "Learn",
-                    description: "Guides & signals",
+                    label: "Stocks101 (Learn)",
+                    description: "How market take work",
                 },
             },
         },
         header: {
             marketIntelligence: "Market gist",
-            searchPlaceholder: "Search company or ticker",
+            searchPlaceholder: "Find company name or ticker",
             searchLabel: "Search stocks",
-            analystTitle: "Market Analyst",
+            analystTitle: "Market watcher",
         },
         common: {
-            refresh: "Refresh",
+            refresh: "Refresh am",
             noDataTitle: "No data",
         },
         dashboard: {
-            title: "Financial Analytics Dashboard",
+            title: "NGX market dashboard",
             subtitle:
-                "See live NGX movers, sector momentum, and jump quick into price details.",
+                "See NGX movers, sector movement, and jump quick quick enter company detail from one board.",
             totalStocksLabel: "Total stocks",
-            totalStocksDetail: "NGX stocks wey dey for this view",
+            totalStocksDetail: "NGX stocks wey show for this view",
             gainersLabel: "Gainers",
-            gainersDetail: "Names wey dey up today",
+            gainersDetail: "Names wey green for today",
             losersLabel: "Losers",
-            losersDetail: "Names wey dey fall today",
-            marketTrendLabel: "Market trend",
+            losersDetail: "Names wey red for today",
+            marketTrendLabel: "Market direction",
             marketBoardTitle: "Market board",
             marketBoardDescription:
-                "Live naira price with watchlist shortcuts and fast drill-down.",
-            noStocksTitle: "No stock match your search",
-            noStocksDescription: "Try company name, ticker, or sector again.",
+                "Naira price, watchlist shortcut, and quick road enter company detail.",
+            noStocksTitle: "No stock match wetin you search",
+            noStocksDescription: "Try another company name, ticker, or sector.",
             boardLoadingTitle: "Dey prepare market board",
             boardLoadingDescription:
-                "Loading latest stock rows and setting the board for you.",
+                "We dey load latest stock rows and set the board for you.",
             marketSummary: "{count} symbols • {average} average move",
             errorTitle: "No fit load stocks",
-            fetchingError: "Unable to load stock data.",
+            fetchingError: "No fit load stock data.",
         },
         watchlist: {
             title: "Watchlist",
             subtitle:
-                "Keep eye for companies wey you care about and remove them once dem no dey your focus.",
+                "Keep eye on the companies wey matter to you and remove any one wey comot for your focus.",
             savedCount: "{count} saved",
-            emptyTitle: "Your watchlist empty",
+            emptyTitle: "Your watchlist never get anything yet",
             emptyDescription:
-                "Bookmark stocks for dashboard or detail page make your shortlist dey quick.",
+                "Save stocks from dashboard or detail page make your shortlist dey handy anytime.",
             browseDashboard: "Go dashboard",
-            noSearchTitle: "No saved stock match your search",
+            noSearchTitle: "No saved stock match wetin you search",
             noSearchDescription: "Try another company name or ticker.",
             savedNamesTitle: "Saved names",
             savedNamesDescription:
-                "Same market table, but only the stocks wey you choose.",
+                "Na the same market table, but only the stocks wey you choose.",
         },
         learn: {
-            title: "Learn",
+            title: "Plan and learn",
             subtitle:
-                "Small learning hub for market concepts wey go help your analytics views.",
+                "Small learning hub for market concepts and product plan wey support the analytics views.",
             cards: {
                 breadth: {
-                    title: "Reading Market Breadth",
+                    title: "How to read market breadth",
                     description:
-                        "See how gainers, losers, and average move join body to show market mood.",
+                        "See how gainers, losers, and average move join body show market mood.",
                 },
                 watchlists: {
-                    title: "Building Better Watchlists",
+                    title: "How to build better watchlists",
                     description:
-                        "Use sector balance, liquidity and volatility to build watchlist wey still dey sharp.",
+                        "Use sector balance, liquidity, and volatility take build watchlist wey still sharp.",
                 },
                 risk: {
-                    title: "Risk Management Basics",
+                    title: "Risk management basics",
                     description:
-                        "Check position sizing, stop discipline, and signals wey matter before you move.",
+                        "Check position sizing, stop discipline, and the signals wey matter before you move.",
                 },
             },
             glossaryTitle: "Quick glossary",
             glossary: {
                 marketTrend: {
-                    title: "Market trend",
+                    title: "Market direction",
                     description:
-                        "Snapshot of average percentage move for tracked stocks.",
+                        "Short snapshot of average percentage move for the tracked stocks.",
                 },
                 volume: {
                     title: "Volume",
@@ -267,25 +276,26 @@ const TRANSLATIONS = {
                 watchlist: {
                     title: "Watchlist",
                     description:
-                        "Saved shortlist for quicker monitoring and quick follow-up.",
+                        "Saved shortlist wey help you monitor and follow up fast.",
                 },
             },
         },
         stockDetail: {
             fallbackTitle: "Stock detail",
             subtitle:
-                "See recent price action, compare short-term timeframes, and keep key stats for eye.",
-            back: "Go back dashboard",
+                "Check recent price action, compare short time view, and keep key stats for eye.",
+            back: "Go back to dashboard",
+            loadingHistory: "Dey load stock history",
             fetchError: "No fit load {symbol} details right now.",
             unableLoadHistoryTitle: "No fit load history",
             savedToWatchlist: "Don save for watchlist",
             addToWatchlist: "Add to watchlist",
             heroDescription:
-                "Check price action, switch between D1, 1W, and 1M view, and see latest company gist from one page.",
+                "Check price action, switch between D1, 1W, and 1M view, and see latest company gist for one page.",
             currentPrice: "Current price",
             priceHistoryTitle: "Price history",
             priceHistoryDescription:
-                "Change between intraday, weekly, and monthly moves.",
+                "Switch between intraday, weekly, and monthly move.",
             periodLabel: "Period: {value}",
             priceLabel: "Price",
             rangeMove: "Range move",
@@ -298,11 +308,11 @@ const TRANSLATIONS = {
             newsDescription:
                 "Recent headline and stock gist wey connect to this company.",
             newsFallbackDescription:
-                "Live news feed never connect here yet, so these briefings go still give you stock context.",
+                "Live news feed never connect here yet, so these briefings go still give you company context.",
             liveNewsLabel: "Live feed",
             newsBriefingLabel: "Stock briefing",
             updatedOn: "Updated {value}",
-            updatedOnFallback: "Recently updated",
+            updatedOnFallback: "Just update am now now",
             readMore: "Read more",
             noNewsTitle: "No recent update yet",
             noNewsDescription:
@@ -311,18 +321,18 @@ const TRANSLATIONS = {
             sessionHigh: "Session high",
             sessionLow: "Session low",
             volume: "Volume",
-            errorFallback: "Unable to load stock history.",
+            errorFallback: "No fit load stock history.",
         },
         table: {
             company: "Company",
             price: "Price",
             change: "Change",
             volume: "Volume",
-            save: "Save",
+            save: "Save am",
             action: "Action",
-            actionRemove: "Remove from watchlist",
-            actionToggle: "Toggle watchlist",
-            tapForDetails: "Tap to open full stock details",
+            actionRemove: "Comot from watchlist",
+            actionToggle: "Add or comot watchlist",
+            tapForDetails: "Tap am make full stock details open",
         },
     },
 };

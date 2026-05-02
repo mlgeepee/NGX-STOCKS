@@ -15,6 +15,7 @@ const ResetPassword = lazy(() => import("../pages/ResetPassword"));
 const SignUp = lazy(() => import("../pages/SignUp"));
 const StockDetail = lazy(() => import("../pages/StockDetail"));
 const Learn = lazy(() => import("../pages/Learn"));
+const Portfolio = lazy(() => import("../pages/Portfolio"));
 
 function RouteLoader() {
   return (
@@ -107,6 +108,7 @@ export default function App() {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="portfolio" element={<Portfolio />} />
           <Route path="watchlist" element={<Watchlist />} />
           <Route path="learn" element={<Learn />} />
           <Route path="stocks/:symbol" element={<StockDetail />} />

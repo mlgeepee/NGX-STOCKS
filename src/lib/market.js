@@ -11,6 +11,13 @@ const compactNumberFormatter = new Intl.NumberFormat("en-NG", {
   maximumFractionDigits: 1,
 });
 
+const compactCurrencyFormatter = new Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
+  notation: "compact",
+  maximumFractionDigits: 1,
+});
+
 export function formatCurrency(value) {
   return currencyFormatter.format(Number(value) || 0);
 }
@@ -21,6 +28,10 @@ export function formatNumber(value) {
 
 export function formatCompactNumber(value) {
   return compactNumberFormatter.format(Number(value) || 0);
+}
+
+export function formatCompactCurrency(value) {
+  return compactCurrencyFormatter.format(Number(value) || 0);
 }
 
 export function formatPercent(value) {
