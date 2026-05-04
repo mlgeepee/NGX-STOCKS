@@ -29,6 +29,9 @@ const TRANSLATIONS = {
             searchPlaceholder: "Search by company or ticker",
             searchLabel: "Search stocks",
             analystTitle: "Market Analyst",
+            topMatches: "Top matches",
+            noSearchMatches: "No matching stocks yet. Try another company name, ticker, or sector.",
+            openAction: "Open",
         },
         common: {
             refresh: "Refresh",
@@ -48,12 +51,17 @@ const TRANSLATIONS = {
             marketBoardTitle: "Market board",
             marketBoardDescription:
                 "Live pricing in Nigerian naira with watchlist shortcuts and quick drill-down access.",
+            searchResultsKicker: "Search results",
+            searchResultsTitle: "Matching stocks show up first",
+            searchResultsDescription:
+                "Your search results stay right under the command bar so you can open a company page without scrolling past the rest of the dashboard.",
             noStocksTitle: "No stocks matched your search",
             noStocksDescription: "Try a company name, ticker, or sector instead.",
             boardLoadingTitle: "Preparing market board",
             boardLoadingDescription:
                 "Loading the latest stock rows and getting the board ready for you.",
             marketSummary: "{count} symbols • {average} average move",
+            searchResultsSummary: "{count} matches for {query}",
             errorTitle: "Unable to load stocks",
             fetchingError: "Unable to load stock data.",
         },
@@ -165,6 +173,9 @@ const TRANSLATIONS = {
             actionRemove: "Remove from watchlist",
             actionToggle: "Toggle watchlist",
             tapForDetails: "Tap to open full stock details",
+            previous: "Previous",
+            next: "Next",
+            showingRange: "Showing {start}-{end} of {total}",
         },
     },
     pid: {
@@ -197,6 +208,9 @@ const TRANSLATIONS = {
             searchPlaceholder: "Find company name or ticker",
             searchLabel: "Search stocks",
             analystTitle: "Market watcher",
+            topMatches: "Top matches",
+            noSearchMatches: "No stock match yet. Try another company name, ticker, or sector.",
+            openAction: "Open",
         },
         common: {
             refresh: "Refresh am",
@@ -216,12 +230,17 @@ const TRANSLATIONS = {
             marketBoardTitle: "Market board",
             marketBoardDescription:
                 "Naira price, watchlist shortcut, and quick road enter company detail.",
+            searchResultsKicker: "Search result",
+            searchResultsTitle: "Matching stocks show first",
+            searchResultsDescription:
+                "Your search result stay directly under the command bar so you fit open company page without long scrolling.",
             noStocksTitle: "No stock match wetin you search",
             noStocksDescription: "Try another company name, ticker, or sector.",
             boardLoadingTitle: "Dey prepare market board",
             boardLoadingDescription:
                 "We dey load latest stock rows and set the board for you.",
             marketSummary: "{count} symbols • {average} average move",
+            searchResultsSummary: "{count} matches for {query}",
             errorTitle: "No fit load stocks",
             fetchingError: "No fit load stock data.",
         },
@@ -333,6 +352,9 @@ const TRANSLATIONS = {
             actionRemove: "Comot from watchlist",
             actionToggle: "Add or comot watchlist",
             tapForDetails: "Tap am make full stock details open",
+            previous: "Back",
+            next: "Next",
+            showingRange: "Dey show {start}-{end} from {total}",
         },
     },
 };

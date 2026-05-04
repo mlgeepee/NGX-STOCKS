@@ -526,6 +526,15 @@ const headers = API_KEY
       "Content-Type": "application/json",
     };
 
+function buildRequestOptions(signal) {
+  return {
+    headers,
+    signal,
+    credentials: "omit",
+    referrerPolicy: "no-referrer",
+  };
+}
+
 const timeLabelFormatter = new Intl.DateTimeFormat("en-NG", {
   hour: "2-digit",
   minute: "2-digit",
@@ -1245,8 +1254,7 @@ async function fetchOptionalNewsPayload(signal) {
 
   try {
     const response = await fetch(NEWS_API_URL, {
-      headers,
-      signal,
+      ...buildRequestOptions(signal),
     });
 
     if (!response.ok) {
@@ -1325,8 +1333,7 @@ export async function fetchStockList(signal) {
   }
 
   const response = await fetch(`${API_BASE}/stocks`, {
-    headers,
-    signal,
+    ...buildRequestOptions(signal),
   });
 
   if (!response.ok) {
@@ -1382,10 +1389,10 @@ export async function fetchStockHistory(symbol, signal) {
 
   const [snapshotList, historyResponse, optionalNewsPayload] = await Promise.all([
     fetchStockList(signal),
-    fetch(`${API_BASE}/prices/${normalizedSymbol}`, {
-      headers,
-      signal,
-    }),
+    fetch(
+      `${API_BASE}/prices/${normalizedSymbol}`,
+      buildRequestOptions(signal),
+    ),
     fetchOptionalNewsPayload(signal),
   ]);
 

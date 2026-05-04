@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowDownCircle,
   ArrowUpCircle,
@@ -73,34 +73,34 @@ function LeadBoardCard({
   watchlistCount,
 }) {
   return (
-    <section className="app-panel surface-noise rounded-[1.85rem] p-5 sm:p-7">
+    <section className="app-panel surface-noise rounded-[1.55rem] p-4 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="section-kicker">{copy.leadKicker}</p>
-          <h2 className="mt-4 max-w-xl text-[2rem] font-semibold text-foreground sm:text-[2.4rem]">
+          <h2 className="mt-3 max-w-xl text-[1.65rem] font-semibold text-foreground sm:text-[2rem]">
             {title}
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+          <p className="mt-3 max-w-2xl text-[14px] leading-6 text-muted-foreground sm:text-[15px]">
             {description}
           </p>
         </div>
-        <div className="w-full rounded-[1.3rem] border border-primary/15 bg-primary/10 px-5 py-4 sm:w-auto">
+        <div className="w-full rounded-[1.05rem] border border-primary/15 bg-primary/10 px-4 py-3.5 sm:w-auto">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-primary">
             {copy.trendLabel}
           </p>
-          <p className="mt-2 text-3xl font-semibold text-foreground">
+          <p className="mt-2 text-[1.65rem] font-semibold text-foreground">
             {marketTrend}
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">{averageMove}</p>
+          <p className="mt-1 text-[13px] text-muted-foreground">{averageMove}</p>
         </div>
       </div>
 
-      <div className="mt-7 grid gap-4 lg:grid-cols-3">
-        <article className="app-panel-soft p-5">
+      <div className="mt-5 grid gap-3 lg:grid-cols-3">
+        <article className="app-panel-soft p-4">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.topGainerLabel}
           </p>
-          <p className="mt-3 text-xl font-semibold text-foreground">
+          <p className="mt-2.5 text-lg font-semibold text-foreground">
             {topGainer?.symbol || "-"}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -111,11 +111,11 @@ function LeadBoardCard({
           </p>
         </article>
 
-        <article className="app-panel-soft p-5">
+        <article className="app-panel-soft p-4">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.mostActiveLabel}
           </p>
-          <p className="mt-3 text-xl font-semibold text-foreground">
+          <p className="mt-2.5 text-lg font-semibold text-foreground">
             {mostActive?.symbol || "-"}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -128,11 +128,11 @@ function LeadBoardCard({
           </p>
         </article>
 
-        <article className="app-panel-soft p-5">
+        <article className="app-panel-soft p-4">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.watchlistFocusLabel}
           </p>
-          <p className="mt-3 text-xl font-semibold text-foreground">
+          <p className="mt-2.5 text-lg font-semibold text-foreground">
             {watchlistCount}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -150,18 +150,20 @@ function LeadBoardCard({
 
 function SupportCard({ icon: Icon, label, value, detail, tone }) {
   return (
-    <article className="app-panel-soft rounded-[1.45rem] p-5 sm:p-6">
+    <article className="app-panel-soft rounded-[1.25rem] p-4 sm:min-h-[10rem] sm:p-5">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {label}
           </p>
-          <p className="mt-4 text-[2rem] font-semibold leading-none text-foreground sm:text-[2.2rem]">
+          <p className="mt-3 break-words text-[1.6rem] font-semibold leading-tight text-foreground sm:text-[1.9rem]">
             {value}
           </p>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{detail}</p>
         </div>
-        <span className={`flex h-12 w-12 items-center justify-center rounded-[1.2rem] ${tone}`}>
+        <span
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] ${tone}`}
+        >
           <Icon className="h-5 w-5" />
         </span>
       </div>
@@ -172,15 +174,15 @@ function SupportCard({ icon: Icon, label, value, detail, tone }) {
 function PanelHeading({ kicker, title, description, icon: Icon }) {
   return (
     <div className="flex items-start gap-3">
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] bg-primary/10 text-primary">
         <Icon className="h-5 w-5" />
       </span>
       <div>
         <p className="section-kicker">{kicker}</p>
-        <h3 className="mt-2 text-2xl font-semibold text-foreground">
+        <h3 className="mt-2 text-[1.45rem] font-semibold text-foreground">
           {title}
         </h3>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+        <p className="mt-2 text-[14px] leading-6 text-muted-foreground">
           {description}
         </p>
       </div>
@@ -190,7 +192,7 @@ function PanelHeading({ kicker, title, description, icon: Icon }) {
 
 function PortfolioPanel({ copy, summary, primarySymbol }) {
   return (
-    <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
+    <section className="app-panel rounded-[1.45rem] p-4 sm:p-5">
       <PanelHeading
         kicker={copy.portfolioKicker}
         title={copy.portfolioTitle}
@@ -217,7 +219,7 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
         </div>
       ) : (
         <>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <SupportCard
               icon={BriefcaseBusiness}
               label={copy.portfolioValueLabel}
@@ -586,7 +588,7 @@ function LoadingState() {
 
 function EmptyBoardState({ title, description }) {
   return (
-    <div className="app-panel flex min-h-[340px] flex-col items-center justify-center p-8 text-center">
+    <div className="app-panel flex min-h-[280px] flex-col items-center justify-center p-6 text-center">
       <span className="flex h-14 w-14 items-center justify-center rounded-[1.5rem] bg-primary/10 text-primary">
         <CandlestickChart className="h-6 w-6" />
       </span>
@@ -604,6 +606,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isBoardPreparing, setIsBoardPreparing] = useState(true);
+  const navigate = useNavigate();
 
   const language = usePreferencesStore((state) => state.language);
   const t = useCallback(
@@ -672,6 +675,11 @@ export default function Dashboard() {
       );
     });
   }, [searchQuery, stocks]);
+  const hasActiveSearch = Boolean(searchQuery.trim());
+  const searchSuggestions = useMemo(
+    () => filteredStocks.slice(0, 5),
+    [filteredStocks],
+  );
 
   const marketTrend = useMemo(() => getMarketTrend(stocks), [stocks]);
 
@@ -735,6 +743,64 @@ export default function Dashboard() {
   );
   const sectorSnapshots = useMemo(() => getSectorSnapshots(stocks), [stocks]);
   const dividendCalendar = useMemo(() => getDividendCalendar(stocks), [stocks]);
+  const openStockFromSearch = useCallback(
+    (stock) => {
+      navigate(`/dashboard/stocks/${encodeURIComponent(stock.symbol)}`);
+    },
+    [navigate],
+  );
+
+  const marketBoardSection = isBoardPreparing ? (
+    <EmptyBoardState
+      title={t("dashboard.boardLoadingTitle")}
+      description={t("dashboard.boardLoadingDescription")}
+    />
+  ) : !filteredStocks.length ? (
+    <EmptyBoardState
+      title={t("dashboard.noStocksTitle")}
+      description={t("dashboard.noStocksDescription")}
+    />
+  ) : (
+    <section className="space-y-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="section-kicker">
+            {hasActiveSearch
+              ? t("dashboard.searchResultsKicker")
+              : copy.dashboard.boardKicker}
+          </p>
+          <h2 className="mt-3 text-[1.55rem] font-semibold text-foreground sm:text-[1.85rem]">
+            {hasActiveSearch
+              ? t("dashboard.searchResultsTitle")
+              : t("dashboard.marketBoardTitle")}
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+            {hasActiveSearch
+              ? t("dashboard.searchResultsDescription")
+              : t("dashboard.marketBoardDescription")}
+          </p>
+        </div>
+        <p className="app-chip border-primary/10 bg-primary/10 text-primary dark:border-primary/20">
+          <TrendingUp className="h-4 w-4" />
+          {hasActiveSearch
+            ? t("dashboard.searchResultsSummary", {
+                count: filteredStocks.length,
+                query: searchQuery.trim(),
+              })
+            : t("dashboard.marketSummary", {
+                count: filteredStocks.length,
+                average: formatPercent(marketTrend.averageChange),
+              })}
+        </p>
+      </div>
+
+      <StocksTable
+        stocks={filteredStocks}
+        watchlistSymbols={watchlistSymbols}
+        onToggleWatchlist={toggleStock}
+      />
+    </section>
+  );
 
   return (
     <div>
@@ -743,11 +809,13 @@ export default function Dashboard() {
         subtitle={t("dashboard.subtitle")}
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
+        searchSuggestions={searchSuggestions}
+        onSuggestionSelect={openStockFromSearch}
         actions={
           <button
             type="button"
             onClick={() => loadStocks()}
-            className="app-button-secondary h-12 w-full gap-2 px-4 sm:h-[58px] sm:w-auto"
+            className="app-button-secondary h-11 w-full gap-2 px-4 sm:w-auto"
           >
             <RefreshCw className="h-4 w-4" />
             <span>{t("common.refresh")}</span>
@@ -759,11 +827,13 @@ export default function Dashboard() {
         <LoadingState />
       ) : error ? (
         <div className="app-panel rounded-[1.55rem] border-rose-200/80 bg-rose-50/80 p-6 text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
-          <h2 className="text-lg font-semibold">{t("dashboard.errorTitle")}</h2>
+          <h2 className="text-base font-semibold">{t("dashboard.errorTitle")}</h2>
           <p className="mt-2 text-sm leading-6">{error}</p>
         </div>
       ) : (
-        <div className="space-y-7">
+        <div className="space-y-6">
+          {marketBoardSection}
+
           <div className="grid gap-5 xl:grid-cols-[minmax(0,1.18fr)_minmax(20rem,0.82fr)]">
             <LeadBoardCard
               copy={copy.dashboard}
@@ -802,45 +872,6 @@ export default function Dashboard() {
             <SectorPanel copy={copy.dashboard} sectors={sectorSnapshots} />
             <DividendPanel copy={copy.dashboard} dividends={dividendCalendar} />
           </div>
-
-          {isBoardPreparing ? (
-            <EmptyBoardState
-              title={t("dashboard.boardLoadingTitle")}
-              description={t("dashboard.boardLoadingDescription")}
-            />
-          ) : !filteredStocks.length ? (
-            <EmptyBoardState
-              title={t("dashboard.noStocksTitle")}
-              description={t("dashboard.noStocksDescription")}
-            />
-          ) : (
-            <section className="space-y-5">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="section-kicker">{copy.dashboard.boardKicker}</p>
-                  <h2 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2.1rem]">
-                    {t("dashboard.marketBoardTitle")}
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-                    {t("dashboard.marketBoardDescription")}
-                  </p>
-                </div>
-                <p className="app-chip border-primary/10 bg-primary/10 text-primary dark:border-primary/20">
-                  <TrendingUp className="h-4 w-4" />
-                  {t("dashboard.marketSummary", {
-                    count: filteredStocks.length,
-                    average: formatPercent(marketTrend.averageChange),
-                  })}
-                </p>
-              </div>
-
-              <StocksTable
-                stocks={filteredStocks}
-                watchlistSymbols={watchlistSymbols}
-                onToggleWatchlist={toggleStock}
-              />
-            </section>
-          )}
         </div>
       )}
     </div>

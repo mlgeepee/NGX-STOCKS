@@ -65,6 +65,13 @@ const LEARN_CENTER = {
           "Save your cost basis, then use alerts so your plan is already written before price reaches your level.",
       },
     ],
+    investKicker: "Ready to invest?",
+    investTitle: "Start your stock journey with Cowrywise, a trusted investing platform.",
+    investDescription:
+      "When you are ready to move from learning into action, Cowrywise is a trusted platform to explore Nigerian stocks and start small with a clear plan.",
+    investCta: "Open Cowrywise Stocks",
+    investNote:
+      "Always review the company, risk, and your time horizon before you buy.",
     termsTitle: "Terminologies that matter",
     termsDescription:
       "You do not need every finance term. You need the ones that change how you read a stock.",
@@ -249,6 +256,13 @@ const LEARN_CENTER = {
           "Save your cost basis, then use alerts so your plan don dey ready before price reach your level.",
       },
     ],
+    investKicker: "You don ready to invest?",
+    investTitle: "Start your stock journey with Cowrywise, platform wey people trust.",
+    investDescription:
+      "When you don ready move from learning enter action, Cowrywise na trusted platform to explore Nigerian stocks and start small with clear plan.",
+    investCta: "Open Cowrywise Stocks",
+    investNote:
+      "Always check company, risk, and your time horizon before you buy.",
     termsTitle: "Terms wey really matter",
     termsDescription:
       "You no need every finance term. You need the ones wey change how you read stock.",

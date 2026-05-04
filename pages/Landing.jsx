@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { NGXLogo } from "@/components/ui/ngx-logo";
+import PreferenceControls from "@/components/PreferenceControls";
 import { getAppCopy } from "@/content/appCopy";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 import { useAuthStore } from "../store/useAuthStore";
@@ -63,6 +64,21 @@ const floatingLogos = [
 const featureIcons = [BellRing, Search, BriefcaseBusiness];
 const previewIcons = [TrendingUp, BarChart3, BellRing];
 const roadmapIcons = [TrendingUp, BookOpen, BriefcaseBusiness];
+const researchCardTones = [
+  "bg-primary/12 text-primary ring-1 ring-primary/15",
+  "bg-amber-500/12 text-amber-700 ring-1 ring-amber-300/40 dark:text-amber-200 dark:ring-amber-400/20",
+  "bg-sky-500/12 text-sky-700 ring-1 ring-sky-300/40 dark:text-sky-200 dark:ring-sky-400/20",
+];
+const featureTones = [
+  "bg-primary/12 text-primary ring-1 ring-primary/15",
+  "bg-amber-500/12 text-amber-700 ring-1 ring-amber-300/40 dark:text-amber-200 dark:ring-amber-400/20",
+  "bg-rose-500/12 text-rose-700 ring-1 ring-rose-300/40 dark:text-rose-200 dark:ring-rose-400/20",
+];
+const roadmapTones = [
+  "bg-primary/12 text-primary ring-1 ring-primary/15",
+  "bg-sky-500/12 text-sky-700 ring-1 ring-sky-300/40 dark:text-sky-200 dark:ring-sky-400/20",
+  "bg-amber-500/12 text-amber-700 ring-1 ring-amber-300/40 dark:text-amber-200 dark:ring-amber-400/20",
+];
 
 export default function Landing() {
   const user = useAuthStore((state) => state.user);
@@ -85,8 +101,8 @@ export default function Landing() {
         <div className="absolute bottom-[-12%] left-[20%] h-[28rem] w-[28rem] rounded-full bg-primary/10 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-[1480px] px-5 pb-20 pt-4 sm:px-7 lg:px-8">
-        <header className="flex flex-col gap-4 rounded-[2rem] border border-border/70 bg-white/45 px-4 py-4 shadow-sm backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:px-6 dark:bg-white/5">
+      <div className="relative mx-auto max-w-[1360px] px-4 pb-16 pt-4 sm:px-6 lg:px-7">
+        <header className="flex flex-col gap-3 rounded-[1.5rem] border border-border/70 bg-white/45 px-4 py-3.5 shadow-sm backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:px-5 dark:bg-white/5">
           <Link to="/" className="inline-flex items-center gap-3">
             <span className="brand-mark">
               <NGXLogo className="h-6 w-6" />
@@ -95,13 +111,14 @@ export default function Landing() {
               <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
                 NGX Stocks
               </span>
-              <span className="block text-sm text-muted-foreground">
+              <span className="block text-[13px] text-muted-foreground">
                 {copy.landing.brandSubtitle}
               </span>
             </span>
           </Link>
 
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+            <PreferenceControls showLabels={false} />
             <Link to="/login" className="app-button-secondary h-12 w-full px-4 sm:w-auto">
               {copy.common.login}
             </Link>
@@ -115,13 +132,13 @@ export default function Landing() {
           </div>
         </header>
 
-        <section className="grid gap-8 py-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-16">
+        <section className="grid gap-7 py-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-8 lg:py-12">
           <div className="max-w-3xl">
             <p className="section-kicker">{copy.landing.heroKicker}</p>
-            <h1 className="display-font mt-5 balance text-[2.9rem] leading-[0.92] text-foreground sm:text-7xl lg:text-[6.2rem]">
+            <h1 className="display-font mt-4 balance text-[2.45rem] leading-[0.94] text-foreground sm:text-[4.3rem] lg:text-[5.1rem]">
               {copy.landing.heroTitle}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+            <p className="mt-5 max-w-2xl text-[15px] leading-7 text-muted-foreground sm:text-base">
               {copy.landing.heroDescription}
             </p>
 
@@ -150,13 +167,13 @@ export default function Landing() {
               ))}
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
               {copy.landing.stats.map((item) => (
-                <article key={item.label} className="app-panel-soft p-5">
+                <article key={item.label} className="app-panel-soft p-4">
                   <p className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
                     {item.label}
                   </p>
-                  <p className="mt-4 text-3xl font-semibold text-foreground">
+                  <p className="mt-3 text-[1.7rem] font-semibold text-foreground">
                     {item.value}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -168,8 +185,8 @@ export default function Landing() {
           </div>
 
           <div className="relative">
-            <div className="app-panel surface-noise overflow-hidden rounded-[2.35rem] p-3 shadow-panel sm:rounded-[2.75rem] sm:p-5">
-              <div className="relative rounded-[1.9rem] border border-white/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.6),rgba(255,255,255,0.08))] p-4 dark:border-white/5 dark:bg-[linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] sm:rounded-[2.1rem] sm:p-7">
+            <div className="app-panel surface-noise overflow-hidden rounded-[1.75rem] p-2.5 shadow-panel sm:rounded-[2rem] sm:p-4">
+              <div className="relative rounded-[1.5rem] border border-white/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.6),rgba(255,255,255,0.08))] p-3.5 dark:border-white/5 dark:bg-[linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] sm:rounded-[1.75rem] sm:p-5">
                 <div className="absolute inset-0 rounded-[1.8rem] bg-[radial-gradient(circle_at_top_left,rgba(215,167,90,0.18),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(17,120,102,0.14),transparent_34%)] sm:rounded-[2rem]" />
 
                 {floatingLogos.map((item) => (
@@ -187,12 +204,12 @@ export default function Landing() {
                 ))}
 
                 <div className="relative z-10">
-                  <div className="flex flex-col gap-4 rounded-[1.5rem] border border-border/70 bg-white/60 px-4 py-4 backdrop-blur-sm dark:bg-white/5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-col gap-3 rounded-[1.25rem] border border-border/70 bg-white/60 px-3.5 py-3.5 backdrop-blur-sm dark:bg-white/5 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-accent-foreground">
                         {copy.landing.preview.kicker}
                       </p>
-                      <p className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
+                      <p className="mt-2 text-lg font-semibold text-foreground sm:text-[1.35rem]">
                         {copy.landing.preview.title}
                       </p>
                     </div>
@@ -209,13 +226,16 @@ export default function Landing() {
                       <div className="mt-4 space-y-3">
                         {copy.landing.preview.researchCards.map((item, index) => {
                           const Icon = previewIcons[index];
+                          const tone = researchCardTones[index];
 
                           return (
                             <div
                               key={item.title}
                               className="flex items-start gap-3 rounded-[1.35rem] border border-border/70 bg-white/55 p-3.5 dark:bg-white/5"
                             >
-                              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                              <span
+                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${tone}`}
+                              >
                                 <Icon className="h-4 w-4" />
                               </span>
                               <div>
@@ -310,10 +330,13 @@ export default function Landing() {
           <div className="grid gap-5 lg:grid-cols-3">
             {copy.landing.features.map((feature, index) => {
               const Icon = featureIcons[index];
+              const tone = featureTones[index];
 
               return (
                 <article key={feature.title} className="app-panel p-6 sm:p-7">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-[1.35rem] bg-primary/10 text-primary">
+                  <span
+                    className={`flex h-12 w-12 items-center justify-center rounded-[1.35rem] ${tone}`}
+                  >
                     <Icon className="h-5 w-5" />
                   </span>
                   <h2 className="mt-6 text-2xl font-semibold text-foreground">
@@ -341,10 +364,13 @@ export default function Landing() {
             <div className="mt-7 grid gap-4 md:grid-cols-3">
               {copy.landing.roadmap.cards.map((item, index) => {
                 const Icon = roadmapIcons[index];
+                const tone = roadmapTones[index];
 
                 return (
                   <article key={item.title} className="app-panel-soft p-5">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-[1.1rem] bg-primary/10 text-primary">
+                    <span
+                      className={`flex h-11 w-11 items-center justify-center rounded-[1.1rem] ${tone}`}
+                    >
                       <Icon className="h-4 w-4" />
                     </span>
                     <p className="mt-4 text-lg font-semibold text-foreground">

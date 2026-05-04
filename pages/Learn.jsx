@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   BellRing,
   BookOpen,
   BriefcaseBusiness,
@@ -11,6 +12,7 @@ import {
 import Header from "../src/components/Header";
 import { getLearnCenterContent } from "@/content/learnCenter";
 import { usePreferencesStore } from "../store/usePreferencesStore";
+import cowrywiseImage from "../src/assets/cowrywise.png";
 
 const quickStartIcons = [TrendingUp, BookOpen, ShieldCheck];
 const toolIcons = [CandlestickChart, BookOpen, Building2, BellRing];
@@ -129,12 +131,12 @@ export default function Learn() {
                 return (
                   <div
                     key={item.title}
-                    className="flex items-start gap-3 rounded-[1.15rem] border border-border/65 bg-white/55 p-4 dark:bg-white/5"
+                    className="flex items-start gap-4 rounded-[1.15rem] border border-border/65 bg-white/55 p-4 sm:p-5 dark:bg-white/5"
                   >
-                    <span className="flex h-11 w-11 items-center justify-center rounded-[1.1rem] bg-primary/10 text-primary">
-                      <Icon className="h-4 w-4" />
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
                     </span>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <p className="text-base font-semibold text-foreground">
                         {item.title}
                       </p>
@@ -227,6 +229,46 @@ export default function Learn() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-7">
+        <div className="app-panel overflow-hidden rounded-[1.85rem] p-5 sm:p-7">
+          <div className="grid gap-6 xl:grid-cols-[1fr_1.1fr] xl:items-center">
+            <div>
+              <SectionHeader
+                kicker={content.investKicker}
+                title={content.investTitle}
+                description={content.investDescription}
+              />
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                {content.investNote}
+              </p>
+              <a
+                href="https://cowrywise.com/stocks"
+                target="_blank"
+                rel="noreferrer"
+                className="app-button-primary mt-6 gap-2 px-5"
+              >
+                {content.investCta}
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            <a
+              href="https://cowrywise.com/stocks"
+              target="_blank"
+              rel="noreferrer"
+              className="block overflow-hidden rounded-[1.3rem] border border-border/70 bg-white/55 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/20 dark:bg-white/5"
+            >
+              <img
+                src={cowrywiseImage}
+                alt="Cowrywise stocks investment banner"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </a>
           </div>
         </div>
       </section>

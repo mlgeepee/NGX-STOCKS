@@ -147,19 +147,19 @@ function SummaryCard({ label, value, detail, tone = "default", icon: Icon }) {
         : "bg-primary/10 text-primary";
 
   return (
-    <article className="app-panel-soft rounded-[1.45rem] p-5 sm:p-6">
+    <article className="app-panel-soft rounded-[1.45rem] p-5 sm:min-h-[12rem] sm:p-6">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {label}
           </p>
-          <p className="mt-4 text-[1.95rem] font-semibold leading-none text-foreground sm:text-[2.15rem]">
+          <p className="mt-4 break-words text-[1.95rem] font-semibold leading-tight text-foreground sm:text-[2.15rem]">
             {value}
           </p>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{detail}</p>
         </div>
         <span
-          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[1rem] ${toneClass}`}
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1rem] ${toneClass}`}
         >
           <Icon className="h-5 w-5" />
         </span>
@@ -453,24 +453,24 @@ export default function Portfolio() {
                   </p>
                 </div>
               ) : (
-                <div className="mt-6 space-y-3.5">
+                <div className="mt-6 space-y-4">
                   {filteredHoldings.map((holding) => (
                     <Link
                       key={holding.symbol}
                       to={`/dashboard/stocks/${encodeURIComponent(holding.symbol)}`}
-                      className="block rounded-[1.35rem] border border-border/70 bg-white/58 p-4 transition hover:-translate-y-0.5 hover:border-primary/20 hover:bg-white/78 dark:bg-white/5 dark:hover:bg-white/[0.07]"
+                      className="block rounded-[1.35rem] border border-border/70 bg-white/58 p-4 sm:p-5 transition hover:-translate-y-0.5 hover:border-primary/20 hover:bg-white/78 dark:bg-white/5 dark:hover:bg-white/[0.07]"
                     >
-                      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex min-w-0 items-start gap-3.5">
+                      <div className="flex flex-col gap-5">
+                        <div className="flex min-w-0 items-start gap-4">
                           <StockLogo
                             symbol={holding.symbol}
                             name={holding.name}
                             logo={holding.logo}
-                            size="lg"
+                            size="xl"
                           />
-                          <div className="min-w-0">
+                          <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
-                              <p className="text-base font-semibold text-foreground">
+                              <p className="text-base font-semibold leading-7 text-foreground sm:text-lg">
                                 {holding.name}
                               </p>
                               <span className="rounded-full bg-accent px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
@@ -483,7 +483,7 @@ export default function Portfolio() {
                           </div>
                         </div>
 
-                        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+                        <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
                           <div className="rounded-[1.05rem] border border-border/60 bg-white/60 px-3 py-3 dark:bg-white/5">
                             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                               {copy.sharesLabel}
@@ -523,11 +523,25 @@ export default function Portfolio() {
                             <p className="mt-2 text-sm font-semibold text-foreground">
                               {formatCurrency(holding.marketValue)}
                             </p>
+                          </div>
+                          <div className="rounded-[1.05rem] border border-border/60 bg-white/60 px-3 py-3 dark:bg-white/5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                              {copy.totalPnL}
+                            </p>
                             <p
-                              className={`mt-1 text-xs font-semibold ${
+                              className={`mt-2 text-sm font-semibold ${
                                 holding.unrealizedPnL >= 0
                                   ? "text-emerald-600 dark:text-emerald-300"
                                   : "text-rose-600 dark:text-rose-300"
+                              }`}
+                            >
+                              {formatCurrency(holding.unrealizedPnL)}
+                            </p>
+                            <p
+                              className={`mt-1 text-xs font-semibold ${
+                                holding.unrealizedPnL >= 0
+                                  ? "text-emerald-600/80 dark:text-emerald-300/80"
+                                  : "text-rose-600/80 dark:text-rose-300/80"
                               }`}
                             >
                               {formatPercent(holding.unrealizedPnLPercent)}

@@ -10,9 +10,12 @@ const APP_COPY = {
       lightMode: "Light mode",
       darkMode: "Dark mode",
       switchTheme: "Switch the workspace atmosphere",
+      languageLabel: "Language",
       menu: "Menu",
       languageEnglish: "English",
       languagePidgin: "Pidgin",
+      showHighlights: "Show market highlights",
+      hideHighlights: "Hide market highlights",
       workspace: "Workspace",
       emailLabel: "Email address",
       emailPlaceholder: "investor@example.com",
@@ -26,6 +29,8 @@ const APP_COPY = {
       continueWithGoogle: "Continue with Google",
       orUseEmail: "Or use email",
       resetPassword: "Forgot password?",
+      passwordSecurityHint:
+        "Use at least 8 characters with uppercase, lowercase, and a number.",
       readMore: "Read more",
       signInButton: "Open my dashboard",
       createAccountButton: "Create my account",
@@ -81,7 +86,9 @@ const APP_COPY = {
       resetNeedsEmail:
         "Enter your email first so the reset link goes to the right inbox.",
       resetSent:
-        "Password reset email sent. Check your inbox and continue from the reset screen.",
+        "If that email is registered, a password reset link has been sent.",
+      invalidCredentials:
+        "We could not sign you in with those details. Check your email and password, then try again.",
       footerText: "New here? Create a market workspace for your NGX flow.",
       footerLink: "Create account",
     },
@@ -94,6 +101,10 @@ const APP_COPY = {
         "Supabase env vars are missing. Configure src/.env and restart the dev server.",
       passwordMismatch:
         "Your passwords do not match yet. Confirm both fields and try again.",
+      passwordTooWeak:
+        "Use at least 8 characters with uppercase, lowercase, and a number.",
+      genericError:
+        "We could not create the account. Try again or sign in if you already have one.",
       success: "Check your email to confirm the new account.",
       footerText: "Already have an account? Return to your market board.",
       footerLink: "Sign in",
@@ -122,6 +133,12 @@ const APP_COPY = {
         "Choose a fresh password so you can get back to charts, watchlists, and company detail without losing your flow.",
       mismatch:
         "The new passwords do not match yet. Confirm them and try again.",
+      accessRequired:
+        "Open this page from your password reset email so we can verify your recovery session.",
+      updateFailed:
+        "We could not update your password. Request a fresh reset link and try again.",
+      supabaseMissing:
+        "Supabase env vars are missing. Configure src/.env and restart the dev server.",
       success: "Password updated successfully. Redirecting you to sign in.",
     },
     landing: {
@@ -131,7 +148,7 @@ const APP_COPY = {
         "Track NGX prices, follow company detail, and line up your next move from one board.",
       heroDescription:
         "NGX Stocks helps Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P/L, and stay close to dividend and sector signals.",
-      secondaryCta: "Enter the sign-in flow",
+      secondaryCta: "Log in",
       trustStrip: [
         "Watchlist and company detail built around NGX names",
         "Price board, charts, market stats, and company briefings",
@@ -495,7 +512,7 @@ const APP_COPY = {
         "These cues are not buy or sell calls. They help you judge valuation, income, and where price sits inside its one-year range.",
     },
     sidebar: {
-      workspaceTitle: "Follow your NGX names clearly",
+      welcomeTitle: "Welcome Investor",
       workspaceSummary: "Board, watchlist, alerts, and stock detail in one place.",
     },
   },
@@ -510,9 +527,12 @@ const APP_COPY = {
       lightMode: "Light mode",
       darkMode: "Dark mode",
       switchTheme: "Change how the workspace dey look",
+      languageLabel: "Language",
       menu: "Menu",
       languageEnglish: "English",
       languagePidgin: "Pidgin",
+      showHighlights: "Show market highlights",
+      hideHighlights: "Hide market highlights",
       workspace: "Workspace",
       emailLabel: "Email address",
       emailPlaceholder: "investor@example.com",
@@ -526,6 +546,8 @@ const APP_COPY = {
       continueWithGoogle: "Continue with Google",
       orUseEmail: "Or use email",
       resetPassword: "Forget password?",
+      passwordSecurityHint:
+        "Use at least 8 characters plus uppercase, lowercase, and one number.",
       readMore: "Read more",
       signInButton: "Open my dashboard",
       createAccountButton: "Open my account",
@@ -581,7 +603,9 @@ const APP_COPY = {
       resetNeedsEmail:
         "Put your email first make the reset link fit land for the correct inbox.",
       resetSent:
-        "Password reset email don send. Check your inbox and continue from the reset screen.",
+        "If that email dey registered, password reset link don send.",
+      invalidCredentials:
+        "We no fit sign you in with those details. Check your email and password, then try again.",
       footerText: "You never get account? Create workspace for your NGX flow.",
       footerLink: "Open account",
     },
@@ -594,6 +618,10 @@ const APP_COPY = {
         "Supabase env vars no dey. Configure src/.env and restart the dev server.",
       passwordMismatch:
         "Your passwords never match. Check both field well and try again.",
+      passwordTooWeak:
+        "Use at least 8 characters plus uppercase, lowercase, and one number.",
+      genericError:
+        "We no fit create the account now. Try again or sign in if you don already get account.",
       success: "Check your email make you confirm the new account.",
       footerText: "You already get account? Return to your market board.",
       footerLink: "Sign in",
@@ -622,6 +650,12 @@ const APP_COPY = {
         "Choose fresh password make you fit go back to charts, watchlists, and company detail without losing your flow.",
       mismatch:
         "The new passwords never match. Confirm them well and try again.",
+      accessRequired:
+        "Open this page from your password reset email make we fit verify your recovery session.",
+      updateFailed:
+        "We no fit update your password. Request fresh reset link and try again.",
+      supabaseMissing:
+        "Supabase env vars no dey. Configure src/.env and restart the dev server.",
       success: "Password don update well. We dey carry you go sign in.",
     },
     landing: {
@@ -631,7 +665,7 @@ const APP_COPY = {
         "Track NGX prices, follow company detail, and line up your next move from one board.",
       heroDescription:
         "NGX Stocks dey help Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P/L, and stay close to dividend and sector signal.",
-      secondaryCta: "Go sign in",
+      secondaryCta: "Log in",
       trustStrip: [
         "Watchlist and company detail wey fit NGX names well",
         "Price board, charts, market stats, and company briefings",
@@ -995,7 +1029,7 @@ const APP_COPY = {
         "These cues no be buy or sell call. Dem just help you judge valuation, income, and where price dey inside one-year range.",
     },
     sidebar: {
-      workspaceTitle: "Follow your NGX names well well",
+      welcomeTitle: "Welcome Investor",
       workspaceSummary: "Board, watchlist, alerts, and stock detail dey here.",
     },
   },
