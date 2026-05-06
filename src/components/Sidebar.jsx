@@ -92,7 +92,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
 
   return (
     <aside
-      className={`app-panel fixed inset-y-3 left-3 z-40 flex w-[min(19.35rem,calc(100%-1.5rem))] flex-col overflow-y-auto rounded-[1.55rem] px-2.5 py-2.5 backdrop-blur-xl transition-transform duration-300 sm:inset-y-4 sm:left-4 sm:w-[min(19.4rem,calc(100%-2rem))] lg:w-[17.7rem] lg:px-3 lg:py-3 ${
+      className={`app-panel fixed inset-y-3 left-3 z-40  flex w-[min(19.35rem,calc(100%-1.5rem))] flex-col overflow-y-auto rounded-[1.55rem] px-2.5 py-2.5 backdrop-blur-xl transition-transform duration-300 sm:inset-y-4 sm:left-4 sm:w-[min(19.4rem,calc(100%-2rem))] lg:w-[17.7rem] lg:px-3 lg:py-3 ${
         isOpen
           ? "translate-x-0"
           : "-translate-x-[calc(100%+1.5rem)] pointer-events-none"
