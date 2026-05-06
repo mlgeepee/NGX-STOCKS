@@ -156,12 +156,14 @@ function SummaryCard({ label, value, detail, tone = "default", icon: Icon }) {
           <p className="mt-4 break-words text-[1.95rem] font-semibold leading-tight text-foreground sm:text-[2.15rem]">
             {value}
           </p>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">{detail}</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            {detail}
+          </p>
         </div>
         <span
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1rem] ${toneClass}`}
         >
-          <Icon className="h-5 w-5" />
+          {Icon ? <Icon className="h-5 w-5" /> : null}
         </span>
       </div>
     </article>
@@ -244,9 +246,9 @@ export default function Portfolio() {
         return {
           ...item,
           ...liveStock,
-          currentPrice: liveStock.currentPrice ?? liveStock.price ?? item.price ?? 0,
-          changePercent:
-            liveStock.changePercent ?? item.changePercent ?? 0,
+          currentPrice:
+            liveStock.currentPrice ?? liveStock.price ?? item.price ?? 0,
+          changePercent: liveStock.changePercent ?? item.changePercent ?? 0,
           volume: liveStock.volume ?? item.volume ?? 0,
         };
       }),
@@ -336,10 +338,11 @@ export default function Portfolio() {
           <button
             type="button"
             onClick={() => loadStocks()}
-            className="app-button-secondary h-12 w-full gap-2 px-4 sm:h-[58px] sm:w-auto"
+            aria-label={copy.refresh}
+            className="app-button-secondary h-11 shrink-0 gap-2 px-3 sm:h-[58px] sm:px-4"
           >
             <RefreshCw className="h-4 w-4" />
-            <span>{copy.refresh}</span>
+            <span className="hidden sm:inline">{copy.refresh}</span>
           </button>
         }
       />
@@ -396,9 +399,7 @@ export default function Portfolio() {
                 label={copy.totalPnL}
                 value={formatCompactCurrency(portfolioSummary.totalPnL)}
                 detail={formatPercent(portfolioSummary.totalPnLPercent)}
-                tone={
-                  portfolioSummary.totalPnL >= 0 ? "positive" : "negative"
-                }
+                tone={portfolioSummary.totalPnL >= 0 ? "positive" : "negative"}
                 icon={TrendingUp}
               />
               <SummaryCard
@@ -645,7 +646,8 @@ export default function Portfolio() {
                             <strong>{formatCurrency(alert.targetPrice)}</strong>
                           </span>
                           <span className="text-muted-foreground">
-                            {copy.alertCurrent}: {formatCurrency(alert.currentPrice)}
+                            {copy.alertCurrent}:{" "}
+                            {formatCurrency(alert.currentPrice)}
                           </span>
                         </div>
                       </div>

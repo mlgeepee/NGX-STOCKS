@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "../services/supabase";
 import { Alert } from "@/components/ui/alert";
-import AuthShell from "@/components/AuthShell";
+import AuthLandingShell from "@/components/AuthLandingShell";
 import { getAppCopy } from "@/content/appCopy";
 import { useAuthStore } from "../store/useAuthStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
@@ -128,7 +128,7 @@ export default function Login() {
         />
       ) : null}
 
-      <AuthShell
+      <AuthLandingShell
         backHref="/"
         backLabel={copy.common.backHome}
         eyebrow={copy.login.eyebrow}
@@ -222,6 +222,12 @@ export default function Login() {
               </div>
             </div>
 
+            <div className="hidden sm:block">
+              <Link to="/" className="app-button-secondary w-full mb-3">
+                Home
+              </Link>
+            </div>
+
             <button type="submit" className="app-button-primary w-full">
               {copy.common.signInButton}
             </button>
@@ -237,7 +243,7 @@ export default function Login() {
             {copy.login.footerLink}
           </Link>
         </div>
-      </AuthShell>
+      </AuthLandingShell>
     </>
   );
 }

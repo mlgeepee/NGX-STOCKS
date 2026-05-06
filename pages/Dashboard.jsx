@@ -91,7 +91,9 @@ function LeadBoardCard({
           <p className="mt-2 text-[1.65rem] font-semibold text-foreground">
             {marketTrend}
           </p>
-          <p className="mt-1 text-[13px] text-muted-foreground">{averageMove}</p>
+          <p className="mt-1 text-[13px] text-muted-foreground">
+            {averageMove}
+          </p>
         </div>
       </div>
 
@@ -148,7 +150,8 @@ function LeadBoardCard({
   );
 }
 
-function SupportCard({ icon: Icon, label, value, detail, tone }) {
+function SupportCard({ icon, label, value, detail, tone }) {
+  const Icon = icon;
   return (
     <article className="app-panel-soft rounded-[1.25rem] p-4 sm:min-h-[10rem] sm:p-5">
       <div className="flex items-start justify-between gap-4">
@@ -159,23 +162,26 @@ function SupportCard({ icon: Icon, label, value, detail, tone }) {
           <p className="mt-3 break-words text-[1.6rem] font-semibold leading-tight text-foreground sm:text-[1.9rem]">
             {value}
           </p>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">{detail}</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            {detail}
+          </p>
         </div>
         <span
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] ${tone}`}
         >
-          <Icon className="h-5 w-5" />
+          {Icon ? <Icon className="h-5 w-5" /> : null}
         </span>
       </div>
     </article>
   );
 }
 
-function PanelHeading({ kicker, title, description, icon: Icon }) {
+function PanelHeading({ kicker, title, description, icon }) {
+  const Icon = icon;
   return (
     <div className="flex items-start gap-3">
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] bg-primary/10 text-primary">
-        <Icon className="h-5 w-5" />
+        {Icon ? <Icon className="h-5 w-5" /> : null}
       </span>
       <div>
         <p className="section-kicker">{kicker}</p>
@@ -289,7 +295,8 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
                           {holding.name}
                         </p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {holding.symbol} • {holding.shares} {copy.sharesSuffix}
+                          {holding.symbol} • {holding.shares}{" "}
+                          {copy.sharesSuffix}
                         </p>
                       </div>
                       <div className="text-right">
@@ -320,7 +327,9 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
                 {summary.sectorAllocation.slice(0, 4).map((item) => (
                   <div key={item.sector}>
                     <div className="flex items-center justify-between gap-3 text-sm">
-                      <p className="font-medium text-foreground">{item.sector}</p>
+                      <p className="font-medium text-foreground">
+                        {item.sector}
+                      </p>
                       <p className="text-muted-foreground">
                         {item.weight.toFixed(0)}%
                       </p>
@@ -342,7 +351,13 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
   );
 }
 
-function AlertsPanel({ copy, stockCopy, summary, onRemoveAlert, fallbackSymbol }) {
+function AlertsPanel({
+  copy,
+  stockCopy,
+  summary,
+  onRemoveAlert,
+  fallbackSymbol,
+}) {
   return (
     <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
       <PanelHeading
@@ -422,7 +437,8 @@ function AlertsPanel({ copy, stockCopy, summary, onRemoveAlert, fallbackSymbol }
                       <strong>{formatCurrency(alert.targetPrice)}</strong>
                     </span>
                     <span className="text-muted-foreground">
-                      {copy.alertCurrentLabel}: {formatCurrency(alert.currentPrice)}
+                      {copy.alertCurrentLabel}:{" "}
+                      {formatCurrency(alert.currentPrice)}
                     </span>
                   </div>
                 </div>
@@ -473,17 +489,18 @@ function SectorPanel({ copy, sectors }) {
                 {formatPercent(sector.averageChange)}
               </span>
             </div>
-              <div className="mt-4 flex flex-wrap gap-3 text-sm text-muted-foreground">
-                <span>
-                  {copy.sectorBreadthLabel}: {sector.count}
-                </span>
-                <span>
-                  {copy.sectorLeaderLabel}: {sector.leader?.symbol || "-"}
-                </span>
-                <span>
-                  {copy.sectorVolumeLabel}: {formatCompactNumber(sector.totalVolume)}
-                </span>
-              </div>
+            <div className="mt-4 flex flex-wrap gap-3 text-sm text-muted-foreground">
+              <span>
+                {copy.sectorBreadthLabel}: {sector.count}
+              </span>
+              <span>
+                {copy.sectorLeaderLabel}: {sector.leader?.symbol || "-"}
+              </span>
+              <span>
+                {copy.sectorVolumeLabel}:{" "}
+                {formatCompactNumber(sector.totalVolume)}
+              </span>
+            </div>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
               {sector.leader?.name || sector.sector}
             </p>
@@ -726,7 +743,13 @@ export default function Dashboard() {
         tone: "bg-accent text-accent-foreground",
       },
     ];
-  }, [copy.dashboard.savedNamesDetail, copy.dashboard.savedNamesLabel, stocks, t, watchlist.length]);
+  }, [
+    copy.dashboard.savedNamesDetail,
+    copy.dashboard.savedNamesLabel,
+    stocks,
+    t,
+    watchlist.length,
+  ]);
 
   const watchlistSymbols = useMemo(
     () => new Set(watchlist.map((stock) => stock.symbol)),
@@ -815,10 +838,11 @@ export default function Dashboard() {
           <button
             type="button"
             onClick={() => loadStocks()}
-            className="app-button-secondary h-11 w-full gap-2 px-4 sm:w-auto"
+            aria-label={t("common.refresh")}
+            className="app-button-secondary h-[50px] sm:h-[52px] shrink-0 gap-2 px-3 sm:px-4 shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <RefreshCw className="h-4 w-4" />
-            <span>{t("common.refresh")}</span>
+            <span className="hidden sm:inline">{t("common.refresh")}</span>
           </button>
         }
       />
@@ -827,7 +851,9 @@ export default function Dashboard() {
         <LoadingState />
       ) : error ? (
         <div className="app-panel rounded-[1.55rem] border-rose-200/80 bg-rose-50/80 p-6 text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
-          <h2 className="text-base font-semibold">{t("dashboard.errorTitle")}</h2>
+          <h2 className="text-base font-semibold">
+            {t("dashboard.errorTitle")}
+          </h2>
           <p className="mt-2 text-sm leading-6">{error}</p>
         </div>
       ) : (

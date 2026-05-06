@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLeft,
   ChevronDown,
   ChevronUp,
+  Menu,
+  MoonStar,
   ShieldCheck,
   Sparkles,
+  SunMedium,
   TrendingUp,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { NGXLogo } from "@/components/ui/ngx-logo";
 import { getAppCopy } from "@/content/appCopy";
 import PreferenceControls from "@/components/PreferenceControls";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
+import { useAuthStore } from "../../store/useAuthStore";
+import faviconIcon from "../assets/favicon.ico";
 
 export default function AuthShell({
   backHref = "/",
@@ -22,10 +27,35 @@ export default function AuthShell({
   children,
   footer = null,
   highlights = null,
+  compactNav = false,
 }) {
   const language = usePreferencesStore((state) => state.language);
   const copy = getAppCopy(language);
   const [showMobileHighlights, setShowMobileHighlights] = useState(false);
+
+  const user = useAuthStore((state) => state.user);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!compactNav) return;
+    if (!mobileMenuOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [compactNav, mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!compactNav) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [compactNav]);
+
   const defaultHighlights = copy.authShell.highlights.map((item, index) => ({
     ...item,
     icon: [TrendingUp, Sparkles, ShieldCheck][index],
@@ -41,33 +71,157 @@ export default function AuthShell({
 
       <div className="relative mx-auto flex min-h-screen max-w-[1360px] flex-col px-4 py-4 sm:px-6 lg:px-7">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-3 py-2 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm hover:border-primary/20 hover:bg-white/80 dark:bg-white/5 dark:hover:bg-white/10"
-          >
-            <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
-              <NGXLogo className="h-5 w-5" />
-            </span>
-            <span className="flex flex-col text-left">
-              <span className="text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
-                NGX Stocks
-              </span>
-              <span className="text-[13px] font-medium text-foreground/80">
-                {copy.authShell.brandSubtitle}
-              </span>
-            </span>
-          </Link>
+          {compactNav ? (
+            <>
+              <div className="flex w-full items-center justify-between rounded-[1.5rem] border border-border/70 bg-white/45 px-4 py-3 shadow-sm backdrop-blur-sm dark:bg-white/5">
+                <Link to="/" className="inline-flex min-w-0 items-center gap-3">
+                  <img
+                    src={faviconIcon}
+                    alt="NGX Stocks"
+                    className="h-9 w-9 rounded-[1.1rem] shadow-sm ring-1 ring-border/70"
+                  />
+                  <span className="truncate text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
+                    NGX Stocks
+                  </span>
+                </Link>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center lg:justify-end">
-            <PreferenceControls showLabels={false} />
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="app-button-secondary inline-flex h-12 w-12 items-center justify-center rounded-[1.2rem]"
+                  aria-label={copy.common.menu}
+                  aria-expanded={mobileMenuOpen}
+                >
+                  <Menu className="h-5 w-5" />
+                </button>
+              </div>
+
+              {mobileMenuOpen ? (
+                <>
+                  <button
+                    type="button"
+                    aria-label={copy.common.closeSidebar}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-[2px]"
+                  />
+
+                  <div className="fixed left-2 top-2 z-50 w-[calc(100%-1rem)] max-w-[22rem] overflow-hidden rounded-[1.25rem] border border-border/80 bg-background/95 shadow-[0_28px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl">
+                    <div className="p-4">
+                      <div className="flex items-center justify-between gap-3 mb-3">
+                        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+                          {copy.common.menu}
+                        </span>
+                        <button
+                          type="button"
+                          aria-label={copy.common.closeSidebar}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="inline-flex h-10 w-10 items-center justify-center rounded-[1rem] border border-border/80 bg-white/80 dark:bg-white/5"
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
+                      </div>
+
+                      <nav className="flex flex-col space-y-2">
+                        {user ? (
+                          <>
+                            <Link
+                              to="/dashboard"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-secondary inline-flex h-12 items-center justify-center"
+                            >
+                              {copy.common.goToDashboard}
+                            </Link>
+                            <Link
+                              to="/dashboard/watchlist"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-secondary inline-flex h-12 items-center justify-center"
+                            >
+                              Watchlist
+                            </Link>
+                            <Link
+                              to="/dashboard/portfolio"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-secondary inline-flex h-12 items-center justify-center"
+                            >
+                              Portfolio
+                            </Link>
+                            <Link
+                              to="/dashboard/learn"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-secondary inline-flex h-12 items-center justify-center"
+                            >
+                              Learn
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              to="/login"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-secondary inline-flex h-12 items-center justify-center"
+                            >
+                              {copy.common.login}
+                            </Link>
+                            <Link
+                              to="/signup"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="app-button-primary inline-flex h-12 items-center justify-center gap-2"
+                            >
+                              {copy.common.createAccount}
+                            </Link>
+                          </>
+                        )}
+                      </nav>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+
+              <div className="hidden lg:block">
+                <Link
+                  to={backHref}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-white/45 px-4 py-2.5 text-sm font-medium text-muted-foreground backdrop-blur-sm hover:border-primary/20 hover:bg-white/75 hover:text-foreground dark:bg-white/5 dark:hover:bg-white/10 sm:justify-start"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {backLabel}
+                </Link>
+              </div>
+            </>
+          ) : (
             <Link
-              to={backHref}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-white/45 px-4 py-2.5 text-sm font-medium text-muted-foreground backdrop-blur-sm hover:border-primary/20 hover:bg-white/75 hover:text-foreground dark:bg-white/5 dark:hover:bg-white/10 sm:justify-start"
+              to="/"
+              className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-3 py-2 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm hover:border-primary/20 hover:bg-white/80 dark:bg-white/5 dark:hover:bg-white/10"
             >
-              <ArrowLeft className="h-4 w-4" />
-              {backLabel}
+              <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
+                <img
+                  src={faviconIcon}
+                  alt="NGX Stocks"
+                  className="h-5 w-5 rounded"
+                />
+              </span>
+              <span className="flex flex-col text-left">
+                <span className="text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
+                  NGX Stocks
+                </span>
+                <span className="text-[13px] font-medium text-foreground/80">
+                  {copy.authShell.brandSubtitle}
+                </span>
+              </span>
             </Link>
-          </div>
+          )}
+
+          {!compactNav ? (
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center lg:justify-end">
+              <PreferenceControls showLabels={false} />
+              <Link
+                to={backHref}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-white/45 px-4 py-2.5 text-sm font-medium text-muted-foreground backdrop-blur-sm hover:border-primary/20 hover:bg-white/75 hover:text-foreground dark:bg-white/5 dark:hover:bg-white/10 sm:justify-start"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                {backLabel}
+              </Link>
+            </div>
+          ) : null}
         </div>
 
         <div className="grid flex-1 gap-5 py-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-6 lg:py-9">
@@ -173,7 +327,10 @@ export default function AuthShell({
                   const Icon = item.icon;
 
                   return (
-                    <article key={item.label} className="app-panel-soft rounded-[1.3rem] p-4">
+                    <article
+                      key={item.label}
+                      className="app-panel-soft rounded-[1.3rem] p-4"
+                    >
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                           {item.label}
@@ -224,7 +381,9 @@ export default function AuthShell({
 
                 <div className="mt-6">{children}</div>
 
-                {footer ? <div className="panel-divider mt-7 pt-5">{footer}</div> : null}
+                {footer ? (
+                  <div className="panel-divider mt-7 pt-5">{footer}</div>
+                ) : null}
               </div>
             </div>
           </section>

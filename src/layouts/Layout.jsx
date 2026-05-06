@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
-import { NGXLogo } from "@/components/ui/ngx-logo";
 import Sidebar from "../components/Sidebar";
 
 export default function Layout() {
@@ -35,7 +34,11 @@ export default function Layout() {
               className="inline-flex items-center gap-3 rounded-[1rem] border border-border/70 bg-white/55 px-3 py-2 shadow-sm backdrop-blur-sm dark:bg-white/5"
             >
               <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
-                <NGXLogo className="h-[1.125rem] w-[1.125rem]" />
+                <img
+                  src="/src/assets/favicon.ico"
+                  alt="NGX Stocks"
+                  className="h-full w-full object-contain rounded"
+                />
               </span>
               <span className="min-w-0">
                 <span className="block text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">

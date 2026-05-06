@@ -13,7 +13,6 @@ import {
   X,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { NGXLogo } from "@/components/ui/ngx-logo";
 import { getAppCopy } from "@/content/appCopy";
 import { supabase } from "../../services/supabase";
 import { useAuthStore } from "../../store/useAuthStore";
@@ -76,6 +75,12 @@ export default function Sidebar({ isOpen = true, onClose }) {
   const languageLabel = translate(language, "sidebar.languageLabel");
   const logoutLabel = translate(language, "sidebar.logout");
 
+  const getUserFullName = () => {
+    const metadataName = user?.user_metadata?.name;
+    if (metadataName) return String(metadataName).trim();
+    return user?.email?.split("@")[0] || copy.sidebar.workspaceSummary;
+  };
+
   const handleLogout = async () => {
     if (supabase) {
       await supabase.auth.signOut();
@@ -99,8 +104,12 @@ export default function Sidebar({ isOpen = true, onClose }) {
           onClick={() => onClose?.()}
           className="flex items-center gap-3"
         >
-          <span className="brand-mark">
-            <NGXLogo className="h-5 w-5" />
+          <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
+            <img
+              src="/src/assets/favicon.ico"
+              alt="NGX Stocks"
+              className="h-full w-full object-contain rounded"
+            />
           </span>
           <div className="min-w-0">
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent-foreground">
@@ -122,7 +131,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
                 {copy.sidebar.welcomeTitle}
               </p>
               <p className="mt-1 break-all text-[13px] leading-5 text-muted-foreground">
-                {user?.email || copy.sidebar.workspaceSummary}
+                {getUserFullName()}
               </p>
             </div>
           </div>

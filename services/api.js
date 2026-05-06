@@ -406,10 +406,10 @@ export function enrichStock(stock = {}) {
   );
   const changePercent = toNumber(
     stock.change_percent ??
-      stock.changePercent ??
-      stock.change_pct ??
-      stock.deltaPercent ??
-      stock.percentChange,
+    stock.changePercent ??
+    stock.change_pct ??
+    stock.deltaPercent ??
+    stock.percentChange,
   );
   const volume = toNumber(
     stock.volume ?? stock.tradingVolume ?? stock.sharesTraded ?? stock.vol,
@@ -519,12 +519,12 @@ const sampleStocks = [
 
 const headers = API_KEY
   ? {
-      "X-API-Key": API_KEY,
-      "Content-Type": "application/json",
-    }
+    "X-API-Key": API_KEY,
+    "Content-Type": "application/json",
+  }
   : {
-      "Content-Type": "application/json",
-    };
+    "Content-Type": "application/json",
+  };
 
 function buildRequestOptions(signal) {
   return {
@@ -853,10 +853,10 @@ function normalizeHistoricalRows(payload, currentPrice) {
       );
       const close = toNumber(
         item?.close_price ??
-          item?.close ??
-          item?.price ??
-          item?.current_price ??
-          item?.c,
+        item?.close ??
+        item?.price ??
+        item?.current_price ??
+        item?.c,
         open || currentPrice,
       );
       const high = toNumber(
@@ -1025,24 +1025,24 @@ function normalizeHistoryBucket(items, rangeType, symbol, currentPrice) {
 
       const price = toNumber(
         item?.price ??
-          item?.close_price ??
-          item?.close ??
-          item?.open_price ??
-          item?.open ??
-          item?.value ??
-          item?.current_price ??
-          item?.lastPrice ??
-          item?.amount,
+        item?.close_price ??
+        item?.close ??
+        item?.open_price ??
+        item?.open ??
+        item?.value ??
+        item?.current_price ??
+        item?.lastPrice ??
+        item?.amount,
         currentPrice,
       );
 
       return {
         label: formatLabelFromValue(
           item?.label ??
-            item?.time ??
-            item?.date ??
-            item?.timestamp ??
-            item?.session,
+          item?.time ??
+          item?.date ??
+          item?.timestamp ??
+          item?.session,
           index,
           collection.length,
           rangeType,
@@ -1171,6 +1171,31 @@ function applyTemplate(template, replacements) {
   );
 }
 
+function buildFallbackNewsUrl(stockContext, headline) {
+  const query = `${stockContext?.symbol || ""} ${headline || ""}`.trim();
+  return `https://news.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function normalizeNewsUrl(rawUrl, stockContext, headline) {
+  const url = String(rawUrl || "").trim();
+
+  if (!url) return buildFallbackNewsUrl(stockContext, headline);
+
+  // block unsafe/empty placeholder values
+  if (url === "#" || url === "about:blank") return buildFallbackNewsUrl(stockContext, headline);
+  if (url.toLowerCase().startsWith("javascript:")) return buildFallbackNewsUrl(stockContext, headline);
+
+  // already absolute
+  if (/^https?:\/\//i.test(url)) return url;
+
+  // protocol-less domain
+  if (/^www\./i.test(url)) return `https://${url}`;
+
+  // relative paths: /news/123 or news/123
+  if (url.startsWith("/")) return `${API_ORIGIN}${url}`;
+  return `${API_ORIGIN}/${url}`;
+}
+
 function normalizeNewsItems(payload, stockContext) {
   const items = extractNewsCollection(payload);
 
@@ -1188,6 +1213,8 @@ function normalizeNewsItems(payload, stockContext) {
 
       const publishedAt = item?.publishedAt ?? item?.published_at ?? item?.date;
       const parsedDate = publishedAt ? new Date(publishedAt) : null;
+
+      const rawUrl = item?.url ?? item?.link ?? item?.href ?? null;
 
       return {
         id:
@@ -1209,7 +1236,7 @@ function normalizeNewsItems(payload, stockContext) {
           parsedDate && !Number.isNaN(parsedDate.getTime())
             ? parsedDate.toISOString()
             : new Date(Date.now() - index * 1000 * 60 * 60 * 4).toISOString(),
-        url: item?.url ?? item?.link ?? item?.href ?? null,
+        url: normalizeNewsUrl(rawUrl, stockContext, headline),
         isFallback: false,
       };
     })
@@ -1436,20 +1463,20 @@ export async function fetchStockHistory(symbol, signal) {
   );
   const history = historyHasNonZeroPoints
     ? buildHistoryFromSnapshotAndRows({
-        symbol: normalized.symbol,
-        currentPrice: normalized.price,
-        previousClose: normalized.previousClose,
-        pctChange7d: normalized.pctChange7d,
-        changePercent: normalized.changePercent,
-        rows: historicalRows,
-      })
+      symbol: normalized.symbol,
+      currentPrice: normalized.price,
+      previousClose: normalized.previousClose,
+      pctChange7d: normalized.pctChange7d,
+      changePercent: normalized.changePercent,
+      rows: historicalRows,
+    })
     : buildFallbackHistory({
-        symbol: normalized.symbol,
-        currentPrice: normalized.price,
-        previousClose: normalized.previousClose,
-        pctChange7d: normalized.pctChange7d,
-        changePercent: normalized.changePercent,
-      });
+      symbol: normalized.symbol,
+      currentPrice: normalized.price,
+      previousClose: normalized.previousClose,
+      pctChange7d: normalized.pctChange7d,
+      changePercent: normalized.changePercent,
+    });
 
   const mergedNews = filterNewsForStock(
     [
@@ -1498,11 +1525,11 @@ export async function fetchStockHistory(symbol, signal) {
       mergedNews.length > 0
         ? mergedNews
         : buildFallbackNews({
-            symbol: normalized.symbol,
-            name: normalized.name,
-            sector: normalized.sector,
-            currentPrice: normalized.price,
-            changePercent: normalized.changePercent,
-          }),
+          symbol: normalized.symbol,
+          name: normalized.name,
+          sector: normalized.sector,
+          currentPrice: normalized.price,
+          changePercent: normalized.changePercent,
+        }),
   });
 }

@@ -1,0 +1,202 @@
+## Theme Sources
+
+### `tailwind.config.js`
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: "class",
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "rgb(var(--background) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        card: "rgb(var(--card) / <alpha-value>)",
+        "card-foreground": "rgb(var(--card-foreground) / <alpha-value>)",
+        popover: "rgb(var(--popover) / <alpha-value>)",
+        "popover-foreground": "rgb(var(--popover-foreground) / <alpha-value>)",
+        primary: "oklch(var(--primary) / <alpha-value>)",
+        "primary-foreground": "rgb(var(--primary-foreground) / <alpha-value>)",
+        secondary: "rgb(var(--secondary) / <alpha-value>)",
+        "secondary-foreground":
+          "rgb(var(--secondary-foreground) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        "muted-foreground": "rgb(var(--muted-foreground) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-foreground": "rgb(var(--accent-foreground) / <alpha-value>)",
+        destructive: "rgb(var(--destructive) / <alpha-value>)",
+        "destructive-foreground":
+          "rgb(var(--destructive-foreground) / <alpha-value>)",
+        border: "rgb(var(--border) / <alpha-value>)",
+        input: "rgb(var(--input) / <alpha-value>)",
+        ring: "oklch(var(--ring) / <alpha-value>)",
+      },
+      fontFamily: {
+        sans: ['"Geist Variable"', "ui-sans-serif", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        glow: "0 18px 55px oklch(var(--primary) / 0.16)",
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+### `src/index.css`
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 251 248;
+    --foreground: 24 34 29;
+    --card: 255 255 255;
+    --card-foreground: 24 34 29;
+    --popover: 255 255 255;
+    --popover-foreground: 24 34 29;
+    --primary: 40.5% 0.0642 152.6;
+    --primary-foreground: 42 58 49;
+    --secondary: 240 245 241;
+    --secondary-foreground: 42 58 49;
+    --muted: 244 248 244;
+    --muted-foreground: 113 127 118;
+    --accent: 236 244 238;
+    --accent-foreground: 63 95 72;
+    --destructive: 220 38 38;
+    --destructive-foreground: 255 255 255;
+    --border: 220 231 223;
+    --input: 220 231 223;
+    --ring: 0.8298 0.0642 153.2899;
+  }
+
+  .dark {
+    --background: 10 16 13;
+    --foreground: 230 236 231;
+    --card: 16 23 19;
+    --card-foreground: 230 236 231;
+    --popover: 16 23 19;
+    --popover-foreground: 230 236 231;
+    --primary: 0.6282 0.1499 133.4853;
+    --primary-foreground: 28 42 34;
+    --secondary: 21 31 26;
+    --secondary-foreground: 219 226 220;
+    --muted: 20 29 24;
+    --muted-foreground: 136 150 141;
+    --accent: 24 36 29;
+    --accent-foreground: 181 215 191;
+    --destructive: 248 113 113;
+    --destructive-foreground: 15 23 42;
+    --border: 36 49 41;
+    --input: 36 49 41;
+    --ring: 0.8298 0.0642 153.2899;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background;
+    scroll-behavior: smooth;
+  }
+
+  .dark body {
+    background-image:
+      linear-gradient(180deg, rgb(var(--background)) 0%, rgb(12 20 15) 100%),
+      radial-gradient(
+        circle at top left,
+        oklch(var(--primary) / 0.13),
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        oklch(var(--primary) / 0.07),
+        transparent 20%
+      );
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  ::selection {
+    background: oklch(var(--primary) / 0.22);
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.035em;
+  }
+}
+
+@layer components {
+  .app-panel {
+    border-color: rgb(var(--border) / 0.78);
+    background-color: rgb(var(--card) / 0.92);
+    box-shadow: 0 20px 60px rgba(23, 33, 27, 0.06);
+    @apply rounded-[2rem] border backdrop-blur-sm;
+  }
+
+  .dark .app-panel {
+    background-color: rgb(var(--card) / 0.9);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+  }
+
+  .app-panel-soft {
+    border-color: rgb(var(--border) / 0.72);
+    background-color: rgb(var(--card) / 0.82);
+    box-shadow: 0 14px 40px rgba(23, 33, 27, 0.05);
+    @apply rounded-[1.75rem] border backdrop-blur-sm;
+  }
+
+  .dark .app-panel-soft {
+    background-color: rgb(var(--card) / 0.8);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  }
+
+  .app-control {
+    border-color: rgb(var(--border) / 0.84);
+    background-color: rgb(var(--card) / 0.9);
+    @apply border backdrop-blur-sm transition;
+  }
+
+  .dark .app-control {
+    background-color: rgb(var(--card) / 0.8);
+  }
+
+  .app-input {
+    border-color: rgb(var(--input) / 0.9);
+    background-color: rgb(var(--card) / 0.92);
+    @apply h-[54px] w-full rounded-[1.35rem] border px-4 text-sm text-foreground shadow-sm outline-none transition placeholder:text-muted-foreground;
+  }
+
+  .app-input:focus {
+    border-color: oklch(var(--ring) / 0.9);
+    box-shadow: 0 0 0 4px oklch(var(--ring) / 0.14);
+  }
+}
+```
+
+### Theme Summary
+
+- Light-first palette with green market accent and translucent white panels
+- Single font family: `Geist Variable`
+- Dark mode toggled through the `dark` class on `document.documentElement`
+- Reusable surface classes: `app-panel`, `app-panel-soft`, `app-control`, `app-input`
+- Brand effects lean on soft blur, large radius, faint green gradients, and low-contrast borders

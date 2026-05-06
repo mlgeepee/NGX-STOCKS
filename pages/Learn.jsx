@@ -16,6 +16,17 @@ import cowrywiseImage from "../src/assets/cowrywise.png";
 
 const quickStartIcons = [TrendingUp, BookOpen, ShieldCheck];
 const toolIcons = [CandlestickChart, BookOpen, Building2, BellRing];
+const quickStartIconTones = [
+  "bg-primary/12 text-primary ring-1 ring-primary/15",
+  "bg-amber-500/12 text-amber-700 ring-1 ring-amber-300/40 dark:text-amber-200 dark:ring-amber-400/20",
+  "bg-sky-500/12 text-sky-700 ring-1 ring-sky-300/40 dark:text-sky-200 dark:ring-sky-400/20",
+];
+const toolIconTones = [
+  "bg-primary/12 text-primary ring-1 ring-primary/15",
+  "bg-amber-500/12 text-amber-700 ring-1 ring-amber-300/40 dark:text-amber-200 dark:ring-amber-400/20",
+  "bg-sky-500/12 text-sky-700 ring-1 ring-sky-300/40 dark:text-sky-200 dark:ring-sky-400/20",
+  "bg-rose-500/12 text-rose-700 ring-1 ring-rose-300/40 dark:text-rose-200 dark:ring-rose-400/20",
+];
 
 function SectionHeader({ kicker, title, description }) {
   return (
@@ -57,13 +68,16 @@ export default function Learn() {
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {content.quickStartCards.map((card, index) => {
             const Icon = quickStartIcons[index];
+            const tone = quickStartIconTones[index] || quickStartIconTones[0];
 
             return (
               <article
                 key={card.title}
                 className="app-panel-soft rounded-[1.45rem] p-5 sm:p-6"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+                <span
+                  className={`flex h-12 w-12 items-center justify-center rounded-[1.2rem] ${tone}`}
+                >
                   <Icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-5 text-xl font-semibold text-foreground">
@@ -127,13 +141,16 @@ export default function Learn() {
             <div className="mt-6 space-y-3">
               {content.appTools.map((item, index) => {
                 const Icon = toolIcons[index];
+                const tone = toolIconTones[index] || toolIconTones[0];
 
                 return (
                   <div
                     key={item.title}
                     className="flex items-start gap-4 rounded-[1.15rem] border border-border/65 bg-white/55 p-4 sm:p-5 dark:bg-white/5"
                   >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] bg-primary/10 text-primary">
+                    <span
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] ${tone}`}
+                    >
                       <Icon className="h-5 w-5" />
                     </span>
                     <div className="min-w-0 flex-1">
@@ -219,7 +236,7 @@ export default function Learn() {
 
           <div className="app-panel-soft rounded-[1.55rem] p-6 sm:p-7">
             <div className="flex items-start gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-[1.2rem] bg-primary/10 text-primary">
+              <span className="flex h-12 w-12 items-center justify-center rounded-[1.2rem] bg-transparent text-primary">
                 <BriefcaseBusiness className="h-5 w-5" />
               </span>
               <div>

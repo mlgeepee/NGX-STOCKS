@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { supabase } from "../services/supabase";
 import { Alert } from "@/components/ui/alert";
-import AuthShell from "@/components/AuthShell";
+import AuthLandingShell from "@/components/AuthLandingShell";
 import { getAppCopy } from "@/content/appCopy";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 
@@ -11,6 +11,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const language = usePreferencesStore((state) => state.language);
   const copy = getAppCopy(language);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -43,6 +44,11 @@ export default function SignUp() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          name,
+        },
+      },
     });
 
     if (error) {
@@ -66,16 +72,12 @@ export default function SignUp() {
         />
       ) : null}
 
-      <AuthShell
+      <AuthLandingShell
         backHref="/login"
         backLabel={copy.common.backSignIn}
         eyebrow={copy.signup.eyebrow}
         title={copy.signup.title}
         description={copy.signup.description}
-        highlights={copy.signup.highlights.map((item, index) => ({
-          ...item,
-          icon: [Sparkles, Star, ShieldCheck][index],
-        }))}
       >
         {!isSupabaseReady ? (
           <div className="rounded-[1.45rem] border border-destructive/20 bg-destructive/10 px-4 py-4 text-sm leading-6 text-destructive">
@@ -85,7 +87,30 @@ export default function SignUp() {
 
         <form onSubmit={handleSignup} className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="name"
+              className="text-sm font-medium text-foreground"
+            >
+              {copy.common.nameLabel || "Your name"}
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder={
+                copy.common.namePlaceholder || "Enter your full name"
+              }
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              className="app-input"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-foreground"
+            >
               {copy.common.emailLabel}
             </label>
             <input
@@ -185,7 +210,7 @@ export default function SignUp() {
             {copy.signup.footerLink}
           </Link>
         </div>
-      </AuthShell>
+      </AuthLandingShell>
     </>
   );
 }
