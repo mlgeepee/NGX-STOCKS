@@ -517,6 +517,17 @@ const sampleStocks = [
   { symbol: "TRANSCORP", price: 18.3, changePercent: 2.08, volume: 26800000 },
 ].map((stock) => enrichStock(stock));
 
+function getEnvDebugInfo() {
+  // Never log the API key value itself; only whether it's present.
+  const hasKey = typeof API_KEY === "string" && API_KEY.trim().length > 0;
+  const apiBase = typeof RAW_API_BASE === "string" ? RAW_API_BASE.trim() : "";
+  return {
+    hasKey,
+    apiBaseProvided: apiBase.length > 0,
+    apiBaseResolved: API_BASE,
+  };
+}
+
 const headers = API_KEY
   ? {
     "X-API-Key": API_KEY,
@@ -1354,9 +1365,14 @@ function buildStockDetail(stock = {}) {
 
 export async function fetchStockList(signal) {
   if (!RAW_API_BASE || !API_KEY) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(sampleStocks), 250);
-    });
+    const debug = getEnvDebugInfo();
+
+    // eslint-disable-next-line no-console
+    console.error("Stock API env misconfigured:", JSON.stringify(debug));
+
+    throw new Error(
+      "Stock list fetch aborted: missing VITE_NGXPULSE_API_KEY and/or VITE_NGXPULSE_API_BASE_URL in this deployment.",
+    );
   }
 
   const response = await fetch(`${API_BASE}/stocks`, {
