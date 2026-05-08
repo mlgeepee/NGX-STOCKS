@@ -903,4 +903,3 @@ export default function Dashboard() {
     </div>
   );
 }
-console.log(import.meta.env.VITE_NGX_API_KEY);
