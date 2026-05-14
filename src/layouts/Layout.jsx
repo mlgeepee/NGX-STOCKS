@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import faviconIcon from "../assets/favicon.ico";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function Layout() {
             >
               <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
                 <img
-                  src="/src/assets/favicon.ico"
+                  src={faviconIcon}
                   alt="NGX Stocks"
                   className="h-full w-full object-contain rounded"
                 />

@@ -18,6 +18,7 @@ import { supabase } from "../../services/supabase";
 import { useAuthStore } from "../../store/useAuthStore";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
 import { translate } from "../lib/i18n";
+import faviconIcon from "../assets/favicon.ico";
 
 const navItems = [
   {
@@ -106,7 +107,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
         >
           <span className="brand-mark h-9 w-9 rounded-[0.95rem]">
             <img
-              src="/src/assets/favicon.ico"
+              src={faviconIcon}
               alt="NGX Stocks"
               className="h-full w-full object-contain rounded"
             />
