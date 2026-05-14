@@ -1,5 +1,10 @@
 const RAW_API_BASE = import.meta.env.VITE_NGXPULSE_API_BASE_URL;
 const API_KEY = String(import.meta.env.VITE_NGXPULSE_API_KEY || "").trim();
+const LOGO_DEV_PUBLIC_KEY = String(
+  import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY ||
+    import.meta.env.VITE_LOGO_DEV_PUBLISHABLE_KEY ||
+    "pk_GTCHsr0oSGSc0l_FAgeBkA",
+).trim();
 
 function normalizeApiBaseUrl(value) {
   const fallback = "https://ngxpulse.ng/api/ngxdata";
@@ -14,109 +19,176 @@ function normalizeApiBaseUrl(value) {
 const API_BASE = normalizeApiBaseUrl(RAW_API_BASE);
 const API_ORIGIN = API_BASE.replace(/\/api\/ngxdata$/, "");
 const NEWS_API_URL = `${API_ORIGIN}/api/news`;
+const COMMUNITY_LOGO_BASE_PATH = "/NGX LOGOS (Community)";
+const LOCAL_LOGO_BASE_PATH = "/logos";
+
+function buildPublicLogoPath(basePath, fileName) {
+  return encodeURI(`${basePath}/${String(fileName || "").replace(/^\/+/, "")}`);
+}
 
 const STOCK_METADATA = {
   ACCESS: {
     name: "Access Holdings",
     sector: "Banking",
     volume: 46200000,
-    logo: "/logos/Access.png",
+    domain: "accessholdingsplc.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "ACCESSCORP.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Access.png"),
   },
   AIRTELAFRI: {
     name: "Airtel Africa",
     sector: "Telecommunications",
     volume: 8400000,
-    logo: "/logos/Airtel.png",
+    domain: "airtel.africa",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "AIRTELAFRI.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Airtel.png"),
   },
   ARADEL: {
     name: "Aradel Holdings",
     sector: "Energy",
     volume: 5400000,
-    logo: "/logos/Aradel-holdings.png",
+    domain: "aradel.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "ARADEL.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Aradel-holdings.png"),
   },
   BUAFOODS: {
     name: "BUA Foods",
     sector: "Consumer Goods",
     volume: 12100000,
-    logo: "/logos/Bua-foods.png",
+    domain: "buafoodsplc.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "BUAFOODS.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Bua-foods.png"),
   },
   CONOIL: {
     name: "Conoil",
     sector: "Energy",
     volume: 3600000,
-    logo: "/logos/Conoil.svg",
+    domain: "conoilplc.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "CONOIL.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Conoil.svg"),
   },
   DANGCEM: {
     name: "Dangote Cement",
     sector: "Industrial Goods",
     volume: 9800000,
-    logo: "/logos/Dangote-cement.png",
+    domain: "dangotecement.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "DANGCEM.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Dangote-cement.png"),
   },
   FCMB: {
     name: "FCMB Group",
     sector: "Banking",
     volume: 28700000,
-    logo: "/logos/FCMB.png",
+    domain: "fcmbgroup.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "FCMB.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "FCMB.png"),
   },
   GTCO: {
     name: "GTCO",
     sector: "Banking",
     volume: 31400000,
-    logo: "/logos/GTCO.png",
+    domain: "gtcoplc.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "GTCO.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "GTCO.png"),
   },
   GUINNESS: {
     name: "Guinness Nigeria",
     sector: "Consumer Goods",
     volume: 2200000,
-    logo: "/logos/Guinness.svg",
+    domain: "guinness-nigeria.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "GUINNESS.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Guinness.svg"),
   },
   MTNN: {
     name: "MTN Nigeria Communications Plc",
     sector: "ICT",
     volume: 52400000,
-    logo: "/logos/MTN.png",
+    domain: "mtn.ng",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "MTNN.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "MTN.png"),
   },
   MTN: {
     name: "MTN Nigeria",
     sector: "Telecommunications",
     volume: 52400000,
-    logo: "/logos/MTN.png",
+    domain: "mtn.ng",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "MTNN.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "MTN.png"),
   },
   NESTLE: {
     name: "Nestle Nigeria",
     sector: "Consumer Goods",
     volume: 1500000,
-    logo: "/logos/Nestle.png",
+    domain: "nestle-cwa.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "NESTLE.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Nestle.png"),
   },
   OANDO: {
     name: "Oando",
     sector: "Energy",
     volume: 17800000,
-    logo: "/logos/Oando.png",
+    domain: "oandoplc.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "OANDO.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Oando.png"),
   },
   SEPLAT: {
     name: "Seplat Energy",
     sector: "Energy",
     volume: 4300000,
-    logo: "/logos/Seplat-energy.svg",
+    domain: "seplatenergy.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "SEPLAT.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Seplat-energy.svg"),
   },
   TRANSCORP: {
     name: "Transcorp",
     sector: "Conglomerates",
     volume: 26800000,
-    logo: "/logos/Transcorp.svg",
+    domain: "transcorpgroup.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "TRANSCORP.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Transcorp.svg"),
   },
   UBA: {
     name: "United Bank for Africa",
     sector: "Banking",
     volume: 35800000,
-    logo: "/logos/UBA.png",
+    domain: "ubagroup.com",
+    communityLogo: buildPublicLogoPath(COMMUNITY_LOGO_BASE_PATH, "UBA.jpg"),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "UBA.png"),
   },
   ZENITH: {
     name: "Zenith Bank",
     sector: "Banking",
     volume: 40100000,
-    logo: "/logos/Zenith.png",
+    domain: "zenithbank.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "ZENITHBANK.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Zenith.png"),
   },
 };
 
@@ -344,6 +416,9 @@ const STOCK_FACTS = {
   },
 };
 
+const KNOWN_LOGO_PATH_PATTERN =
+  /^(?:\.?\/)?(?:logos|images|uploads|storage)\//i;
+
 function getPlaceholderLogoUrl(symbol) {
   const palettes = [
     { base: "#0f8a5f", accent: "#fff0cf", glow: "#d2a14a" },
@@ -372,6 +447,89 @@ function normalizeSymbol(value) {
     .replace(/\s+/g, "");
 }
 
+function normalizeLogoAssetUrl(value) {
+  const candidate = String(value || "").trim();
+
+  if (!candidate) {
+    return "";
+  }
+
+  if (
+    candidate.startsWith("data:image/") ||
+    candidate.startsWith("/") ||
+    /^https?:\/\//i.test(candidate)
+  ) {
+    return candidate;
+  }
+
+  if (KNOWN_LOGO_PATH_PATTERN.test(candidate)) {
+    return `${API_ORIGIN}/${candidate.replace(/^\.?\//, "")}`;
+  }
+
+  return candidate;
+}
+
+function normalizeLogoDomain(value) {
+  return String(value || "")
+    .trim()
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "")
+    .replace(/\/.*$/, "")
+    .toLowerCase();
+}
+
+function buildLogoDevDomainUrl(domain) {
+  const normalizedDomain = normalizeLogoDomain(domain);
+
+  if (!normalizedDomain || !LOGO_DEV_PUBLIC_KEY) {
+    return "";
+  }
+
+  const searchParams = new URLSearchParams({
+    token: LOGO_DEV_PUBLIC_KEY,
+    fallback: "404",
+    format: "png",
+    size: "128",
+    retina: "true",
+  });
+
+  return `https://img.logo.dev/${encodeURIComponent(normalizedDomain)}?${searchParams.toString()}`;
+}
+
+function getLogoLookupName(name, symbol) {
+  const candidate = String(name || symbol || "")
+    .replace(/\b(plc|holdings?|group|nigeria)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return candidate || normalizeSymbol(symbol);
+}
+
+function buildLogoDevNameUrl(name, symbol) {
+  const lookupName = getLogoLookupName(name, symbol);
+
+  if (!lookupName || !LOGO_DEV_PUBLIC_KEY) {
+    return "";
+  }
+
+  const searchParams = new URLSearchParams({
+    token: LOGO_DEV_PUBLIC_KEY,
+    fallback: "404",
+    format: "png",
+    size: "128",
+    retina: "true",
+  });
+
+  return `https://img.logo.dev/name/${encodeURIComponent(lookupName)}?${searchParams.toString()}`;
+}
+
+function getRemoteLogoUrl({ symbol, name, domain } = {}) {
+  return (
+    buildLogoDevDomainUrl(domain || getStockMetadata(symbol).domain) ||
+    buildLogoDevNameUrl(name, symbol)
+  );
+}
+
 function toNumber(value, fallback = 0) {
   const normalized =
     typeof value === "string" ? value.replace(/,/g, "").trim() : value;
@@ -389,11 +547,31 @@ export function getStockMetadata(symbol) {
 
 export function getLogoUrl(symbol) {
   const metadata = getStockMetadata(symbol);
-  return metadata.logo || getPlaceholderLogoUrl(symbol);
+  return (
+    normalizeLogoAssetUrl(metadata.communityLogo) ||
+    normalizeLogoAssetUrl(metadata.logo) ||
+    getPlaceholderLogoUrl(symbol)
+  );
 }
 
 export function getFallbackLogoUrl(symbol) {
   return getPlaceholderLogoUrl(symbol);
+}
+
+export function getLogoCandidates({ symbol, name, logo } = {}) {
+  const fallbackLogo = getPlaceholderLogoUrl(symbol);
+  const metadata = getStockMetadata(symbol);
+  const communityLogo = normalizeLogoAssetUrl(metadata.communityLogo);
+  const metadataLogo = normalizeLogoAssetUrl(metadata.logo);
+  const explicitLogo = normalizeLogoAssetUrl(logo);
+  const remoteLogo = getRemoteLogoUrl({ symbol, name, domain: metadata.domain });
+
+  return [explicitLogo, communityLogo, metadataLogo, remoteLogo].filter(
+    (candidate, index, candidates) =>
+      candidate &&
+      candidate !== fallbackLogo &&
+      candidates.indexOf(candidate) === index,
+  );
 }
 
 export function enrichStock(stock = {}) {
@@ -497,6 +675,7 @@ export function enrichStock(stock = {}) {
       stock.icon ||
       stock.image ||
       stock.logoUrl ||
+      metadata.communityLogo ||
       metadata.logo ||
       getPlaceholderLogoUrl(symbol),
   };

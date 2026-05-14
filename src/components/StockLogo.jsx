@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { getFallbackLogoUrl, getLogoUrl } from "../../services/api";
+import { useEffect, useMemo, useState } from "react";
+import { getFallbackLogoUrl, getLogoCandidates } from "../../services/api";
 
 const sizeClasses = {
   sm: "h-10 w-10 rounded-[1rem]",
@@ -82,15 +82,22 @@ export default function StockLogo({
 }) {
   const resolvedSize = sizeClasses[size] || sizeClasses.md;
   const fallbackLogo = useMemo(() => getFallbackLogoUrl(symbol), [symbol]);
-  const resolvedLogo = logo || getLogoUrl(symbol);
+  const logoCandidates = useMemo(
+    () => getLogoCandidates({ symbol, name, logo }),
+    [logo, name, symbol],
+  );
+  const logoCandidatesKey = logoCandidates.join("|");
+  const [candidateIndex, setCandidateIndex] = useState(0);
 
-  // Remount <img> when the logo source changes so the internal error state resets
-  const resolvedLogoKey = resolvedLogo ? `logo:${resolvedLogo}` : "logo:none";
+  useEffect(() => {
+    setCandidateIndex(0);
+  }, [logoCandidatesKey]);
 
-  const [hasImageError, setHasImageError] = useState(false);
-
-  const showInitialsFallback =
-    hasImageError || !resolvedLogo || resolvedLogo === fallbackLogo;
+  const resolvedLogo = logoCandidates[candidateIndex] || "";
+  const resolvedLogoKey = resolvedLogo
+    ? `logo:${candidateIndex}:${resolvedLogo}`
+    : "logo:none";
+  const showInitialsFallback = !resolvedLogo || resolvedLogo === fallbackLogo;
   const initials = getCompanyInitials(name, symbol);
   const tone =
     fallbackTones[getToneSeed(name || symbol) % fallbackTones.length];
@@ -111,10 +118,10 @@ export default function StockLogo({
           key={resolvedLogoKey}
           src={resolvedLogo}
           alt={`${name || symbol} logo`}
-          className="h-full w-full object-contain p-1.5"
+          className="h-full w-full object-cover"
           loading="lazy"
           onError={() => {
-            setHasImageError(true);
+            setCandidateIndex((currentIndex) => currentIndex + 1);
           }}
         />
       )}
