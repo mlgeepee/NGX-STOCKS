@@ -222,12 +222,6 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="hidden sm:block">
-              <Link to="/" className="app-button-secondary w-full mb-3">
-                Home
-              </Link>
-            </div>
-
             <button type="submit" className="app-button-primary w-full">
               {copy.common.signInButton}
             </button>

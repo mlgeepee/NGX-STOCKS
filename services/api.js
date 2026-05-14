@@ -1,5 +1,5 @@
 const RAW_API_BASE = import.meta.env.VITE_NGXPULSE_API_BASE_URL;
-const API_KEY = import.meta.env.VITE_NGXPULSE_API_KEY;
+const API_KEY = String(import.meta.env.VITE_NGXPULSE_API_KEY || "").trim();
 
 function normalizeApiBaseUrl(value) {
   const fallback = "https://ngxpulse.ng/api/ngxdata";
@@ -1368,12 +1368,23 @@ export async function fetchStockList(signal) {
     const debug = getEnvDebugInfo();
 
     // eslint-disable-next-line no-console
-    console.error("Stock API env misconfigured:", JSON.stringify(debug));
-
-    throw new Error(
-      "Stock list fetch aborted: missing VITE_NGXPULSE_API_KEY and/or VITE_NGXPULSE_API_BASE_URL in this deployment.",
+    console.warn(
+      "Stock API env misconfigured, falling back to sample stocks:",
+      JSON.stringify(debug),
     );
+
+    return sampleStocks;
   }
+
+  // eslint-disable-next-line no-console
+  console.info(
+    "Stock API request:",
+    JSON.stringify({
+      hasKey: getEnvDebugInfo().hasKey,
+      apiBaseResolved: getEnvDebugInfo().apiBaseResolved,
+      url: `${API_BASE}/stocks`,
+    }),
+  );
 
   const response = await fetch(`${API_BASE}/stocks`, {
     ...buildRequestOptions(signal),
@@ -1381,6 +1392,15 @@ export async function fetchStockList(signal) {
 
   if (!response.ok) {
     const details = await response.text();
+    if (response.status === 401 || response.status === 403) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "Stock API auth failed, falling back to sample stocks:",
+        response.status,
+        details,
+      );
+      return sampleStocks;
+    }
     throw new Error(`Stock list fetch failed: ${response.status} ${details}`);
   }
 
@@ -1445,6 +1465,32 @@ export async function fetchStockHistory(symbol, signal) {
 
   if (!historyResponse.ok) {
     const details = await historyResponse.text();
+    if (historyResponse.status === 401 || historyResponse.status === 403) {
+      const stock = snapshot || enrichStock({ symbol: normalizedSymbol });
+      return buildStockDetail({
+        ...stock,
+        currentPrice: stock.price,
+        changePercent: stock.changePercent,
+        volume: stock.volume,
+        openPrice: stock.previousClose || stock.price,
+        highPrice: stock.price * 1.02,
+        lowPrice: stock.price * 0.98,
+        history: buildFallbackHistory({
+          symbol: stock.symbol,
+          currentPrice: stock.price,
+          previousClose: stock.previousClose,
+          pctChange7d: stock.pctChange7d,
+          changePercent: stock.changePercent,
+        }),
+        news: buildFallbackNews({
+          symbol: stock.symbol,
+          name: stock.name,
+          sector: stock.sector,
+          currentPrice: stock.price,
+          changePercent: stock.changePercent,
+        }),
+      });
+    }
     throw new Error(`Price fetch failed: ${historyResponse.status} ${details}`);
   }
 
