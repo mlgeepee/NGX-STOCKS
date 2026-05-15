@@ -27,7 +27,7 @@ const marketPreview = [
     logo: "/logos/Dangote-cement.png",
   },
   {
-    symbol: "GTCO",
+    symbol: "GTCOPLC",
     name: "GTCO",
     price: "₦68.15",
     move: "+0.94%",

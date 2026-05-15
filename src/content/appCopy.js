@@ -147,11 +147,11 @@ const APP_COPY = {
       heroTitle:
         "Track NGX prices, follow company detail, and line up your next move from one board.",
       heroDescription:
-        "NGX Stocks helps Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P/L, and stay close to dividend and sector signals.",
+        "NGX Stocks helps Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P & L, and stay close to dividend and sector signals.",
       trustStrip: [
         "Watchlist and company detail built around NGX names",
         "Price board, charts, market stats, and company briefings",
-        "Portfolio P/L, sector radar, dividends, and investor education",
+        "Portfolio P & L, sector radar, dividends, and investor education",
       ],
       stats: [
         {
@@ -216,7 +216,7 @@ const APP_COPY = {
         kicker: "Inside the workspace",
         title: "Use real tools for prices, holdings, alerts, sectors, and learning.",
         description:
-          "The app already brings market breadth, portfolio P/L, alert tracking, dividend dates, sector monitoring, and a learn hub into one NGX workflow.",
+          "The app already brings market breadth, portfolio P & L, alert tracking, dividend dates, sector monitoring, and a learn hub into one NGX workflow.",
         cta: "Open the learn hub",
         cards: [
           {
@@ -263,7 +263,7 @@ const APP_COPY = {
       savedNamesDetail: "Stocks already pinned to your personal watchlist.",
       boardKicker: "Market board",
       portfolioKicker: "Portfolio snapshot",
-      portfolioTitle: "Track saved holdings, market value, and unrealized P/L.",
+      portfolioTitle: "Track saved holdings, market value, and unrealized P & L.",
       portfolioDescription:
         "Save holdings from stock detail to see current value, sector mix, and unrealized performance.",
       portfolioEmptyTitle: "No holdings saved yet",
@@ -324,13 +324,13 @@ const APP_COPY = {
         {
           name: "MVP",
           summary:
-            "Ship the first usable NGX workspace with watchlist, price board, starter charts, market stats, portfolio P/L, and alerts.",
+            "Ship the first usable NGX workspace with watchlist, price board, starter charts, market stats, portfolio P & L, and alerts.",
           must: [
             "Watchlist with saved NGX names",
             "Live or delayed price board with volume and change",
             "Basic line or candlestick chart for 1D, 1W, and 1M",
             "Starter metrics: P/E, Market Cap, price change, and volume",
-            "Portfolio P/L summary for holdings and cost basis",
+            "Portfolio P & L summary for holdings and cost basis",
             "Price alert setup for target up or down levels",
           ],
           should: [
@@ -583,14 +583,14 @@ const APP_COPY = {
           label: "Next layer",
           value: "Alerts",
           detail:
-            "Portfolio P/L, valuation, sector analysis, and dividend planning.",
+            "Portfolio P & L, valuation, sector analysis, and dividend planning.",
         },
       ],
       unlockLabel: "Wetin this account go give you",
       unlockTitle:
         "One place to watch prices, save stocks, set alerts, and follow company updates.",
       unlockChip:
-        "Watchlist, charts, portfolio P/L, alerts, valuation, and NGX news flow",
+        "Watchlist, charts, portfolio P & L, alerts, valuation, and NGX news flow",
     },
     login: {
       eyebrow: "Sign in",
@@ -638,7 +638,7 @@ const APP_COPY = {
         {
           label: "Feature path",
           value: "Ready",
-          detail: "Ground don ready for alerts, portfolio P/L, and valuation tools.",
+          detail: "Ground don ready for alerts, portfolio P & L, and valuation tools.",
         },
       ],
     },
@@ -972,7 +972,7 @@ const APP_COPY = {
         "Watchlist add and remove flow",
         "Basic stock chart and company detail page",
         "P/E, Market Cap, and Volume slots on stock detail",
-        "Portfolio P/L card with total value and daily move",
+        "Portfolio P & L card with total value and daily move",
         "Price alert setup and trigger persistence",
       ],
     },
