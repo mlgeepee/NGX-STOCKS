@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import Header from "../src/components/Header";
@@ -6,6 +6,7 @@ import StocksTable from "../src/components/StocksTable";
 import { getAppCopy } from "@/content/appCopy";
 import { enrichStock } from "../services/api";
 import { useWatchlistStore } from "../store/useWatchlistStore";
+import { useAuthStore } from "../store/useAuthStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 import { translate } from "../src/lib/i18n";
 
@@ -17,6 +18,17 @@ export default function Watchlist() {
   const language = usePreferencesStore((state) => state.language);
   const t = (path, vars) => translate(language, path, vars);
   const copy = getAppCopy(language);
+  const user = useAuthStore((state) => state.user);
+  const setUserId = useWatchlistStore((state) => state.setUserId);
+  const loadWatchlistForUser = useWatchlistStore(
+    (state) => state.loadWatchlistForUser,
+  );
+
+  useEffect(() => {
+    if (!user?.id) return;
+    setUserId(user.id);
+    loadWatchlistForUser(user.id);
+  }, [user?.id, setUserId, loadWatchlistForUser]);
 
   const savedStocks = useMemo(
     () => watchlist.map((stock) => enrichStock(stock)),
@@ -71,10 +83,7 @@ export default function Watchlist() {
           <p className="mx-auto mt-3 max-w-md text-[14px] leading-6 text-muted-foreground sm:text-[15px]">
             {t("watchlist.emptyDescription")}
           </p>
-          <Link
-            to="/dashboard"
-            className="app-button-primary mt-7 gap-2 px-5"
-          >
+          <Link to="/dashboard" className="app-button-primary mt-7 gap-2 px-5">
             {t("watchlist.browseDashboard")}
             <ArrowRight className="h-4 w-4" />
           </Link>

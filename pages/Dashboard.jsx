@@ -35,6 +35,7 @@ import { usePortfolioStore } from "../store/usePortfolioStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 import { translate } from "../src/lib/i18n";
 import { useWatchlistStore } from "../store/useWatchlistStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const supportCardStyles = [
   {
@@ -636,6 +637,11 @@ export default function Dashboard() {
     Array.isArray(state.watchlist) ? state.watchlist : [],
   );
   const toggleStock = useWatchlistStore((state) => state.toggleStock);
+  const user = useAuthStore((state) => state.user);
+  const setUserId = useWatchlistStore((state) => state.setUserId);
+  const loadWatchlistForUser = useWatchlistStore(
+    (state) => state.loadWatchlistForUser,
+  );
   const positions = usePortfolioStore((state) =>
     Array.isArray(state.positions) ? state.positions : [],
   );
@@ -643,6 +649,12 @@ export default function Dashboard() {
     Array.isArray(state.alerts) ? state.alerts : [],
   );
   const removeAlert = useAlertsStore((state) => state.removeAlert);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    setUserId(user.id);
+    loadWatchlistForUser(user.id);
+  }, [user?.id, setUserId, loadWatchlistForUser]);
 
   const loadStocks = useCallback(async (signal) => {
     setLoading(true);

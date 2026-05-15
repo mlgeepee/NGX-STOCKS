@@ -16,6 +16,7 @@ import { getAppCopy } from "@/content/appCopy";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 import { useAuthStore } from "../store/useAuthStore";
 import faviconIcon from "../src/assets/favicon.ico";
+import nairaImage from "../src/assets/naira.png";
 
 const marketPreview = [
   {
@@ -43,23 +44,23 @@ const marketPreview = [
 
 const floatingLogos = [
   {
-    src: "/logos/MTN.png",
-    alt: "MTN",
+    src: "/logos/Access.png",
+    alt: "Access",
     className: "left-[8%] top-[12%] animate-float-soft",
   },
   {
-    src: "/logos/Zenith.png",
-    alt: "Zenith",
+    src: "/logos/Airtel.png",
+    alt: "Airtel",
     className: "right-[10%] top-[16%] animate-float-slower",
+  },
+  {
+    src: "/logos/Aradel-holdings.png",
+    alt: "Aradel",
+    className: "left-[14%] bottom-[20%] animate-float-slower",
   },
   {
     src: "/logos/UBA.png",
     alt: "UBA",
-    className: "left-[14%] bottom-[20%] animate-float-slower",
-  },
-  {
-    src: "/logos/Conoil.svg",
-    alt: "Conoil",
     className: "right-[16%] bottom-[12%] animate-float-soft",
   },
 ];
@@ -315,9 +316,10 @@ export default function Landing() {
                 </Link>
                 <Link
                   to="/login"
-                  className="inline-flex items-center justify-center w-full px-4 py-0 app-button-secondary"
+                  className="relative z-30 inline-flex h-12 items-center justify-center w-full px-4 app-button-secondary text-primary"
+                  aria-label={copy.landing.secondaryCta || "Log in"}
                 >
-                  {copy.landing.secondaryCta}
+                  {copy.landing.secondaryCta || "Log in"}
                 </Link>
               </div>
 
@@ -352,15 +354,29 @@ export default function Landing() {
                 <div className="relative rounded-[1.5rem] border border-white/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.6),rgba(255,255,255,0.08))] p-3.5 dark:border-white/5 dark:bg-[linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))] sm:rounded-[1.75rem] sm:p-5">
                   <div className="absolute inset-0 rounded-[1.8rem] bg-[radial-gradient(circle_at_top_left,rgba(215,167,90,0.18),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(17,120,102,0.14),transparent_34%)] sm:rounded-[2rem]" />
 
+                  {/* coin / naira visual (desktop left partial, mobile right big slanted partial) */}
+                  <img
+                    src={nairaImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="pointer-events-none absolute z-0 left-[-2rem] top-1/2 hidden h-16 w-16 -translate-y-1/2 rotate-[18deg] opacity-80 sm:left-[-2.4rem] sm:flex sm:h-20 sm:w-20"
+                  />
+                  <img
+                    src={nairaImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="pointer-events-none absolute z-0 right-[-2.4rem] top-1/2 flex h-24 w-24 -translate-y-1/2 rotate-[-18deg] opacity-85 sm:hidden"
+                  />
+
                   {floatingLogos.map((item) => (
                     <div
                       key={item.alt}
-                      className={`absolute z-10 hidden h-16 w-16 items-center justify-center rounded-[1.5rem] border border-white/60 bg-white/78 p-3 shadow-float backdrop-blur-sm sm:flex dark:border-white/10 dark:bg-white/5 ${item.className}`}
+                      className={`absolute z-10 hidden h-16 w-16 items-center justify-center rounded-[1.5rem] border border-white/60 bg-white/78 shadow-float backdrop-blur-sm sm:flex dark:border-white/10 dark:bg-white/5 ${item.className}`}
                     >
                       <img
                         src={item.src}
                         alt={item.alt}
-                        className="object-contain w-full h-full"
+                        className="object-cover w-full h-full rounded-[1.5rem]"
                         loading="lazy"
                       />
                     </div>
@@ -436,11 +452,11 @@ export default function Landing() {
                               key={item.symbol}
                               className="flex items-center gap-3 rounded-[1.35rem] border border-border/70 bg-white/58 p-3.5 dark:bg-white/5"
                             >
-                              <div className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] border border-primary/10 bg-accent/60 p-2">
+                              <div className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] border border-primary/10 bg-accent/60 p-0 overflow-hidden">
                                 <img
                                   src={item.logo}
                                   alt={item.name}
-                                  className="object-contain w-full h-full"
+                                  className="object-cover w-full h-full rounded-[1.1rem]"
                                   loading="lazy"
                                 />
                               </div>

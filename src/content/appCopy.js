@@ -148,7 +148,6 @@ const APP_COPY = {
         "Track NGX prices, follow company detail, and line up your next move from one board.",
       heroDescription:
         "NGX Stocks helps Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P/L, and stay close to dividend and sector signals.",
-      secondaryCta: "Log in",
       trustStrip: [
         "Watchlist and company detail built around NGX names",
         "Price board, charts, market stats, and company briefings",
@@ -776,12 +775,12 @@ const APP_COPY = {
       watchlistFocusLabel: "Watchlist focus",
       watchlistFocusDetail:
         "Saved names don ready for faster follow-up any time price action change.",
-      watchlistReady: "Watchlist ready",
+      watchlistReady: "Watchlist don ready",
       savedNamesLabel: "Names wey you save",
       savedNamesDetail: "Stocks wey you don pin for your personal watchlist.",
       boardKicker: "Market board",
       portfolioKicker: "Portfolio snapshot",
-      portfolioTitle: "Track saved holdings, market value, and unrealized P/L.",
+      portfolioTitle: "Track saved holdings, market value, and unrealized P/L for one place.",
       portfolioDescription:
         "Save holdings from stock detail make you fit see current value, sector mix, and unrealized performance.",
       portfolioEmptyTitle: "You never save any holding yet",
@@ -801,7 +800,7 @@ const APP_COPY = {
       alertEmptyDescription:
         "Create above or below price alert from any stock page and this board go keep am for eye.",
       alertActiveLabel: "Active",
-      alertTriggeredLabel: "Triggered",
+      alertTriggeredLabel: "Don trigger",
       alertNearestLabel: "Closest",
       alertTargetLabel: "Target",
       alertCurrentLabel: "Current",
@@ -1029,12 +1028,13 @@ const APP_COPY = {
         "These cues no be buy or sell call. Dem just help you judge valuation, income, and where price dey inside one-year range.",
     },
     sidebar: {
-      welcomeTitle: "Welcome Investor",
+      welcomeTitle: "How far, investor",
       workspaceSummary: "Board, watchlist, alerts, and stock detail dey here.",
     },
   },
 };
 
 export function getAppCopy(language = "en") {
-  return APP_COPY[language] || APP_COPY.en;
+  const normalizedLanguage = language === "pid" ? "pid" : "en";
+  return APP_COPY[normalizedLanguage] || APP_COPY.en;
 }

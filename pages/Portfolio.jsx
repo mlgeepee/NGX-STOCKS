@@ -88,8 +88,8 @@ const PORTFOLIO_COPY = {
     title: "Portfolio control room",
     subtitle:
       "Track all your saved NGX holdings, check sector weight, and export your book, alerts, and watchlist from one page.",
-    searchPlaceholder: "Search holding by company, ticker, or sector",
-    refresh: "Refresh price",
+    searchPlaceholder: "Search holding by company name, ticker, or sector",
+    refresh: "Refresh prices",
     summaryKicker: "Portfolio pulse",
     totalValue: "Market value",
     totalCost: "Money wey you put",
@@ -101,7 +101,7 @@ const PORTFOLIO_COPY = {
       "Use this page see wetin dey carry your portfolio and where current price dey versus your average entry.",
     holdingsCountLabel: "Holdings wey dey track",
     noMatchesTitle: "No holding match wetin you search",
-    noMatchesDescription: "Try company name, ticker, or sector instead.",
+    noMatchesDescription: "Try another company name, ticker, or sector.",
     emptyTitle: "You never save any holding yet",
     emptyDescription:
       "Open any stock page, save your shares and average cost, then come back here make the app track value, P/L, and sector weight.",

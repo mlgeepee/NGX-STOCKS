@@ -12,7 +12,7 @@ const TRANSLATIONS = {
                 },
                 watchlist: {
                     label: "Watchlist",
-                    description: "Names wey you save",
+                    description: "Saved names",
                 },
                 portfolio: {
                     label: "Portfolio",
@@ -76,7 +76,7 @@ const TRANSLATIONS = {
             browseDashboard: "Browse the dashboard",
             noSearchTitle: "No saved stocks matched your search",
             noSearchDescription: "Try another company name or ticker.",
-            savedNamesTitle: "Names wey you save",
+            savedNamesTitle: "Saved names",
             savedNamesDescription:
                 "The same market table, narrowed to the stocks you chose to keep in focus.",
         },
@@ -183,7 +183,7 @@ const TRANSLATIONS = {
             brandTitle: "NGX Stocks",
             brandSubtitle: "Market control room",
             languageLabel: "Language",
-            logout: "Log out",
+            logout: "Comot",
             nav: {
                 dashboard: {
                     label: "Dashboard",
@@ -191,7 +191,7 @@ const TRANSLATIONS = {
                 },
                 watchlist: {
                     label: "Watchlist",
-                    description: "Saved names",
+                    description: "Names wey you save",
                 },
                 portfolio: {
                     label: "Portfolio",
@@ -205,12 +205,12 @@ const TRANSLATIONS = {
         },
         header: {
             marketIntelligence: "Market gist",
-            searchPlaceholder: "Find company name or ticker",
-            searchLabel: "Search stocks",
+            searchPlaceholder: "Search company name or ticker",
+            searchLabel: "Search stock",
             analystTitle: "Market watcher",
-            topMatches: "Top matches",
-            noSearchMatches: "No stock match yet. Try another company name, ticker, or sector.",
-            openAction: "Open",
+            topMatches: "Top match",
+            noSearchMatches: "No stock match yet. Try another company name, ticker, or sector wey different.",
+            openAction: "Open am",
         },
         common: {
             refresh: "Refresh am",
@@ -248,14 +248,14 @@ const TRANSLATIONS = {
             title: "Watchlist",
             subtitle:
                 "Keep eye on the companies wey matter to you and remove any one wey comot for your focus.",
-            savedCount: "{count} saved",
+            savedCount: "{count} wey you save",
             emptyTitle: "Your watchlist never get anything yet",
             emptyDescription:
                 "Save stocks from dashboard or detail page make your shortlist dey handy anytime.",
             browseDashboard: "Go dashboard",
             noSearchTitle: "No saved stock match wetin you search",
             noSearchDescription: "Try another company name or ticker.",
-            savedNamesTitle: "Saved names",
+            savedNamesTitle: "Names wey you save",
             savedNamesDescription:
                 "Na the same market table, but only the stocks wey you choose.",
         },
@@ -360,8 +360,9 @@ const TRANSLATIONS = {
 };
 
 export function translate(language, path, variables = {}) {
+    const normalizedLanguage = language === "pid" ? "pid" : "en";
     const keys = path.split(".");
-    let value = TRANSLATIONS[language];
+    let value = TRANSLATIONS[normalizedLanguage];
 
     for (const key of keys) {
         if (value == null) break;

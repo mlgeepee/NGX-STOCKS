@@ -31,6 +31,7 @@ import StockLogo from "../src/components/StockLogo";
 import { Alert } from "@/components/ui/alert";
 import { getAppCopy } from "@/content/appCopy";
 import { fetchStockHistory } from "../services/api";
+import nairaImage from "../src/assets/naira.png";
 import {
   buildIndicatorSeries,
   calculatePortfolioSummary,
@@ -321,10 +322,15 @@ export default function StockDetail() {
 
   const chartData = useMemo(
     () =>
-      Array.isArray(stockData?.history?.[range]) ? stockData.history[range] : [],
+      Array.isArray(stockData?.history?.[range])
+        ? stockData.history[range]
+        : [],
     [range, stockData],
   );
-  const chartSeries = useMemo(() => buildIndicatorSeries(chartData), [chartData]);
+  const chartSeries = useMemo(
+    () => buildIndicatorSeries(chartData),
+    [chartData],
+  );
   const rangeSnapshot = useMemo(() => getRangeSnapshot(chartData), [chartData]);
   const newsItems = Array.isArray(stockData?.news) ? stockData.news : [];
   const currentSymbol = stockData?.symbol || String(symbol || "").toUpperCase();
@@ -335,7 +341,10 @@ export default function StockDetail() {
   const hasLiveNews = newsItems.some((item) => !item.isFallback);
   const hasRenderableStock = Boolean(
     stockData &&
-      (stockData.symbol || stockData.name || chartData.length || newsItems.length),
+    (stockData.symbol ||
+      stockData.name ||
+      chartData.length ||
+      newsItems.length),
   );
 
   const currentPosition = useMemo(
@@ -347,7 +356,10 @@ export default function StockDetail() {
       return null;
     }
 
-    return calculatePortfolioSummary([currentPosition], [stockData]).holdings[0] || null;
+    return (
+      calculatePortfolioSummary([currentPosition], [stockData]).holdings[0] ||
+      null
+    );
   }, [currentPosition, stockData]);
   const stockAlerts = useMemo(
     () => alerts.filter((item) => item.symbol === currentSymbol),
@@ -373,10 +385,13 @@ export default function StockDetail() {
   const valuationSignals = useMemo(
     () =>
       stockData
-        ? getValuationSignals({
-            ...stockData,
-            currentPrice: stockData.currentPrice,
-          }, language)
+        ? getValuationSignals(
+            {
+              ...stockData,
+              currentPrice: stockData.currentPrice,
+            },
+            language,
+          )
         : [],
     [language, stockData],
   );
@@ -565,13 +580,21 @@ export default function StockDetail() {
                   </div>
 
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-end">
-                    <div className="w-full rounded-[1.35rem] border border-primary/15 bg-primary/10 px-5 py-4 text-left sm:min-w-[220px] sm:text-right">
+                    <div className="relative w-full overflow-hidden rounded-[1.35rem] border border-primary/15 bg-primary/10 px-5 py-4 text-left sm:min-w-[220px] sm:text-right">
                       <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-primary">
                         {t("stockDetail.currentPrice")}
                       </p>
-                      <p className="mt-2 text-3xl font-semibold text-foreground">
-                        {formatCurrency(stockData.currentPrice)}
-                      </p>
+                      <div className="relative mt-2 sm:flex sm:justify-end">
+                        <p className="relative z-10 pr-24 text-3xl font-semibold text-foreground sm:pr-0 sm:pl-28 sm:text-right">
+                          {formatCurrency(stockData.currentPrice)}
+                        </p>
+                        <img
+                          src={nairaImage}
+                          alt=""
+                          aria-hidden="true"
+                          className="pointer-events-none absolute -top-8 -bottom-2 -right-24 w-auto opacity-80 rotate-[18deg] sm:-top-10 sm:-bottom-3 sm:left-[-8rem] sm:right-auto sm:w-auto"
+                        />
+                      </div>
                       <span
                         className={`mt-3 inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold ${
                           isPositive
@@ -607,7 +630,9 @@ export default function StockDetail() {
                           : "app-button-secondary h-12"
                       }`}
                     >
-                      <Star className={`h-4 w-4 ${isSaved ? "fill-current" : ""}`} />
+                      <Star
+                        className={`h-4 w-4 ${isSaved ? "fill-current" : ""}`}
+                      />
                       {isSaved
                         ? t("stockDetail.savedToWatchlist")
                         : t("stockDetail.addToWatchlist")}
@@ -740,9 +765,23 @@ export default function StockDetail() {
                         margin={{ top: 16, right: 18, left: -18, bottom: 10 }}
                       >
                         <defs>
-                          <linearGradient id="price-gradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={chartColor} stopOpacity={0.34} />
-                            <stop offset="100%" stopColor={chartColor} stopOpacity={0.03} />
+                          <linearGradient
+                            id="price-gradient"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
+                            <stop
+                              offset="0%"
+                              stopColor={chartColor}
+                              stopOpacity={0.34}
+                            />
+                            <stop
+                              offset="100%"
+                              stopColor={chartColor}
+                              stopOpacity={0.03}
+                            />
                           </linearGradient>
                         </defs>
                         <CartesianGrid
@@ -756,14 +795,24 @@ export default function StockDetail() {
                           tickLine={false}
                           interval={range === "1M" ? 3 : range === "1D" ? 1 : 0}
                           minTickGap={16}
-                          tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
+                          tick={{
+                            fill: "#7a878d",
+                            fontSize: 11,
+                            fontWeight: 500,
+                          }}
                         />
                         <YAxis
                           axisLine={false}
                           tickLine={false}
                           width={56}
-                          tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
-                          tickFormatter={(value) => `₦${Number(value).toFixed(0)}`}
+                          tick={{
+                            fill: "#7a878d",
+                            fontSize: 11,
+                            fontWeight: 500,
+                          }}
+                          tickFormatter={(value) =>
+                            `₦${Number(value).toFixed(0)}`
+                          }
                         />
                         <Tooltip
                           cursor={{
@@ -832,7 +881,9 @@ export default function StockDetail() {
                     <div className="mt-5 rounded-[1.45rem] border border-border/65 bg-white/55 p-4 dark:bg-white/5">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                          <p className="section-kicker">{indicatorCopy.indicatorKicker}</p>
+                          <p className="section-kicker">
+                            {indicatorCopy.indicatorKicker}
+                          </p>
                           <h4 className="mt-2 text-lg font-semibold text-foreground">
                             {indicatorCopy.indicatorTitle}
                           </h4>
@@ -908,16 +959,26 @@ export default function StockDetail() {
                               dataKey="label"
                               axisLine={false}
                               tickLine={false}
-                              interval={range === "1M" ? 3 : range === "1D" ? 1 : 0}
+                              interval={
+                                range === "1M" ? 3 : range === "1D" ? 1 : 0
+                              }
                               minTickGap={18}
-                              tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
+                              tick={{
+                                fill: "#7a878d",
+                                fontSize: 11,
+                                fontWeight: 500,
+                              }}
                             />
                             <YAxis
                               axisLine={false}
                               tickLine={false}
                               width={44}
                               domain={[0, 100]}
-                              tick={{ fill: "#7a878d", fontSize: 11, fontWeight: 500 }}
+                              tick={{
+                                fill: "#7a878d",
+                                fontSize: 11,
+                                fontWeight: 500,
+                              }}
                             />
                             <Tooltip
                               contentStyle={{
@@ -981,9 +1042,11 @@ export default function StockDetail() {
 
                   <div className="mt-6 space-y-4">
                     {newsItems.length ? (
-                      newsItems.slice(0, 4).map((item) => (
-                        <NewsCard key={item.id} item={item} t={t} />
-                      ))
+                      newsItems
+                        .slice(0, 4)
+                        .map((item) => (
+                          <NewsCard key={item.id} item={item} t={t} />
+                        ))
                     ) : (
                       <div className="app-panel-soft rounded-[1.35rem] border-dashed p-6 text-center">
                         <p className="text-base font-semibold text-foreground">
@@ -1005,7 +1068,9 @@ export default function StockDetail() {
                       <BriefcaseBusiness className="h-5 w-5" />
                     </span>
                     <div>
-                      <p className="section-kicker">{copy.stockDetail.positionKicker}</p>
+                      <p className="section-kicker">
+                        {copy.stockDetail.positionKicker}
+                      </p>
                       <h3 className="mt-2 text-2xl font-semibold text-foreground">
                         {copy.stockDetail.positionTitle}
                       </h3>
@@ -1019,12 +1084,16 @@ export default function StockDetail() {
                     <div className="mt-6 grid gap-4 sm:grid-cols-3">
                       <DetailStatCard
                         label={copy.stockDetail.currentValueLabel}
-                        value={formatCompactCurrency(holdingSummary.marketValue)}
+                        value={formatCompactCurrency(
+                          holdingSummary.marketValue,
+                        )}
                         animate={false}
                       />
                       <DetailStatCard
                         label={copy.stockDetail.unrealizedPnLLabel}
-                        value={formatCompactCurrency(holdingSummary.unrealizedPnL)}
+                        value={formatCompactCurrency(
+                          holdingSummary.unrealizedPnL,
+                        )}
                         animate={false}
                       />
                       <DetailStatCard
@@ -1095,7 +1164,9 @@ export default function StockDetail() {
                       <BellRing className="h-5 w-5" />
                     </span>
                     <div>
-                      <p className="section-kicker">{copy.stockDetail.alertKicker}</p>
+                      <p className="section-kicker">
+                        {copy.stockDetail.alertKicker}
+                      </p>
                       <h3 className="mt-2 text-2xl font-semibold text-foreground">
                         {copy.stockDetail.alertTitle}
                       </h3>
@@ -1126,7 +1197,9 @@ export default function StockDetail() {
                       </label>
                       <select
                         value={alertDirection}
-                        onChange={(event) => setAlertDirection(event.target.value)}
+                        onChange={(event) =>
+                          setAlertDirection(event.target.value)
+                        }
                         className="app-input"
                       >
                         <option value="above">
@@ -1167,7 +1240,9 @@ export default function StockDetail() {
                               <div className="mt-2 flex flex-wrap gap-3 text-sm">
                                 <span className="text-foreground">
                                   {copy.stockDetail.targetPriceLabel}:{" "}
-                                  <strong>{formatCurrency(alert.targetPrice)}</strong>
+                                  <strong>
+                                    {formatCurrency(alert.targetPrice)}
+                                  </strong>
                                 </span>
                                 <span className="text-muted-foreground">
                                   {copy.dashboard.alertCurrentLabel}:{" "}
@@ -1197,7 +1272,9 @@ export default function StockDetail() {
 
               <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
                 <div className="mb-4">
-                  <p className="section-kicker">{copy.stockDetail.valuationKicker}</p>
+                  <p className="section-kicker">
+                    {copy.stockDetail.valuationKicker}
+                  </p>
                   <h3 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2rem]">
                     {copy.stockDetail.valuationTitle}
                   </h3>
@@ -1255,7 +1332,9 @@ export default function StockDetail() {
                   />
                   <DetailStatCard
                     label={copy.stockDetail.betaLabel}
-                    value={stockData.beta ? Number(stockData.beta).toFixed(2) : "-"}
+                    value={
+                      stockData.beta ? Number(stockData.beta).toFixed(2) : "-"
+                    }
                     animate={false}
                   />
                   <DetailStatCard
@@ -1310,7 +1389,9 @@ export default function StockDetail() {
 
               <section>
                 <div className="mb-4">
-                  <p className="section-kicker">{copy.stockDetail.statsKicker}</p>
+                  <p className="section-kicker">
+                    {copy.stockDetail.statsKicker}
+                  </p>
                   <h3 className="mt-3 text-2xl font-semibold text-foreground sm:text-[2rem]">
                     {t("stockDetail.marketStatsTitle")}
                   </h3>
