@@ -67,14 +67,14 @@ const APP_COPY = {
           label: "Next layer",
           value: "Alerts",
           detail:
-            "Portfolio P/L, valuation, sector analysis, and dividend planning.",
+            "Portfolio P & L, valuation, sector analysis, and dividend planning.",
         },
       ],
       unlockLabel: "What this account gives you",
       unlockTitle:
         "A single place to watch prices, save stocks, plan alerts, and follow company updates.",
       unlockChip:
-        "Watchlist, charts, portfolio P/L, alerts, valuation, and NGX news flow",
+        "Watchlist, charts, portfolio P & L, alerts, valuation, and NGX news flow",
     },
     login: {
       eyebrow: "Sign in",
@@ -167,7 +167,7 @@ const APP_COPY = {
         {
           label: "Live features",
           value: "Portfolio",
-          detail: "Portfolio P/L, alerts, dividend calendar, and sector radar.",
+          detail: "Portfolio P & L, alerts, dividend calendar, and sector radar.",
         },
       ],
       preview: {
@@ -186,7 +186,7 @@ const APP_COPY = {
           },
           {
             title: "Alerts and portfolio",
-            detail: "Portfolio P/L, target price alerts, and saved holdings.",
+            detail: "Portfolio P & L, target price alerts, and saved holdings.",
           },
         ],
         boardTitle: "Live board preview",
@@ -222,7 +222,7 @@ const APP_COPY = {
           {
             title: "Portfolio tracker",
             detail:
-              "Save holdings, track cost basis, review market value, and monitor unrealized P/L as prices move.",
+              "Save holdings, track cost basis, review market value, and monitor unrealized P & L as prices move.",
           },
           {
             title: "Sector radar",
@@ -271,7 +271,7 @@ const APP_COPY = {
         "Open a stock detail page and save your shares plus average cost to start tracking your portfolio.",
       portfolioStartCta: "Open a stock page",
       portfolioValueLabel: "Market value",
-      portfolioPnLLabel: "Unrealized P/L",
+      portfolioPnLLabel: "Unrealized P & L",
       portfolioDayMoveLabel: "Day move",
       portfolioHoldingsLabel: "Holdings",
       portfolioTopHoldingLabel: "Top holding",
@@ -350,9 +350,9 @@ const APP_COPY = {
           deliverables:
             "Landing, auth, dashboard, watchlist, stock detail, portfolio card, alerts modal, price API, news API, and local persistence.",
           userStory:
-            "As an NGX investor, I want to save stocks, see price movement, and know my current portfolio P/L so I can react faster every day.",
+            "As an NGX investor, I want to save stocks, see price movement, and know my current portfolio P & L so I can react faster every day.",
           acceptance:
-            "When I add a stock to watchlist or portfolio, it should remain after refresh and update price-based P/L correctly.",
+            "When I add a stock to watchlist or portfolio, it should remain after refresh and update price-based P & L correctly.",
         },
         {
           name: "Phase 2",
@@ -455,7 +455,7 @@ const APP_COPY = {
         "Watchlist add and remove flow",
         "Basic stock chart and company detail page",
         "P/E, Market Cap, and Volume slots on stock detail",
-        "Portfolio P/L card with total value and daily move",
+        "Portfolio P & L card with total value and daily move",
         "Price alert setup and trigger persistence",
       ],
     },
@@ -480,9 +480,9 @@ const APP_COPY = {
       holdingRemoved: "Holding removed from portfolio.",
       holdingTitle: "Your holding",
       holdingDescription:
-        "Current value and unrealized P/L based on your saved position.",
+        "Current value and unrealized P & L based on your saved position.",
       currentValueLabel: "Current value",
-      unrealizedPnLLabel: "Unrealized P/L",
+      unrealizedPnLLabel: "Unrealized P & L",
       alertKicker: "Price alerts",
       alertTitle: "Set a target and let the board watch it.",
       alertDescription:
@@ -663,12 +663,12 @@ const APP_COPY = {
       heroTitle:
         "Track NGX prices, follow company detail, and line up your next move from one board.",
       heroDescription:
-        "NGX Stocks dey help Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P/L, and stay close to dividend and sector signal.",
+        "NGX Stocks dey help Nigerian investors and traders read market breadth, save favorite names, inspect company charts, track portfolio P & L, and stay close to dividend and sector signal.",
       secondaryCta: "Log in",
       trustStrip: [
         "Watchlist and company detail wey fit NGX names well",
         "Price board, charts, market stats, and company briefings",
-        "Portfolio P/L, sector radar, dividend dates, and learn hub",
+        "Portfolio P & L, sector radar, dividend dates, and learn hub",
       ],
       stats: [
         {
@@ -684,7 +684,7 @@ const APP_COPY = {
         {
           label: "Live features",
           value: "Portfolio",
-          detail: "Portfolio P/L, alerts, dividend calendar, and sector radar.",
+          detail: "Portfolio P & L, alerts, dividend calendar, and sector radar.",
         },
       ],
       preview: {
@@ -703,7 +703,7 @@ const APP_COPY = {
           },
           {
             title: "Alerts and portfolio",
-            detail: "Portfolio P/L, target price alerts, and saved holdings.",
+            detail: "Portfolio P & L, target price alerts, and saved holdings.",
           },
         ],
         boardTitle: "Live board preview",
@@ -733,13 +733,13 @@ const APP_COPY = {
         kicker: "Inside the workspace",
         title: "Use real tools for price, holdings, alerts, sectors, and learning.",
         description:
-          "The app don already bring market breadth, portfolio P/L, alert tracking, dividend dates, sector monitoring, and learn hub join body for one NGX workflow.",
+          "The app don already bring market breadth, portfolio P & L, alert tracking, dividend dates, sector monitoring, and learn hub join body for one NGX workflow.",
         cta: "Open learn hub",
         cards: [
           {
             title: "Portfolio tracker",
             detail:
-              "Save holdings, track cost basis, review market value, and monitor unrealized P/L as price dey move.",
+              "Save holdings, track cost basis, review market value, and monitor unrealized P & L as price dey move.",
           },
           {
             title: "Sector radar",
@@ -780,7 +780,7 @@ const APP_COPY = {
       savedNamesDetail: "Stocks wey you don pin for your personal watchlist.",
       boardKicker: "Market board",
       portfolioKicker: "Portfolio snapshot",
-      portfolioTitle: "Track saved holdings, market value, and unrealized P/L for one place.",
+      portfolioTitle: "Track saved holdings, market value, and unrealized P & L for one place.",
       portfolioDescription:
         "Save holdings from stock detail make you fit see current value, sector mix, and unrealized performance.",
       portfolioEmptyTitle: "You never save any holding yet",
@@ -788,7 +788,7 @@ const APP_COPY = {
         "Open any stock detail page and save your shares plus average cost make the app fit track your portfolio.",
       portfolioStartCta: "Open stock page",
       portfolioValueLabel: "Market value",
-      portfolioPnLLabel: "Unrealized P/L",
+      portfolioPnLLabel: "Unrealized P & L",
       portfolioDayMoveLabel: "Day move",
       portfolioHoldingsLabel: "Holdings",
       portfolioTopHoldingLabel: "Top holding",
@@ -841,13 +841,13 @@ const APP_COPY = {
         {
           name: "MVP",
           summary:
-            "Ship the first usable NGX workspace with watchlist, price board, starter charts, market stats, portfolio P/L, and alerts.",
+            "Ship the first usable NGX workspace with watchlist, price board, starter charts, market stats, portfolio P & L, and alerts.",
           must: [
             "Watchlist with saved NGX names",
             "Live or delayed price board with volume and change",
             "Basic line or candlestick chart for 1D, 1W, and 1M",
             "Starter metrics like P/E, Market Cap, price change, and volume",
-            "Portfolio P/L summary for holdings and cost basis",
+            "Portfolio P & L summary for holdings and cost basis",
             "Price alert setup for target up or down levels",
           ],
           should: [
@@ -867,9 +867,9 @@ const APP_COPY = {
           deliverables:
             "Landing, auth, dashboard, watchlist, stock detail, portfolio card, alerts modal, price API, news API, and local persistence.",
           userStory:
-            "As NGX investor, I want save stocks, see price movement, and know my current portfolio P/L so I fit react faster every day.",
+            "As NGX investor, I want save stocks, see price movement, and know my current portfolio P & L so I fit react faster every day.",
           acceptance:
-            "When I add stock to watchlist or portfolio, e suppose remain after refresh and update price-based P/L correctly.",
+            "When I add stock to watchlist or portfolio, e suppose remain after refresh and update price-based P & L correctly.",
         },
         {
           name: "Phase 2",
@@ -986,7 +986,7 @@ const APP_COPY = {
       positionKicker: "Portfolio builder",
       positionTitle: "Save your holding and track cost basis.",
       positionDescription:
-        "Put your share quantity and average cost. Dashboard go keep market value and unrealized P/L up to date.",
+        "Put your share quantity and average cost. Dashboard go keep market value and unrealized P & L up to date.",
       sharesLabel: "Shares",
       averageCostLabel: "Average cost",
       savePosition: "Save holding",
@@ -997,9 +997,9 @@ const APP_COPY = {
       holdingRemoved: "Holding don comot from portfolio.",
       holdingTitle: "Your holding",
       holdingDescription:
-        "Current value and unrealized P/L based on your saved position.",
+        "Current value and unrealized P & L based on your saved position.",
       currentValueLabel: "Current value",
-      unrealizedPnLLabel: "Unrealized P/L",
+      unrealizedPnLLabel: "Unrealized P & L",
       alertKicker: "Price alerts",
       alertTitle: "Set target and make board watch am.",
       alertDescription:
