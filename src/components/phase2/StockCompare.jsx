@@ -6,10 +6,25 @@ export default function StockCompare({ stocks = [] }) {
   const [aSymbol, setASymbol] = useState("");
   const [bSymbol, setBSymbol] = useState("");
 
+  const normalizedA = useMemo(
+    () =>
+      String(aSymbol || "")
+        .trim()
+        .toUpperCase(),
+    [aSymbol],
+  );
+  const normalizedB = useMemo(
+    () =>
+      String(bSymbol || "")
+        .trim()
+        .toUpperCase(),
+    [bSymbol],
+  );
+
   const result = useMemo(() => {
-    if (!aSymbol || !bSymbol) return null;
-    return compareStocks(stocks, aSymbol, bSymbol);
-  }, [stocks, aSymbol, bSymbol]);
+    if (!normalizedA || !normalizedB) return null;
+    return compareStocks(stocks, normalizedA, normalizedB);
+  }, [stocks, normalizedA, normalizedB]);
 
   return (
     <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
@@ -38,6 +53,8 @@ export default function StockCompare({ stocks = [] }) {
             value={aSymbol}
             onChange={(e) => setASymbol(e.target.value)}
             placeholder="e.g. DANGCEM"
+            inputMode="text"
+            autoCapitalize="characters"
           />
         </div>
         <div className="space-y-2">
@@ -49,6 +66,8 @@ export default function StockCompare({ stocks = [] }) {
             value={bSymbol}
             onChange={(e) => setBSymbol(e.target.value)}
             placeholder="e.g. GTCOPLC"
+            inputMode="text"
+            autoCapitalize="characters"
           />
         </div>
       </div>
@@ -56,7 +75,7 @@ export default function StockCompare({ stocks = [] }) {
       <div className="mt-6 rounded-[1.35rem] border border-border/65 bg-white/55 p-4">
         {!result ? (
           <p className="text-sm text-muted-foreground">
-            Enter two symbols to compare.
+            Enter two valid symbols to compare.
           </p>
         ) : (
           <div className="space-y-3 text-sm">

@@ -79,7 +79,7 @@ function GlowingBadge({ tone, children }) {
   );
 }
 
-function RankCard({ items, metric, tone }) {
+function RankCard({ items, metric, tone, onToggleTooltip, isTooltipOpen }) {
   return (
     <div className="mt-4 space-y-3">
       {items.length ? (
@@ -105,7 +105,7 @@ function RankCard({ items, metric, tone }) {
               </div>
 
               <div className="relative flex items-center justify-between gap-3">
-                <div className="flex items-center min-w-0 gap-3">
+                <div className="flex items-center min-w-0 gap-1">
                   <div
                     className="flex items-center justify-center w-10 h-10 text-sm font-bold shrink-0 text-foreground"
                     aria-label={`Rank ${idx + 1}`}
@@ -113,20 +113,41 @@ function RankCard({ items, metric, tone }) {
                     {idx + 1}
                   </div>
 
-                  <div className="flex items-center min-w-0 gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-[1rem] border border-primary/10 bg-white/60">
+                  <div className="flex items-center min-w-0 gap-2">
+                    <div className="flex h-12 w-12 flex-none items-center justify-center overflow-hidden rounded-[1rem] border border-primary/10 bg-white/60 sm:h-10 sm:w-10 lg:h-10 lg:w-10">
                       <img
                         src={getLocalLogoSrc(item.symbol, item.logo)}
                         alt={item.name || item.symbol}
-                        className="object-cover w-10 h-10"
+                        className="object-cover h-12 w-12 sm:h-10 sm:w-10"
                         loading="lazy"
                       />
                     </div>
 
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold truncate text-foreground">
+                    <div className="min-w-0 flex-1 pr-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onToggleTooltip && onToggleTooltip(item.symbol)
+                        }
+                        className="block text-left sm:hidden min-w-0"
+                        aria-label={`Show full company name for ${item.name || item.symbol}`}
+                      >
+                        <p className="max-w-[9rem] break-words whitespace-normal text-sm font-semibold leading-4 text-foreground">
+                          {item.name || item.symbol}
+                        </p>
+                      </button>
+
+                      <p className="hidden min-w-0 sm:block max-w-[10.5rem] truncate whitespace-nowrap text-sm font-semibold text-foreground">
                         {item.name || item.symbol}
                       </p>
+
+                      {/* Mobile-only tooltip (tap to show) - absolute so it doesn't alter layout */}
+                      {isTooltipOpen === item.symbol ? (
+                        <div className="absolute left-0 top-full z-10 mt-2 w-max max-w-[14rem] rounded-[0.9rem] border border-border/70 bg-white/85 px-2.5 py-2 text-xs leading-5 text-foreground shadow-lg backdrop-blur-sm sm:hidden">
+                          {item.name || item.symbol}
+                        </div>
+                      ) : null}
+
                       <p className="mt-1 truncate text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         {item.symbol}
                         {item.sector ? ` • ${item.sector}` : ""}
@@ -177,6 +198,7 @@ function RankCard({ items, metric, tone }) {
 
 export default function MarketPulse({ stocks = [] }) {
   const [activeTab, setActiveTab] = useState("gainers");
+  const [openTooltipSymbol, setOpenTooltipSymbol] = useState(null);
 
   const gainers = getTopGainers(stocks, 5);
   const losers = getTopLosers(stocks, 5);
@@ -287,6 +309,10 @@ export default function MarketPulse({ stocks = [] }) {
           items={active.items}
           metric={active.metric}
           tone={active.tone}
+          onToggleTooltip={(symbol) =>
+            setOpenTooltipSymbol((prev) => (prev === symbol ? null : symbol))
+          }
+          isTooltipOpen={openTooltipSymbol}
         />
       </div>
     </section>

@@ -1,12 +1,30 @@
 export function compareStocks(stocks = [], aSymbol, bSymbol) {
     if (!Array.isArray(stocks)) return null;
 
-    const map = new Map(
-        stocks.map((s) => [String(s?.symbol || "").toUpperCase(), s]),
+    const normalizeKey = (v) => String(v || "").trim();
+    const symbolKey = (v) => normalizeKey(v).toUpperCase();
+    const nameKey = (v) => normalizeKey(v).toLowerCase();
+
+    // allow lookup by: symbol (case-insensitive) OR company name (case-insensitive)
+    const bySymbol = new Map(
+        stocks.map((s) => [symbolKey(s?.symbol), s]).filter(([k]) => k),
     );
 
-    const a = map.get(String(aSymbol || "").toUpperCase());
-    const b = map.get(String(bSymbol || "").toUpperCase());
+    const byName = new Map(
+        stocks
+            .map((s) => [nameKey(s?.name), s])
+            .filter(([k]) => k),
+    );
+
+    const aInputSym = symbolKey(aSymbol);
+    const bInputSym = symbolKey(bSymbol);
+
+    const aInputName = nameKey(aSymbol);
+    const bInputName = nameKey(bSymbol);
+
+    const a = bySymbol.get(aInputSym) || byName.get(aInputName);
+    const b = bySymbol.get(bInputSym) || byName.get(bInputName);
+
     if (!a || !b) return null;
 
     const toNumber = (v, fallback = 0) => {

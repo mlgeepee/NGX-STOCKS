@@ -5,7 +5,15 @@ export function simulateNextDay({
 } = {}) {
     const toNumber = (v, fallback = 0) => {
         const n =
-            typeof v === "string" ? Number(v.replace(/,/g, "").trim()) : Number(v);
+            typeof v === "string"
+                ? Number(
+                    v
+                        .replace(/,/g, "")
+                        .replace(/%/g, "")
+                        .replace(/[^\d.-]/g, "")
+                        .trim(),
+                )
+                : Number(v);
         return Number.isFinite(n) ? n : fallback;
     };
 
@@ -22,27 +30,62 @@ export function simulateNextDay({
     }
 
     const alloc = Array.isArray(allocation) ? allocation : [];
-    const weightsBySymbol = new Map(
+
+    // allow allocation entries to be either:
+    // - symbol (case-insensitive, punctuation tolerant)
+    // - company name (case-insensitive, punctuation tolerant)
+    const normalizeKeyLoose = (v) =>
+        String(v || "")
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, ""); // remove spaces, hyphens, dots, etc.
+
+    const symbolKeyLoose = (v) => normalizeKeyLoose(v);
+    const nameKeyLoose = (v) =>
+        String(v || "")
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
+
+    const weightsBySymbolOrName = new Map(
         alloc
-            .map((x) => ({
-                symbol: String(x?.symbol || "").toUpperCase(),
-                weight: toNumber(x?.weight, 0),
-            }))
-            .filter((x) => x.symbol),
+            .map((x) => {
+                const rawName = x?.name ?? x?.company ?? x?.companyName ?? x?.symbol;
+                return {
+                    keySym: symbolKeyLoose(x?.symbol),
+                    keyName: nameKeyLoose(rawName),
+                    weight: toNumber(x?.weight, 0),
+                };
+            })
+            .filter((x) => x.keySym || x.keyName),
     );
 
-    const weightSum = Array.from(weightsBySymbol.values()).reduce(
-        (s, w) => s + w,
+    // Because we need per-stock weights (normalized across chosen allocations),
+    // we resolve allocation weights against the current safeStocks snapshot.
+    const resolvedWeightsBySymbol = new Map();
+
+    safeStocks.forEach((s) => {
+        const symLoose = symbolKeyLoose(s?.symbol);
+        if (!symLoose) return;
+
+        const w =
+            (weightsBySymbolOrName.get(symLoose) || 0) ||
+            (weightsBySymbolOrName.get(nameKeyLoose(s?.name)) || 0);
+
+        if (w > 0) resolvedWeightsBySymbol.set(symLoose, w);
+    });
+
+    const weightSum = Array.from(resolvedWeightsBySymbol.values()).reduce(
+        (sum, w) => sum + w,
         0,
     );
 
     const getWeight = (symbol) => {
         if (!weightSum) return 0;
-        return weightsBySymbol.get(String(symbol).toUpperCase()) / weightSum;
+        return (resolvedWeightsBySymbol.get(symbolKeyLoose(symbol)) || 0) / weightSum;
     };
 
     const projectedReturnPercent = safeStocks.reduce((sum, s) => {
-        const symbol = String(s?.symbol || "").toUpperCase();
+        const symbol = s?.symbol;
         const w = getWeight(symbol);
         const cp = toNumber(s.changePercent ?? s.change_percent, 0);
         return sum + w * cp;
@@ -52,7 +95,7 @@ export function simulateNextDay({
 
     const contributions = safeStocks
         .map((s) => {
-            const symbol = String(s?.symbol || "").toUpperCase();
+            const symbol = symbolKeyLoose(s?.symbol);
             const w = getWeight(symbol);
             const cp = toNumber(s.changePercent ?? s.change_percent, 0);
             return {
@@ -63,7 +106,10 @@ export function simulateNextDay({
             };
         })
         .filter((x) => x.weight > 0)
-        .sort((a, b) => Math.abs(b.contributionPercent) - Math.abs(a.contributionPercent));
+        .sort(
+            (a, b) =>
+                Math.abs(b.contributionPercent) - Math.abs(a.contributionPercent),
+        );
 
     return {
         initialCapital: initial,

@@ -630,6 +630,62 @@ function EmptyBoardState({ title, description }) {
   );
 }
 
+function FloatingDashboardQuickJump({ items = [] }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const jumpToId = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setOpen(false);
+  };
+
+  return (
+    <div className="pointer-events-none fixed bottom-5 right-5 z-50 sm:bottom-7 sm:right-7">
+      <div className="pointer-events-auto relative">
+        {open ? (
+          <div className="absolute right-0 bottom-14 w-[14rem] rounded-[1.25rem] border border-border/70 bg-white/80 p-2 shadow-xl backdrop-blur-xl dark:bg-white/10">
+            <p className="px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Jump to
+            </p>
+            <div className="space-y-1">
+              {items.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => jumpToId(item.id)}
+                  className="flex w-full items-center justify-between gap-3 rounded-[0.95rem] px-3 py-2 text-left text-sm font-semibold text-foreground transition hover:bg-primary/10"
+                >
+                  <span className="truncate">{item.label}</span>
+                  <span className="text-muted-foreground">↘</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        <button
+          type="button"
+          aria-label="Dashboard quick jump"
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary shadow-lg ring-1 ring-primary/20 transition hover:bg-primary/15 hover:ring-primary/30"
+        >
+          <span className="text-xl leading-none">⋯</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const [stocks, setStocks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -937,14 +993,65 @@ export default function Dashboard() {
             <DividendPanel copy={copy.dashboard} dividends={dividendCalendar} />
           </div>
 
+          <div
+            id="dash-lead-support"
+            className="grid gap-5 xl:grid-cols-[minmax(0,1.18fr)_minmax(20rem,0.82fr)]"
+          >
+            <LeadBoardCard
+              copy={copy.dashboard}
+              title={copy.dashboard.leadTitle}
+              description={copy.dashboard.leadDescription}
+              marketTrend={marketTrend.label}
+              averageMove={marketTrend.description}
+              topGainer={topGainer}
+              mostActive={mostActive}
+              watchlistCount={watchlist.length}
+            />
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
+              {supportCards.map((card) => (
+                <SupportCard key={card.label} {...card} />
+              ))}
+            </div>
+          </div>
+
+          <div
+            id="dash-portfolio-alerts"
+            className="grid gap-5 2xl:grid-cols-[1.1fr_0.9fr]"
+          >
+            <PortfolioPanel
+              copy={copy.dashboard}
+              summary={portfolioSummary}
+              primarySymbol={topGainer?.symbol || mostActive?.symbol}
+            />
+            <AlertsPanel
+              copy={copy.dashboard}
+              stockCopy={copy.stockDetail}
+              summary={alertSummary}
+              onRemoveAlert={removeAlert}
+              fallbackSymbol={mostActive?.symbol || topGainer?.symbol}
+            />
+          </div>
+
+          <div
+            id="dash-sector-dividend"
+            className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]"
+          >
+            <SectorPanel copy={copy.dashboard} sectors={sectorSnapshots} />
+            <DividendPanel copy={copy.dashboard} dividends={dividendCalendar} />
+          </div>
+
           {/* MVP: Market Mood + Sector Heatmap */}
-          <div className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]">
+          <div
+            id="dash-mood-heatmap"
+            className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]"
+          >
             <MarketMoodCard stocks={stocks} />
             <SectorHeatmap stocks={stocks} />
           </div>
 
           {/* Phase 2: Compare / Simulator / Whale Detector / Risk Meter */}
-          <div className="grid gap-5 2xl:grid-cols-[1fr_1fr]">
+          <div id="dash-phase2" className="grid gap-5 2xl:grid-cols-[1fr_1fr]">
             <StockCompare stocks={stocks} />
             <Simulator stocks={stocks} />
           </div>
@@ -956,6 +1063,17 @@ export default function Dashboard() {
               portfolioSymbols={positions.map((p) => p.symbol)}
             />
           </div>
+
+          <FloatingDashboardQuickJump
+            items={[
+              { id: "dash-market-board", label: "Market board" },
+              { id: "dash-lead-support", label: "Leads & support" },
+              { id: "dash-portfolio-alerts", label: "Portfolio & alerts" },
+              { id: "dash-sector-dividend", label: "Sector & dividend" },
+              { id: "dash-mood-heatmap", label: "Mood & heatmap" },
+              { id: "dash-phase2", label: "Phase 2 panels" },
+            ]}
+          />
         </div>
       )}
     </div>
