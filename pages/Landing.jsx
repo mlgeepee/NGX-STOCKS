@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -11,6 +11,8 @@ import {
   X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { fetchStockList } from "../services/api";
+import MarketPulse from "@/components/pulse/MarketPulse";
 import PreferenceControls from "@/components/PreferenceControls";
 import { getAppCopy } from "@/content/appCopy";
 import { usePreferencesStore } from "../store/usePreferencesStore";
@@ -90,6 +92,7 @@ export default function Landing() {
   const language = usePreferencesStore((state) => state.language);
   const copy = getAppCopy(language);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [pulseStocks, setPulseStocks] = useState([]);
 
   const primaryHref = isAuthLoading ? "/login" : user ? "/dashboard" : "/login";
   const primaryLabel = isAuthLoading
@@ -108,6 +111,23 @@ export default function Landing() {
     : user
       ? copy.common.goToDashboard
       : copy.common.createAccount;
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadPulse = async () => {
+      try {
+        const list = await fetchStockList(controller.signal);
+        setPulseStocks(Array.isArray(list) ? list : []);
+      } catch {
+        setPulseStocks([]);
+      }
+    };
+
+    loadPulse();
+
+    return () => controller.abort();
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden text-foreground">
@@ -589,6 +609,15 @@ export default function Landing() {
                 >
                   {copy.landing.roadmap.cta}
                 </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Today’s Market Pulse (Insider Dashboard) */}
+          <section className="py-6">
+            <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-7">
+              <div className="grid gap-4">
+                <MarketPulse stocks={pulseStocks} />
               </div>
             </div>
           </section>

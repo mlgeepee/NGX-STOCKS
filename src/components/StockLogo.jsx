@@ -90,7 +90,8 @@ export default function StockLogo({
   const [candidateIndex, setCandidateIndex] = useState(0);
 
   useEffect(() => {
-    setCandidateIndex(0);
+    // Avoid direct synchronous setState inside effect (react rule)
+    Promise.resolve().then(() => setCandidateIndex(0));
   }, [logoCandidatesKey]);
 
   const resolvedLogo = logoCandidates[candidateIndex] || "";

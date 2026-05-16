@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { useAuthStore } from "../../store/useAuthStore";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
 import { translate } from "../lib/i18n";
 
@@ -40,10 +39,13 @@ function SearchField({
       const dropdownHeaderHeight = 56;
       const fieldRect = fieldNode.getBoundingClientRect();
       const dropdownHeight = dropdownNode.offsetHeight || 0;
-      const preferredPanelHeight =
-        Math.max(dropdownHeight, preferredListHeight + dropdownHeaderHeight);
+      const preferredPanelHeight = Math.max(
+        dropdownHeight,
+        preferredListHeight + dropdownHeaderHeight,
+      );
       const spaceAbove = fieldRect.top - viewportPadding;
-      const spaceBelow = window.innerHeight - fieldRect.bottom - viewportPadding;
+      const spaceBelow =
+        window.innerHeight - fieldRect.bottom - viewportPadding;
       const shouldRenderBelow =
         spaceAbove < preferredPanelHeight && spaceBelow > spaceAbove;
       const nextPlacement = shouldRenderBelow ? "below" : "above";
@@ -105,7 +107,9 @@ function SearchField({
           {visibleSuggestions.length ? (
             <div
               className={`space-y-1.5 ${
-                shouldScrollSuggestions ? "max-h-[15.25rem] overflow-y-auto pr-1" : ""
+                shouldScrollSuggestions
+                  ? "max-h-[15.25rem] overflow-y-auto pr-1"
+                  : ""
               }`}
               style={
                 shouldScrollSuggestions

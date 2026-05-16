@@ -41,6 +41,14 @@ import {
   checkAndNotifyAlerts,
 } from "../src/lib/notifications";
 
+import MarketMoodCard from "../src/components/market/MarketMoodCard";
+import SectorHeatmap from "../src/components/heatmap/SectorHeatmap";
+
+import StockCompare from "../src/components/phase2/StockCompare";
+import Simulator from "../src/components/phase2/Simulator";
+import WhaleDetector from "../src/components/phase2/WhaleDetector";
+import RiskMeter from "../src/components/phase2/RiskMeter";
+
 const supportCardStyles = [
   {
     labelKey: "dashboard.totalStocksLabel",
@@ -927,6 +935,26 @@ export default function Dashboard() {
           <div className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]">
             <SectorPanel copy={copy.dashboard} sectors={sectorSnapshots} />
             <DividendPanel copy={copy.dashboard} dividends={dividendCalendar} />
+          </div>
+
+          {/* MVP: Market Mood + Sector Heatmap */}
+          <div className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]">
+            <MarketMoodCard stocks={stocks} />
+            <SectorHeatmap stocks={stocks} />
+          </div>
+
+          {/* Phase 2: Compare / Simulator / Whale Detector / Risk Meter */}
+          <div className="grid gap-5 2xl:grid-cols-[1fr_1fr]">
+            <StockCompare stocks={stocks} />
+            <Simulator stocks={stocks} />
+          </div>
+
+          <div className="grid gap-5 2xl:grid-cols-[1fr_1fr]">
+            <WhaleDetector stocks={stocks} />
+            <RiskMeter
+              stocks={stocks}
+              portfolioSymbols={positions.map((p) => p.symbol)}
+            />
           </div>
         </div>
       )}
