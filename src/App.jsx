@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import { useAuthStore } from "../store/useAuthStore";
+import { useWatchlistStore } from "../store/useWatchlistStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
 import { Component as LumaSpin } from "@/components/ui/luma-spin";
 
@@ -28,6 +29,10 @@ function RouteLoader() {
 export default function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const setAuthLoading = useAuthStore((state) => state.setAuthLoading);
+  const setUserId = useWatchlistStore((state) => state.setUserId);
+  const loadWatchlistForUser = useWatchlistStore(
+    (state) => state.loadWatchlistForUser,
+  );
   const theme = usePreferencesStore((state) => state.theme);
 
   useEffect(() => {
@@ -53,7 +58,13 @@ export default function App() {
           setAuthLoading(false);
           return;
         }
-        setUser(data.session?.user || null);
+        const user = data.session?.user || null;
+        setUser(user);
+        // Load watchlist for authenticated user
+        if (user?.id) {
+          setUserId(user.id);
+          loadWatchlistForUser(user.id);
+        }
       } catch (error) {
         if (!isMounted) {
           setAuthLoading(false);
@@ -79,7 +90,13 @@ export default function App() {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         if (!isMounted) return;
-        setUser(session?.user || null);
+        const user = session?.user || null;
+        setUser(user);
+        // Load watchlist for the authenticated user
+        if (user?.id) {
+          setUserId(user.id);
+          loadWatchlistForUser(user.id);
+        }
         setAuthLoading(false);
       },
     );

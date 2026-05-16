@@ -36,6 +36,10 @@ import { usePreferencesStore } from "../store/usePreferencesStore";
 import { translate } from "../src/lib/i18n";
 import { useWatchlistStore } from "../store/useWatchlistStore";
 import { useAuthStore } from "../store/useAuthStore";
+import {
+  requestNotificationPermission,
+  checkAndNotifyAlerts,
+} from "../src/lib/notifications";
 
 const supportCardStyles = [
   {
@@ -778,6 +782,20 @@ export default function Dashboard() {
   );
   const sectorSnapshots = useMemo(() => getSectorSnapshots(stocks), [stocks]);
   const dividendCalendar = useMemo(() => getDividendCalendar(stocks), [stocks]);
+
+  // Request notification permission on mount
+  useEffect(() => {
+    requestNotificationPermission().catch(() => {
+      // Silently fail if notifications can't be enabled
+    });
+  }, []);
+
+  // Send notifications when alerts are triggered
+  useEffect(() => {
+    if (alertSummary.items.length > 0) {
+      checkAndNotifyAlerts(alertSummary.items);
+    }
+  }, [alertSummary.items, alertSummary.triggeredCount]);
   const openStockFromSearch = useCallback(
     (stock) => {
       navigate(`/dashboard/stocks/${encodeURIComponent(stock.symbol)}`);

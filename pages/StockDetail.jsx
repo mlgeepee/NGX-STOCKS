@@ -50,6 +50,7 @@ import { useAlertsStore } from "../store/useAlertsStore";
 import { usePortfolioStore } from "../store/usePortfolioStore";
 import { useWatchlistStore } from "../store/useWatchlistStore";
 import { usePreferencesStore } from "../store/usePreferencesStore";
+import { useAuthStore } from "../store/useAuthStore";
 import { translate } from "../src/lib/i18n";
 
 const ranges = ["1D", "1W", "1M"];
@@ -280,8 +281,13 @@ export default function StockDetail() {
   const indicatorCopy =
     STOCK_DETAIL_ENHANCEMENTS[language] || STOCK_DETAIL_ENHANCEMENTS.en;
 
+  const user = useAuthStore((state) => state.user);
   const watchlist = useWatchlistStore((state) =>
     Array.isArray(state.watchlist) ? state.watchlist : [],
+  );
+  const setUserId = useWatchlistStore((state) => state.setUserId);
+  const loadWatchlistForUser = useWatchlistStore(
+    (state) => state.loadWatchlistForUser,
   );
   const toggleStock = useWatchlistStore((state) => state.toggleStock);
   const positions = usePortfolioStore((state) =>
@@ -294,6 +300,14 @@ export default function StockDetail() {
   );
   const addAlert = useAlertsStore((state) => state.addAlert);
   const removeAlert = useAlertsStore((state) => state.removeAlert);
+
+  // Load watchlist on mount if user is authenticated
+  useEffect(() => {
+    if (user?.id) {
+      setUserId(user.id);
+      loadWatchlistForUser(user.id);
+    }
+  }, [user?.id, setUserId, loadWatchlistForUser]);
 
   useEffect(() => {
     const controller = new AbortController();
