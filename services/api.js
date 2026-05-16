@@ -2,8 +2,8 @@ const RAW_API_BASE = import.meta.env.VITE_NGXPULSE_API_BASE_URL;
 const API_KEY = String(import.meta.env.VITE_NGXPULSE_API_KEY || "").trim();
 const LOGO_DEV_PUBLIC_KEY = String(
   import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY ||
-    import.meta.env.VITE_LOGO_DEV_PUBLISHABLE_KEY ||
-    "pk_GTCHsr0oSGSc0l_FAgeBkA",
+  import.meta.env.VITE_LOGO_DEV_PUBLISHABLE_KEY ||
+  "pk_GTCHsr0oSGSc0l_FAgeBkA",
 ).trim();
 
 function normalizeApiBaseUrl(value) {
@@ -180,6 +180,18 @@ const STOCK_METADATA = {
     logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "UBA.png"),
   },
   ZENITH: {
+    name: "Zenith Bank",
+    sector: "Banking",
+    volume: 40100000,
+    domain: "zenithbank.com",
+    communityLogo: buildPublicLogoPath(
+      COMMUNITY_LOGO_BASE_PATH,
+      "ZENITHBANK.jpg",
+    ),
+    logo: buildPublicLogoPath(LOCAL_LOGO_BASE_PATH, "Zenith.png"),
+  },
+  // Watchlist DB may store ticker variants; treat them as aliases to ensure logo consistency
+  ZENITHBANK: {
     name: "Zenith Bank",
     sector: "Banking",
     volume: 40100000,
