@@ -1,8 +1,12 @@
 import { useMemo, useState } from "react";
 import { ArrowLeftRight } from "lucide-react";
 import { compareStocks } from "@/lib/phase2/compareEngine";
+import { usePreferencesStore } from "../../../store/usePreferencesStore";
+import { translate } from "@/lib/i18n";
 
 export default function StockCompare({ stocks = [] }) {
+  const language = usePreferencesStore((state) => state.language);
+  const t = (path) => translate(language, path);
   const [aSymbol, setASymbol] = useState("");
   const [bSymbol, setBSymbol] = useState("");
 
@@ -30,12 +34,14 @@ export default function StockCompare({ stocks = [] }) {
     <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="section-kicker">Compare</p>
+          <p className="section-kicker">
+            {t("phase2.stockCompare.sectionKicker")}
+          </p>
           <h3 className="mt-2 text-2xl font-semibold text-foreground">
-            Stock Compare
+            {t("phase2.stockCompare.title")}
           </h3>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            Side-by-side fields from the current board snapshot.
+            {t("phase2.stockCompare.description")}
           </p>
         </div>
         <span className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] bg-primary/10 text-primary">
@@ -46,36 +52,36 @@ export default function StockCompare({ stocks = [] }) {
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            A symbol
+            {t("phase2.stockCompare.aSymbolLabel")}
           </label>
           <input
             className="app-input"
             value={aSymbol}
             onChange={(e) => setASymbol(e.target.value)}
-            placeholder="e.g. DANGCEM"
+            placeholder={t("phase2.stockCompare.placeholderA")}
             inputMode="text"
             autoCapitalize="characters"
           />
         </div>
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            B symbol
+            {t("phase2.stockCompare.bSymbolLabel")}
           </label>
           <input
             className="app-input"
             value={bSymbol}
             onChange={(e) => setBSymbol(e.target.value)}
-            placeholder="e.g. GTCOPLC"
+            placeholder={t("phase2.stockCompare.placeholderB")}
             inputMode="text"
             autoCapitalize="characters"
           />
         </div>
       </div>
 
-      <div className="mt-6 rounded-[1.35rem] border border-border/65 bg-white/55 p-4">
+      <div className="mt-6 surface-card p-4">
         {!result ? (
           <p className="text-sm text-muted-foreground">
-            Enter two valid symbols to compare.
+            {t("phase2.stockCompare.hint")}
           </p>
         ) : (
           <div className="space-y-3 text-sm">
@@ -90,27 +96,27 @@ export default function StockCompare({ stocks = [] }) {
             </div>
 
             <div className="grid gap-2 sm:grid-cols-3">
-              <div className="rounded-[1rem] border border-border/60 bg-white/65 p-3">
+              <div className="surface-card-soft p-3">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                  Price
+                  {t("phase2.stockCompare.priceLabel")}
                 </div>
                 <div className="mt-1 font-semibold">
                   {result.a.price} / {result.b.price}
                 </div>
               </div>
 
-              <div className="rounded-[1rem] border border-border/60 bg-white/65 p-3">
+              <div className="surface-card-soft p-3">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                  Move %
+                  {t("phase2.stockCompare.movePercentLabel")}
                 </div>
                 <div className="mt-1 font-semibold">
                   {result.a.changePercent}% / {result.b.changePercent}%
                 </div>
               </div>
 
-              <div className="rounded-[1rem] border border-border/60 bg-white/65 p-3">
+              <div className="surface-card-soft p-3">
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                  Delta %
+                  {t("phase2.stockCompare.deltaLabel")}
                 </div>
                 <div className="mt-1 font-semibold">
                   {result.delta.changePercent}%

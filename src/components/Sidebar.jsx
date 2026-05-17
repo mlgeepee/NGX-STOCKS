@@ -122,7 +122,7 @@ export default function Sidebar({ isOpen = true, onClose }) {
           </div>
         </Link>
 
-        <div className="mt-3 rounded-[1.15rem] border border-border/70 bg-white/55 p-3.5 dark:bg-white/5">
+        <div className="mt-3 app-panel-soft p-3.5">
           <div className="flex items-center gap-3">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.95rem] bg-primary/10 text-primary">
               <User className="h-4 w-4" />

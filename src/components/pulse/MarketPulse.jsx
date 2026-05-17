@@ -98,7 +98,7 @@ function RankCard({ items, metric, tone, onToggleTooltip, isTooltipOpen }) {
           return (
             <article
               key={item.symbol || idx}
-              className="group relative overflow-hidden rounded-[1.25rem] border border-border/70 bg-white/58 p-3.5 shadow-[0_20px_48px_rgba(15,23,42,0.08)] transition hover:-translate-y-[1px]"
+              className="group relative overflow-hidden surface-card p-3.5 transition hover:-translate-y-[1px]"
             >
               <div className="absolute inset-0 transition duration-300 opacity-0 group-hover:opacity-100">
                 <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(210,161,74,0.18),transparent_40%),radial-gradient(circle_at_bottom,rgba(15,138,95,0.12),transparent_45%)]" />
@@ -114,7 +114,7 @@ function RankCard({ items, metric, tone, onToggleTooltip, isTooltipOpen }) {
                   </div>
 
                   <div className="flex items-center min-w-0 gap-2">
-                    <div className="flex h-12 w-12 flex-none items-center justify-center overflow-hidden rounded-[1rem] border border-primary/10 bg-white/60 sm:h-10 sm:w-10 lg:h-10 lg:w-10">
+                    <div className="flex h-12 w-12 flex-none items-center justify-center overflow-hidden rounded-[1rem] border border-primary/10 bg-white/60 dark:bg-white/10 sm:h-10 sm:w-10 lg:h-10 lg:w-10">
                       <img
                         src={getLocalLogoSrc(item.symbol, item.logo)}
                         alt={item.name || item.symbol}
@@ -143,7 +143,7 @@ function RankCard({ items, metric, tone, onToggleTooltip, isTooltipOpen }) {
 
                       {/* Mobile-only tooltip (tap to show) - absolute so it doesn't alter layout */}
                       {isTooltipOpen === item.symbol ? (
-                        <div className="absolute left-0 top-full z-10 mt-2 w-max max-w-[14rem] rounded-[0.9rem] border border-border/70 bg-white/85 px-2.5 py-2 text-xs leading-5 text-foreground shadow-lg backdrop-blur-sm sm:hidden">
+                        <div className="absolute left-0 top-full z-10 mt-2 w-max max-w-[14rem] rounded-[0.9rem] border border-border/70 bg-white/85 px-2.5 py-2 text-xs leading-5 text-foreground shadow-lg backdrop-blur-sm sm:hidden dark:bg-white/10">
                           {item.name || item.symbol}
                         </div>
                       ) : null}
@@ -188,7 +188,7 @@ function RankCard({ items, metric, tone, onToggleTooltip, isTooltipOpen }) {
           );
         })
       ) : (
-        <div className="rounded-[1.25rem] border border-dashed border-border/70 bg-white/35 p-4 text-sm text-muted-foreground">
+        <div className="surface-card-soft p-4 text-sm text-muted-foreground">
           No data available.
         </div>
       )}
@@ -287,7 +287,7 @@ export default function MarketPulse({ stocks = [] }) {
         </div>
       </div>
 
-      <div className="mt-4 rounded-[1.6rem] border border-border/60 bg-white/40 p-4 sm:p-5">
+      <div className="mt-4 surface-card p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-sm font-semibold text-foreground">

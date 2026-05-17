@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getAppCopy } from "@/content/appCopy";
+import { translate } from "@/lib/i18n";
 import PreferenceControls from "@/components/PreferenceControls";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
 import { useAuthStore } from "../../store/useAuthStore";
@@ -31,6 +32,7 @@ export default function AuthShell({
 }) {
   const language = usePreferencesStore((state) => state.language);
   const copy = getAppCopy(language);
+  const resolvedBackLabel = backLabel || copy.common.backHome;
   const [showMobileHighlights, setShowMobileHighlights] = useState(false);
 
   const user = useAuthStore((state) => state.user);
@@ -73,7 +75,7 @@ export default function AuthShell({
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           {compactNav ? (
             <>
-              <div className="flex w-full items-center justify-between rounded-[1.5rem] border border-border/70 bg-white/45 px-4 py-3 shadow-sm backdrop-blur-sm dark:bg-white/5">
+              <div className="flex w-full items-center justify-between app-panel-soft px-4 py-3">
                 <Link to="/" className="inline-flex min-w-0 items-center gap-3">
                   <img
                     src={faviconIcon}
@@ -136,21 +138,27 @@ export default function AuthShell({
                               onClick={() => setMobileMenuOpen(false)}
                               className="app-button-secondary inline-flex h-12 items-center justify-center"
                             >
-                              Watchlist
+                              {translate(
+                                language,
+                                "sidebar.nav.watchlist.label",
+                              )}
                             </Link>
                             <Link
                               to="/dashboard/portfolio"
                               onClick={() => setMobileMenuOpen(false)}
                               className="app-button-secondary inline-flex h-12 items-center justify-center"
                             >
-                              Portfolio
+                              {translate(
+                                language,
+                                "sidebar.nav.portfolio.label",
+                              )}
                             </Link>
                             <Link
                               to="/dashboard/learn"
                               onClick={() => setMobileMenuOpen(false)}
                               className="app-button-secondary inline-flex h-12 items-center justify-center"
                             >
-                              Learn
+                              {translate(language, "sidebar.nav.learn.label")}
                             </Link>
                           </>
                         ) : (
@@ -183,7 +191,7 @@ export default function AuthShell({
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-white/45 px-4 py-2.5 text-sm font-medium text-muted-foreground backdrop-blur-sm hover:border-primary/20 hover:bg-white/75 hover:text-foreground dark:bg-white/5 dark:hover:bg-white/10 sm:justify-start"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  {backLabel}
+                  {resolvedBackLabel}
                 </Link>
               </div>
             </>
@@ -370,7 +378,7 @@ export default function AuthShell({
 
           <section className="order-1 mx-auto w-full max-w-[34rem] lg:order-2 lg:mr-0">
             <div className="app-panel rounded-[1.8rem] p-2 shadow-panel sm:rounded-[2rem]">
-              <div className="rounded-[1.5rem] border border-white/40 bg-white/35 p-4 backdrop-blur-sm dark:border-white/5 dark:bg-white/[0.02] sm:rounded-[1.75rem] sm:p-6 lg:p-7">
+              <div className="surface-card p-4 sm:p-6 lg:p-7">
                 <p className="section-kicker">{eyebrow}</p>
                 <h2 className="mt-3 balance text-[1.65rem] font-semibold text-foreground sm:text-[2rem]">
                   {title}

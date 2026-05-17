@@ -105,7 +105,7 @@ export default function StockLogo({
 
   return (
     <div
-      className={`flex items-center justify-center overflow-hidden border border-border/70 bg-white/70 shadow-sm backdrop-blur-sm ${resolvedSize} ${className}`.trim()}
+      className={`flex items-center justify-center overflow-hidden border border-border/70 bg-white/70 dark:bg-white/10 shadow-sm backdrop-blur-sm ${resolvedSize} ${className}`.trim()}
     >
       {showInitialsFallback ? (
         <div

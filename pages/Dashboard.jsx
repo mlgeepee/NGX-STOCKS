@@ -110,8 +110,8 @@ function LeadBoardCard({
         </div>
       </div>
 
-      <div className="mt-5 grid gap-3 lg:grid-cols-3">
-        <article className="app-panel-soft p-4">
+      <div className="grid gap-3 mt-5 lg:grid-cols-3">
+        <article className="p-4 app-panel-soft">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.topGainerLabel}
           </p>
@@ -126,7 +126,7 @@ function LeadBoardCard({
           </p>
         </article>
 
-        <article className="app-panel-soft p-4">
+        <article className="p-4 app-panel-soft">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.mostActiveLabel}
           </p>
@@ -143,7 +143,7 @@ function LeadBoardCard({
           </p>
         </article>
 
-        <article className="app-panel-soft p-4">
+        <article className="p-4 app-panel-soft">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {copy.watchlistFocusLabel}
           </p>
@@ -154,7 +154,7 @@ function LeadBoardCard({
             {copy.watchlistFocusDetail}
           </p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground">
-            <Star className="h-4 w-4" />
+            <Star className="w-4 h-4" />
             {copy.watchlistReady}
           </div>
         </article>
@@ -168,7 +168,7 @@ function SupportCard({ icon, label, value, detail, tone }) {
   return (
     <article className="app-panel-soft rounded-[1.25rem] p-4 sm:min-h-[10rem] sm:p-5">
       <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
+        <div className="flex-1 min-w-0">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             {label}
           </p>
@@ -182,7 +182,7 @@ function SupportCard({ icon, label, value, detail, tone }) {
         <span
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] ${tone}`}
         >
-          {Icon ? <Icon className="h-5 w-5" /> : null}
+          {Icon ? <Icon className="w-5 h-5" /> : null}
         </span>
       </div>
     </article>
@@ -194,7 +194,7 @@ function PanelHeading({ kicker, title, description, icon }) {
   return (
     <div className="flex items-start gap-3">
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.05rem] bg-primary/10 text-primary">
-        {Icon ? <Icon className="h-5 w-5" /> : null}
+        {Icon ? <Icon className="w-5 h-5" /> : null}
       </span>
       <div>
         <p className="section-kicker">{kicker}</p>
@@ -230,7 +230,7 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
           {primarySymbol ? (
             <Link
               to={`/dashboard/stocks/${encodeURIComponent(primarySymbol)}`}
-              className="app-button-secondary mt-5 h-11 gap-2 px-4"
+              className="gap-2 px-4 mt-5 app-button-secondary h-11"
             >
               {copy.portfolioStartCta}
             </Link>
@@ -238,7 +238,7 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
         </div>
       ) : (
         <>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 mt-5 sm:grid-cols-2">
             <SupportCard
               icon={BriefcaseBusiness}
               label={copy.portfolioValueLabel}
@@ -347,7 +347,7 @@ function PortfolioPanel({ copy, summary, primarySymbol }) {
                         {item.weight.toFixed(0)}%
                       </p>
                     </div>
-                    <div className="mt-2 h-2 rounded-full bg-secondary">
+                    <div className="h-2 mt-2 rounded-full bg-secondary">
                       <div
                         className="h-2 rounded-full bg-primary"
                         style={{ width: `${Math.max(item.weight, 6)}%` }}
@@ -380,7 +380,7 @@ function AlertsPanel({
         icon={BellRing}
       />
 
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 mt-6">
         <span className="app-chip border-primary/10 bg-primary/10 text-primary dark:border-primary/20">
           {copy.alertActiveLabel}: {summary.activeCount}
         </span>
@@ -405,7 +405,7 @@ function AlertsPanel({
           {fallbackSymbol ? (
             <Link
               to={`/dashboard/stocks/${encodeURIComponent(fallbackSymbol)}`}
-              className="app-button-secondary mt-5 h-11 gap-2 px-4"
+              className="gap-2 px-4 mt-5 app-button-secondary h-11"
             >
               {stockCopy.createAlert}
             </Link>
@@ -444,7 +444,7 @@ function AlertsPanel({
                       ? stockCopy.alertWhenAbove
                       : stockCopy.alertWhenBelow}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-3 text-sm">
+                  <div className="flex flex-wrap gap-3 mt-3 text-sm">
                     <span className="text-foreground">
                       {copy.alertTargetLabel}:{" "}
                       <strong>{formatCurrency(alert.targetPrice)}</strong>
@@ -461,7 +461,7 @@ function AlertsPanel({
                   className="inline-flex h-10 w-10 items-center justify-center rounded-[1rem] border border-border/70 bg-white/70 text-muted-foreground transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:bg-white/5 dark:hover:border-rose-500/20 dark:hover:bg-rose-500/10 dark:hover:text-rose-300"
                   aria-label={stockCopy.removeAlertLabel}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -482,7 +482,7 @@ function SectorPanel({ copy, sectors }) {
         icon={Building2}
       />
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 mt-6 md:grid-cols-2">
         {sectors.slice(0, 4).map((sector) => (
           <article
             key={sector.sector}
@@ -502,7 +502,7 @@ function SectorPanel({ copy, sectors }) {
                 {formatPercent(sector.averageChange)}
               </span>
             </div>
-            <div className="mt-4 flex flex-wrap gap-3 text-sm text-muted-foreground">
+            <div className="flex flex-wrap gap-3 mt-4 text-sm text-muted-foreground">
               <span>
                 {copy.sectorBreadthLabel}: {sector.count}
               </span>
@@ -562,11 +562,11 @@ function DividendPanel({ copy, dividends }) {
                     {item.symbol} • {item.sector}
                   </p>
                 </div>
-                <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                <span className="px-3 py-1 text-sm font-semibold rounded-full bg-primary/10 text-primary">
                   ₦{Number(item.dividendAmount || 0).toFixed(2)}
                 </span>
               </div>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 mt-4 sm:grid-cols-2">
                 <div className="rounded-[0.95rem] border border-border/60 bg-white/60 px-3 py-3 text-sm dark:bg-white/5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     {copy.dividendExDateLabel}
@@ -603,7 +603,7 @@ function LoadingState() {
         <div className="app-panel h-[21rem] animate-pulse" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
           {Array.from({ length: 4 }).map((_, index) => (
-            <div key={index} className="app-panel-soft h-40 animate-pulse" />
+            <div key={index} className="h-40 app-panel-soft animate-pulse" />
           ))}
         </div>
       </div>
@@ -620,10 +620,10 @@ function EmptyBoardState({ title, description }) {
   return (
     <div className="app-panel flex min-h-[280px] flex-col items-center justify-center p-6 text-center">
       <span className="flex h-14 w-14 items-center justify-center rounded-[1.5rem] bg-primary/10 text-primary">
-        <CandlestickChart className="h-6 w-6" />
+        <CandlestickChart className="w-6 h-6" />
       </span>
       <p className="mt-5 text-xl font-semibold text-foreground">{title}</p>
-      <p className="mt-3 max-w-md text-sm leading-7 text-muted-foreground">
+      <p className="max-w-md mt-3 text-sm leading-7 text-muted-foreground">
         {description}
       </p>
     </div>
@@ -650,8 +650,8 @@ function FloatingDashboardQuickJump({ items = [] }) {
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-50 sm:bottom-7 sm:right-7">
-      <div className="pointer-events-auto relative">
+    <div className="fixed z-50 pointer-events-none bottom-5 right-5 sm:bottom-7 sm:right-7">
+      <div className="relative pointer-events-auto">
         {open ? (
           <div className="absolute right-0 bottom-14 w-[14rem] rounded-[1.25rem] border border-border/70 bg-white/80 p-2 shadow-xl backdrop-blur-xl dark:bg-white/10">
             <p className="px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
@@ -677,7 +677,7 @@ function FloatingDashboardQuickJump({ items = [] }) {
           type="button"
           aria-label="Dashboard quick jump"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary shadow-lg ring-1 ring-primary/20 transition hover:bg-primary/15 hover:ring-primary/30"
+          className="flex items-center justify-center w-12 h-12 transition rounded-full shadow-lg bg-primary/10 text-primary ring-1 ring-primary/20 hover:bg-primary/15 hover:ring-primary/30"
         >
           <span className="text-xl leading-none">⋯</span>
         </button>
@@ -891,14 +891,14 @@ export default function Dashboard() {
               ? t("dashboard.searchResultsTitle")
               : t("dashboard.marketBoardTitle")}
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+          <p className="max-w-2xl mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
             {hasActiveSearch
               ? t("dashboard.searchResultsDescription")
               : t("dashboard.marketBoardDescription")}
           </p>
         </div>
         <p className="app-chip border-primary/10 bg-primary/10 text-primary dark:border-primary/20">
-          <TrendingUp className="h-4 w-4" />
+          <TrendingUp className="w-4 h-4" />
           {hasActiveSearch
             ? t("dashboard.searchResultsSummary", {
                 count: filteredStocks.length,
@@ -935,7 +935,7 @@ export default function Dashboard() {
             aria-label={t("common.refresh")}
             className="app-button-secondary h-[50px] sm:h-[52px] shrink-0 gap-2 px-3 sm:px-4 shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="w-4 h-4" />
             <span className="hidden sm:inline">{t("common.refresh")}</span>
           </button>
         }
@@ -952,46 +952,7 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="space-y-6">
-          {marketBoardSection}
-
-          <div className="grid gap-5 xl:grid-cols-[minmax(0,1.18fr)_minmax(20rem,0.82fr)]">
-            <LeadBoardCard
-              copy={copy.dashboard}
-              title={copy.dashboard.leadTitle}
-              description={copy.dashboard.leadDescription}
-              marketTrend={marketTrend.label}
-              averageMove={marketTrend.description}
-              topGainer={topGainer}
-              mostActive={mostActive}
-              watchlistCount={watchlist.length}
-            />
-
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
-              {supportCards.map((card) => (
-                <SupportCard key={card.label} {...card} />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-5 2xl:grid-cols-[1.1fr_0.9fr]">
-            <PortfolioPanel
-              copy={copy.dashboard}
-              summary={portfolioSummary}
-              primarySymbol={topGainer?.symbol || mostActive?.symbol}
-            />
-            <AlertsPanel
-              copy={copy.dashboard}
-              stockCopy={copy.stockDetail}
-              summary={alertSummary}
-              onRemoveAlert={removeAlert}
-              fallbackSymbol={mostActive?.symbol || topGainer?.symbol}
-            />
-          </div>
-
-          <div className="grid gap-5 2xl:grid-cols-[1.05fr_0.95fr]">
-            <SectorPanel copy={copy.dashboard} sectors={sectorSnapshots} />
-            <DividendPanel copy={copy.dashboard} dividends={dividendCalendar} />
-          </div>
+          <div id="dash-market-board">{marketBoardSection}</div>
 
           <div
             id="dash-lead-support"

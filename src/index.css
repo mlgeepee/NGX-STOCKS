@@ -25,8 +25,8 @@
     --border: 209 207 199;
     --input: 224 220 212;
     --ring: 42% 0.084 196;
-    --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype",
-      serif;
+    --font-display:
+      "Instrument Serif", "Iowan Old Style", "Palatino Linotype", serif;
   }
 
   .dark {
@@ -204,7 +204,11 @@
   .app-panel {
     border-color: rgb(var(--border) / 0.72);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.16)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.74),
+        rgba(255, 255, 255, 0.16)
+      ),
       rgb(var(--card) / 0.82);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.72),
@@ -214,7 +218,11 @@
 
   .dark .app-panel {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgb(var(--card) / 0.9);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
@@ -224,7 +232,11 @@
   .app-panel-soft {
     border-color: rgb(var(--border) / 0.68);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.14)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.62),
+        rgba(255, 255, 255, 0.14)
+      ),
       rgb(var(--card) / 0.72);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.68),
@@ -234,7 +246,11 @@
 
   .dark .app-panel-soft {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgb(var(--card) / 0.78);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
@@ -244,7 +260,11 @@
   .app-control {
     border-color: rgb(var(--border) / 0.84);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.16)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.55),
+        rgba(255, 255, 255, 0.16)
+      ),
       rgb(var(--card) / 0.84);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     @apply border backdrop-blur-xl transition duration-200;
@@ -252,7 +272,11 @@
 
   .dark .app-control {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgb(var(--card) / 0.84);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
@@ -260,7 +284,11 @@
   .app-input {
     border-color: rgb(var(--input) / 0.94);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.1)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.58),
+        rgba(255, 255, 255, 0.1)
+      ),
       rgb(var(--card) / 0.92);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
     @apply h-12 w-full rounded-[1rem] border px-3.5 text-[13px] text-foreground outline-none transition duration-200 placeholder:text-muted-foreground;
@@ -268,7 +296,11 @@
 
   .dark .app-input {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgb(var(--card) / 0.92);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
@@ -291,14 +323,54 @@
     @apply inline-flex h-12 items-center justify-center rounded-[1rem] border border-border/80 bg-white/65 px-4 text-[13px] font-semibold text-foreground transition duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring/70 dark:bg-white/5 dark:hover:bg-white/10;
   }
 
+  .surface-card {
+    border-color: rgb(var(--border) / 0.72);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.58),
+        rgba(255, 255, 255, 0.12)
+      ),
+      rgb(var(--card) / 0.78);
+    @apply rounded-[1.15rem] border backdrop-blur-xl;
+  }
+
+  .dark .surface-card {
+    background: rgb(var(--card) / 0.9);
+  }
+
+  .surface-card-soft {
+    border-color: rgb(var(--border) / 0.72);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.48),
+        rgba(255, 255, 255, 0.08)
+      ),
+      rgb(var(--card) / 0.84);
+    @apply rounded-[1rem] border backdrop-blur-xl;
+  }
+
+  .dark .surface-card-soft {
+    background: rgb(var(--card) / 0.92);
+  }
+
   .app-chip {
     @apply inline-flex items-center gap-2 rounded-full border border-border/70 bg-white/55 px-2.5 py-1.5 text-[11px] font-medium text-muted-foreground backdrop-blur-sm dark:bg-white/5;
   }
 
   .brand-mark {
     background:
-      radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 42%),
-      linear-gradient(135deg, oklch(var(--primary)), oklch(var(--primary) / 0.76));
+      radial-gradient(
+        circle at 30% 25%,
+        rgba(255, 255, 255, 0.16),
+        transparent 42%
+      ),
+      linear-gradient(
+        135deg,
+        oklch(var(--primary)),
+        oklch(var(--primary) / 0.76)
+      );
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
       0 14px 32px oklch(var(--primary) / 0.16);
@@ -313,7 +385,11 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(180deg, rgb(var(--foreground)), rgb(var(--foreground) / 0.7));
+    background: linear-gradient(
+      180deg,
+      rgb(var(--foreground)),
+      rgb(var(--foreground) / 0.7)
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -330,9 +406,21 @@
     inset: 0;
     opacity: 0.08;
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.75), transparent 16%),
-      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.24), transparent 18%),
-      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.2), transparent 18%);
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(255, 255, 255, 0.75),
+        transparent 16%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 255, 255, 0.24),
+        transparent 18%
+      ),
+      radial-gradient(
+        circle at 20% 80%,
+        rgba(255, 255, 255, 0.2),
+        transparent 18%
+      );
   }
 
   .balance {

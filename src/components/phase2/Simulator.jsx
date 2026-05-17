@@ -1,8 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Target } from "lucide-react";
 import { simulateNextDay } from "@/lib/phase2/simulatorEngine";
+import { usePreferencesStore } from "../../../store/usePreferencesStore";
+import { translate } from "@/lib/i18n";
 
 export default function Simulator({ stocks = [] }) {
+  const language = usePreferencesStore((state) => state.language);
+  const t = (path, variables) => translate(language, path, variables);
   const [initialCapital, setInitialCapital] = useState(10000);
   const [aSymbol, setASymbol] = useState("");
   const [bSymbol, setBSymbol] = useState("");
@@ -24,35 +28,38 @@ export default function Simulator({ stocks = [] }) {
   const [weightA, setWeightA] = useState(50);
   const [weightB, setWeightB] = useState(50);
 
-  const resolveInputToSymbol = (input) => {
-    const normalizeLooseSym = (v) =>
-      String(v || "")
-        .trim()
-        .toUpperCase()
-        .replace(/[^A-Z0-9]/g, "");
+  const resolveInputToSymbol = useCallback(
+    (input) => {
+      const normalizeLooseSym = (v) =>
+        String(v || "")
+          .trim()
+          .toUpperCase()
+          .replace(/[^A-Z0-9]/g, "");
 
-    const normalizeLooseName = (v) =>
-      String(v || "")
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
+      const normalizeLooseName = (v) =>
+        String(v || "")
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "");
 
-    const keySymLoose = normalizeLooseSym(input);
-    const keyNameLoose = normalizeLooseName(input);
+      const keySymLoose = normalizeLooseSym(input);
+      const keyNameLoose = normalizeLooseName(input);
 
-    if (!keySymLoose && !keyNameLoose) return null;
+      if (!keySymLoose && !keyNameLoose) return null;
 
-    const found = (Array.isArray(stocks) ? stocks : []).find((s) => {
-      const symLoose = normalizeLooseSym(s?.symbol);
-      const nameLoose = normalizeLooseName(s?.name);
-      return (
-        (keySymLoose && symLoose === keySymLoose) ||
-        (keyNameLoose && nameLoose === keyNameLoose)
-      );
-    });
+      const found = (Array.isArray(stocks) ? stocks : []).find((s) => {
+        const symLoose = normalizeLooseSym(s?.symbol);
+        const nameLoose = normalizeLooseName(s?.name);
+        return (
+          (keySymLoose && symLoose === keySymLoose) ||
+          (keyNameLoose && nameLoose === keyNameLoose)
+        );
+      });
 
-    return found?.symbol ? String(found.symbol).toUpperCase() : null;
-  };
+      return found?.symbol ? String(found.symbol).toUpperCase() : null;
+    },
+    [stocks],
+  );
 
   const allocation = useMemo(() => {
     if (!normalizedA || !normalizedB) return [];
@@ -82,12 +89,14 @@ export default function Simulator({ stocks = [] }) {
     <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="section-kicker">Simulator</p>
+          <p className="section-kicker">
+            {t("phase2.simulator.sectionKicker")}
+          </p>
           <h3 className="mt-2 text-2xl font-semibold text-foreground">
-            Next-day Projection
+            {t("phase2.simulator.title")}
           </h3>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            Heuristic projection using the current changePercent snapshot.
+            {t("phase2.simulator.description")}
           </p>
         </div>
         <span className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] bg-primary/10 text-primary">
@@ -98,7 +107,7 @@ export default function Simulator({ stocks = [] }) {
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            Initial capital
+            {t("phase2.simulator.initialCapitalLabel")}
           </label>
           <input
             className="app-input"
@@ -110,14 +119,14 @@ export default function Simulator({ stocks = [] }) {
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            A / B symbols
+            {t("phase2.simulator.symbolsLabel")}
           </label>
           <div className="flex gap-2">
             <input
               className="app-input"
               value={aSymbol}
               onChange={(e) => setASymbol(e.target.value)}
-              placeholder="A"
+              placeholder={t("phase2.simulator.symbolAPlaceholder")}
               inputMode="text"
               autoCapitalize="characters"
             />
@@ -125,7 +134,7 @@ export default function Simulator({ stocks = [] }) {
               className="app-input"
               value={bSymbol}
               onChange={(e) => setBSymbol(e.target.value)}
-              placeholder="B"
+              placeholder={t("phase2.simulator.symbolBPlaceholder")}
               inputMode="text"
               autoCapitalize="characters"
             />
@@ -134,7 +143,7 @@ export default function Simulator({ stocks = [] }) {
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            Weight A (%)
+            {t("phase2.simulator.weightALabel")}
           </label>
           <input
             className="app-input"
@@ -146,7 +155,7 @@ export default function Simulator({ stocks = [] }) {
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">
-            Weight B (%)
+            {t("phase2.simulator.weightBLabel")}
           </label>
           <input
             className="app-input"
@@ -157,46 +166,51 @@ export default function Simulator({ stocks = [] }) {
         </div>
       </div>
 
-      <div className="mt-6 rounded-[1.35rem] border border-border/65 bg-white/55 p-4">
+      <div className="mt-6 surface-card p-4">
         <p className="text-sm text-muted-foreground">
-          Projected next-day return
+          {t("phase2.simulator.projectedReturnLabel")}
         </p>
         <div className="mt-2 text-3xl font-semibold text-foreground">
           {sim.nextDayReturnPercent.toFixed(2)}%
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
-          Projected capital:{" "}
+          {t("phase2.simulator.projectedCapitalLabel")}:{" "}
           {Number(sim.projectedCapital).toLocaleString("en-NG", {
             maximumFractionDigits: 2,
           })}
+        </p>
+        <p className="mt-3 text-xs text-muted-foreground">
+          {t("phase2.simulator.disclaimer")}
         </p>
 
         <div className="mt-4">
           {!allocation.length ? (
             <p className="text-sm text-muted-foreground">
-              Enter valid A and B symbols to see next-day projection.
+              {t("phase2.simulator.emptyHint")}
             </p>
           ) : !sim.contributions.length ? (
             <p className="text-sm text-muted-foreground">
-              No contributions found (check symbol match and weights).
+              {t("phase2.simulator.noContributions")}
             </p>
           ) : (
             <>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Contribution breakdown
+                {t("phase2.simulator.contributionBreakdown")}
               </p>
               <div className="mt-3 space-y-2">
                 {sim.contributions.map((c) => (
                   <div
                     key={c.symbol}
-                    className="flex items-center justify-between gap-3 rounded-[1rem] border border-border/60 bg-white/65 px-3 py-2 text-sm"
+                    className="flex items-center justify-between gap-3 rounded-[1rem] surface-card-soft px-3 py-2 text-sm"
                   >
                     <div className="min-w-0">
                       <div className="truncate font-semibold text-foreground">
                         {c.symbol}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        Weight: {Math.round(c.weight * 100)}%
+                        {t("phase2.simulator.contributionWeight", {
+                          value: Math.round(c.weight * 100),
+                        })}
                       </div>
                     </div>
                     <div className="text-right">
@@ -204,7 +218,8 @@ export default function Simulator({ stocks = [] }) {
                         {c.expectedMovePercent.toFixed(2)}%
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        Contrib: {c.contributionPercent.toFixed(2)}%
+                        {t("phase2.simulator.contributionLabel")}:{" "}
+                        {c.contributionPercent.toFixed(2)}%
                       </div>
                     </div>
                   </div>

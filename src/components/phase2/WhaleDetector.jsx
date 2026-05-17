@@ -1,8 +1,12 @@
 import { useMemo } from "react";
 import { Flame } from "lucide-react";
 import { detectWhaleCandidates } from "@/lib/phase2/whaleDetectorEngine";
+import { usePreferencesStore } from "../../../store/usePreferencesStore";
+import { translate } from "@/lib/i18n";
 
 export default function WhaleDetector({ stocks = [] }) {
+  const language = usePreferencesStore((state) => state.language);
+  const t = (path) => translate(language, path);
   const candidates = useMemo(
     () => detectWhaleCandidates(stocks, { minMultiplier: 1.5 }),
     [stocks],
@@ -12,12 +16,14 @@ export default function WhaleDetector({ stocks = [] }) {
     <section className="app-panel rounded-[1.75rem] p-5 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="section-kicker">Whale Detector</p>
+          <p className="section-kicker">
+            {t("phase2.whaleDetector.sectionKicker")}
+          </p>
           <h3 className="mt-2 text-2xl font-semibold text-foreground">
-            Volume Spike Watch
+            {t("phase2.whaleDetector.title")}
           </h3>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            Symbols trading with unusually high volume vs average.
+            {t("phase2.whaleDetector.description")}
           </p>
         </div>
         <span className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] bg-primary/10 text-primary">
@@ -27,14 +33,14 @@ export default function WhaleDetector({ stocks = [] }) {
 
       <div className="mt-6 space-y-3">
         {!candidates.length ? (
-          <div className="rounded-[1.35rem] border border-dashed border-border/70 bg-white/50 p-4 text-sm text-muted-foreground">
-            No whale candidates right now.
+          <div className="surface-card-soft border-dashed p-4 text-sm text-muted-foreground">
+            {t("phase2.whaleDetector.noCandidates")}
           </div>
         ) : (
           candidates.slice(0, 6).map((c) => (
             <div
               key={c.symbol}
-              className="flex items-center justify-between gap-3 rounded-[1.25rem] border border-border/65 bg-white/55 p-4"
+              className="flex items-center justify-between gap-3 rounded-[1.25rem] surface-card-soft p-4"
             >
               <div className="min-w-0">
                 <p className="truncate font-semibold text-foreground">
@@ -46,7 +52,9 @@ export default function WhaleDetector({ stocks = [] }) {
                 <p className="font-semibold text-foreground">
                   {c.volumeMultiplier.toFixed(2)}x
                 </p>
-                <p className="text-xs text-muted-foreground">vol multiplier</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("phase2.whaleDetector.volumeMultiplierLabel")}
+                </p>
               </div>
             </div>
           ))

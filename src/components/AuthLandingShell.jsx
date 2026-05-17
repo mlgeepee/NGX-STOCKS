@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useAuthStore } from "../../store/useAuthStore";
 import { usePreferencesStore } from "../../store/usePreferencesStore";
 import { getAppCopy } from "@/content/appCopy";
+import { translate } from "@/lib/i18n";
 import PreferenceControls from "@/components/PreferenceControls";
 import faviconIcon from "../assets/favicon.ico";
 
@@ -19,6 +20,8 @@ export default function AuthLandingShell({
   const isAuthLoading = useAuthStore((state) => state.isAuthLoading);
   const language = usePreferencesStore((state) => state.language);
   const copy = getAppCopy(language);
+  const resolvedBackLabel = backLabel || copy.common.backHome;
+  const homeLabel = copy.common.home || translate(language, "common.home");
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -50,15 +53,12 @@ export default function AuthLandingShell({
     return user?.email?.split("@")[0] || "Investor";
   };
 
-  const primaryHref = useMemo(() => {
-    if (isAuthLoading) return "/login";
-    return user ? "/dashboard" : "/login";
-  }, [isAuthLoading, user]);
-
-  const primaryLabel = useMemo(() => {
-    if (isAuthLoading) return copy.common.loadingWorkspace;
-    return user ? `Go to Dashboard` : copy.common.login;
-  }, [copy.common.loadingWorkspace, primaryHref, user]);
+  const primaryHref = isAuthLoading ? "/login" : user ? "/dashboard" : "/login";
+  const primaryLabel = isAuthLoading
+    ? copy.common.loadingWorkspace
+    : user
+      ? `Go to ${translate(language, "sidebar.nav.dashboard.label")}`
+      : copy.common.login;
 
   const menuItems = (() => {
     if (!user) {
@@ -69,10 +69,22 @@ export default function AuthLandingShell({
     }
 
     return [
-      { href: "/dashboard", label: `Dashboard (${getUserLastname()})` },
-      { href: "/dashboard/watchlist", label: "Watchlist" },
-      { href: "/dashboard/portfolio", label: "Portfolio" },
-      { href: "/dashboard/learn", label: "Learn" },
+      {
+        href: "/dashboard",
+        label: `${translate(language, "sidebar.nav.dashboard.label")} (${getUserLastname()})`,
+      },
+      {
+        href: "/dashboard/watchlist",
+        label: translate(language, "sidebar.nav.watchlist.label"),
+      },
+      {
+        href: "/dashboard/portfolio",
+        label: translate(language, "sidebar.nav.portfolio.label"),
+      },
+      {
+        href: "/dashboard/learn",
+        label: translate(language, "sidebar.nav.learn.label"),
+      },
     ];
   })();
 
@@ -93,7 +105,7 @@ export default function AuthLandingShell({
       >
         <div className="relative mx-auto max-w-[1360px] px-4 pb-16 pt-4 sm:px-6 lg:px-7">
           {/* Landing-style header (pill brand + hamburger) */}
-          <header className="flex items-center justify-between gap-3 rounded-[1.5rem] border border-border/70 bg-white/45 px-4 py-3.5 shadow-sm backdrop-blur-sm sm:px-5 dark:bg-white/5">
+          <header className="flex items-center justify-between gap-3 app-panel-soft px-4 py-3.5 shadow-sm sm:px-5">
             <Link
               to="/"
               className="inline-flex min-w-0 items-center gap-3 rounded-full"
@@ -110,7 +122,7 @@ export default function AuthLandingShell({
                   NGX Stocks
                 </span>
                 <span className="text-[13px] font-medium text-foreground/80 hidden sm:block">
-                  NGX market board, watchlist, alerts, and portfolio flow
+                  {copy.authShell.brandSubtitle}
                 </span>
               </span>
             </Link>
@@ -125,7 +137,7 @@ export default function AuthLandingShell({
                   to="/"
                   className="app-button-secondary h-12 gap-2 px-4 inline-flex items-center"
                 >
-                  Home
+                  {homeLabel}
                 </Link>
 
                 <Link
@@ -155,7 +167,7 @@ export default function AuthLandingShell({
           <div className="mt-8 grid gap-6 lg:grid-cols-1 lg:items-start justify-items-center">
             <div className="w-full lg:max-w-[520px]">
               <div className="app-panel rounded-[1.8rem] p-2 shadow-panel sm:rounded-[2rem]">
-                <div className="rounded-[1.5rem] border border-white/40 bg-white/35 p-4 backdrop-blur-sm dark:border-white/5 dark:bg-white/[0.02] sm:rounded-[1.75rem] sm:p-6 lg:p-7">
+                <div className="surface-card p-4 sm:p-6 lg:p-7">
                   <p className="section-kicker">{eyebrow}</p>
                   <h2 className="mt-3 balance text-[1.65rem] font-semibold text-foreground sm:text-[2rem]">
                     {title}
@@ -209,7 +221,7 @@ export default function AuthLandingShell({
                   onClick={() => setMobileMenuOpen(false)}
                   className="app-button-secondary inline-flex h-11 w-full items-center justify-center mb-3"
                 >
-                  {backLabel}
+                  {resolvedBackLabel}
                 </Link>
               ) : null}
 

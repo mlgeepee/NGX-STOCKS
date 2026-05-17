@@ -1,6 +1,7 @@
 const APP_COPY = {
   en: {
     common: {
+      home: "Home",
       login: "Log in",
       createAccount: "Create account",
       goToDashboard: "Go to dashboard",
@@ -517,6 +518,7 @@ const APP_COPY = {
   },
   pid: {
     common: {
+      home: "Home",
       login: "Sign in",
       createAccount: "Open account",
       goToDashboard: "Enter dashboard",

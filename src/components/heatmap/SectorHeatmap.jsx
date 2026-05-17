@@ -43,7 +43,7 @@ export default function SectorHeatmap({ stocks = [] }) {
   const sectors = useMemo(() => getSectorMetrics(stocks), [stocks]);
 
   return (
-    <section className="app-panel rounded-[1.75rem] border border-border/70 bg-white/70 p-5 shadow-xl">
+    <section className="app-panel rounded-[1.75rem] p-5 shadow-xl">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="section-kicker">Sector Heatmap</p>
@@ -77,7 +77,7 @@ export default function SectorHeatmap({ stocks = [] }) {
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.55),transparent_58%)]" />
                 <div className="absolute inset-x-0 bottom-0 p-4">
-                  <div className="rounded-[1.15rem] border border-white/35 bg-white/70 p-3 backdrop-blur-sm">
+                  <div className="surface-card-soft p-3">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                       Sector summary
                     </p>
@@ -126,7 +126,7 @@ export default function SectorHeatmap({ stocks = [] }) {
                 </div>
               </div>
 
-              <div className="mt-4 rounded-full bg-white/70 p-3 text-sm leading-6 text-muted-foreground">
+              <div className="mt-4 rounded-full bg-white/70 p-3 text-sm leading-6 text-muted-foreground dark:bg-white/10">
                 Top: {topSymbol} • {topName}
               </div>
             </div>
