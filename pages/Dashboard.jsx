@@ -43,6 +43,7 @@ import {
 
 import MarketMoodCard from "../src/components/market/MarketMoodCard";
 import SectorHeatmap from "../src/components/heatmap/SectorHeatmap";
+import StockLogo from "../src/components/StockLogo";
 
 import StockCompare from "../src/components/phase2/StockCompare";
 import Simulator from "../src/components/phase2/Simulator";
@@ -551,21 +552,34 @@ function DividendPanel({ copy, dividends }) {
               className="rounded-[1.2rem] border border-border/65 bg-white/55 p-4 dark:bg-white/5"
             >
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <Link
-                    to={`/dashboard/stocks/${encodeURIComponent(item.symbol)}`}
-                    className="font-semibold text-foreground hover:text-primary"
-                  >
-                    {item.name}
-                  </Link>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {item.symbol} • {item.sector}
-                  </p>
+                <div className="flex items-start min-w-0 gap-3">
+                  <div className="shrink-0 mt-0.5">
+                    <StockLogo
+                      symbol={item.symbol}
+                      name={item.name}
+                      logo={item.logo}
+                      size="sm"
+                    />
+                  </div>
+
+                  <div className="min-w-0">
+                    <Link
+                      to={`/dashboard/stocks/${encodeURIComponent(item.symbol)}`}
+                      className="block font-semibold truncate text-foreground hover:text-primary"
+                    >
+                      {item.name}
+                    </Link>
+                    <p className="mt-1 text-xs truncate text-muted-foreground">
+                      {item.symbol} • {item.sector}
+                    </p>
+                  </div>
                 </div>
-                <span className="px-3 py-1 text-sm font-semibold rounded-full bg-primary/10 text-primary">
+
+                <span className="px-3 py-1 text-sm font-semibold rounded-full bg-primary/10 text-primary shrink-0">
                   ₦{Number(item.dividendAmount || 0).toFixed(2)}
                 </span>
               </div>
+
               <div className="grid gap-3 mt-4 sm:grid-cols-2">
                 <div className="rounded-[0.95rem] border border-border/60 bg-white/60 px-3 py-3 text-sm dark:bg-white/5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
